@@ -1,42 +1,41 @@
-let raw_prefix = "https://raw.githubusercontent.com/Kotlin-for-FRC/frc-kotlin-blocks/refs/heads/main/blocks/"
+let raw_prefix = "https://raw.githubusercontent.com/Kotlin-for-FRC/frc-kotlin-blocks/refs/heads/main/blocks/";
 
-let filename = window.location.href.split("/").pop().split(".")[0] + ".json"
+let filename = window.location.href.split("/").pop().split(".")[0] + ".yml";
 
-let url = raw_prefix + filename
+let url = raw_prefix + filename;
 
-let codeblocks = document.querySelectorAll(".sd-tab-set.docutils")
+let codeblocks = document.querySelectorAll(".sd-tab-set.docutils");
 
-let items = 0
+let items = 0;
 
-console.log(codeblocks.length)
-console.log(filename)
+if (codeblocks.length > 0) {
+    // Fetch the blocks asynchronously
+    fetchBlocks(url).then(blocks => {
+        codeblocks.forEach((blockElement, index) => {
+            items += blockElement.getElementsByTagName("input").length;
 
-if(codeblocks.length > 0) {
-    let blocks = fetchBlocks(url)
-    
-    codeblocks.forEach( (blockElement, index) => {
-        items += blockElement.getElementsByTagName("input").length
-
-        let block = blocks[index]
-        let container = createTab(index, items, "kotlin", "hello world")
-        blockElement.appendChild(container)
-        console.log(container.innerHTML)
-    })
+            console.log(blocks);
+            let container = createTab(index, items, "kotlin", blocks[index]); 
+            while (container.firstChild) {
+                blockElement.appendChild(container.firstChild);
+            }
+        });
+    });
 }
 
 async function fetchBlocks(url) {
     try {
         const response = await fetch(url);
-        
+
         // Check if the response is ok (status in the range 200-299)
         if (!response.ok) {
             throw new Error(`HTTP error! Status: ${response.status}`);
         }
 
-        const data = await response.json();
-        
+        const data = await response.text();
+
         // Extract the "block" strings into an array
-        const blocks = data.blocks.map(item => item.block);
+        const blocks = extractBlocks(data);
 
         return blocks;
     } catch (error) {
@@ -45,10 +44,9 @@ async function fetchBlocks(url) {
     }
 }
 
-
 function createTab(setId, itemId, label, code) {
     const container = document.createElement('div');
-    
+
     const input = document.createElement('input');
     input.type = 'radio';
     input.id = "sd-tab-item-" + itemId;
@@ -63,18 +61,38 @@ function createTab(setId, itemId, label, code) {
 
     const contentDiv = document.createElement('div');
     contentDiv.className = 'sd-tab-content docutils';
-    
+
+    const hightlightParentDiv = document.createElement('div');
+    hightlightParentDiv.className = 'highlight-' + label + ' notranslate';
+
     const highlightDiv = document.createElement('div');
-    highlightDiv.className = 'highlight-' + label + ' notranslate';
-    
+    highlightDiv.className = 'highlight';
+
     const pre = document.createElement('pre');
+    pre.id = "codecell" + itemId;
     pre.innerText = code;
 
     highlightDiv.appendChild(pre);
-    contentDiv.appendChild(highlightDiv);
+    hightlightParentDiv.appendChild(highlightDiv);
+    contentDiv.appendChild(hightlightParentDiv);
     container.appendChild(input);
     container.appendChild(labelElement);
     container.appendChild(contentDiv);
 
     return container;
+}
+
+function extractBlocks(input) {
+    // Regular expression to match blocks that start with 'blockX: |' and capture the content
+    const regex = /block\d+: \|\n((?:[\s\S]*?)(?=\n\n|$))/g;
+    const result = [];
+    let match;
+
+    // Iterate over all matches
+    while ((match = regex.exec(input)) !== null) {
+        // Trim the captured content and push it to the result array
+        result.push(match[1].trim());
+    }
+
+    return result;
 }
