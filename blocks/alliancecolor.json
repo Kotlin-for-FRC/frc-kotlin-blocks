@@ -1,7 +1,7 @@
 {
     "blocks": [
         {
-            "block": "val ally: Optional<Alliance> = DriverStation.getAlliance()\nally.ifPresentOrElse({ alliance -> \nwhen(ally){\nAlliance.Red -> <RED ACTION>\nAlliance.Blue -> <BLUE ACTION\n}\n}, {\n// Code for when the alliance is not present\n})"
+            "block": "val ally: Optional<Alliance> = DriverStation.getAlliance()\nally.ifPresentOrElse({ alliance -> \n\twhen(ally){\n\t\tAlliance.Red -> <RED ACTION>\n\t\tAlliance.Blue -> <BLUE ACTION\n\t}\n}, {\n\t// Code for when the alliance is not present\n})"
         }
     ]
 }
