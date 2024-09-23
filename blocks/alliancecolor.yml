@@ -6,5 +6,5 @@ block0: |
           Alliance.Blue -> <BLUE ACTION
       }
   }, {
-       pre.innerText = highlightKotlinCode(code);lliance is not present
+      // Code to run if the alliance is not present
   })
