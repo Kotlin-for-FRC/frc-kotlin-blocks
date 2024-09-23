@@ -1,6 +1,6 @@
 {
   "manifest_version": 3,
-  "version": "1.0",
+  "version": "0.0.1",
   "name": "FRC Kotlin Codeblocks",
   "permissions": ["activeTab", "scripting"],
   "content_scripts": [
