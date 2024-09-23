@@ -1,0 +1,12 @@
+{
+  "manifest_version": 3,
+  "version": "1.0",
+  "name": "FRC Kotlin Codeblocks",
+  "permissions": ["activeTab", "scripting"],
+  "content_scripts": [
+    {
+      "matches": ["https://docs.wpilib.org/*"],
+      "js": ["kotlin_codeblocks.js"]
+    }
+  ]
+}
