@@ -1,0 +1,10 @@
+block0: |
+  val ally: Optional<Alliance> = DriverStation.getAlliance()
+  ally.ifPresentOrElse({ alliance -> 
+      when(ally){
+          Alliance.Red -> <RED ACTION>
+          Alliance.Blue -> <BLUE ACTION
+      }
+  }, {
+       pre.innerText = highlightKotlinCode(code);lliance is not present
+  })
