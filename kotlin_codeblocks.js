@@ -90,9 +90,35 @@ function extractBlocks(input) {
 
     // Iterate over all matches
     while ((match = regex.exec(input)) !== null) {
-        // Trim the captured content and push it to the result array
-        result.push(match[1].trim());
+        // Split the matched content into lines
+        const lines = match[1].split('\n');
+        
+        // Determine the minimum leading whitespace length
+        const minIndentation = lines.reduce((min, line) => {
+            const trimmedLine = line.match(/^(\s*)/)[0]; // Get leading whitespace
+            return Math.min(min, trimmedLine.length || Infinity);
+        }, Infinity);
+
+        // Trim the determined amount of whitespace from each line
+        const trimmedLines = lines.map(line => line.slice(minIndentation));
+
+        // Join the lines back together and push to result
+        result.push(trimmedLines.join('\n').trim());
     }
 
     return result;
 }
+
+// Example input
+const input = `
+block1: |
+  // Calculates the output of the PID algorithm based on the sensor reading
+  // and sends it to a motor
+  motor.set(pid.calculate(encoder.distance, setpoint)
+
+block2: |
+    // Another block of code
+    console.log("Hello, World!");
+`;
+
+console.log(extractBlocks(input));
