@@ -1,0 +1,37 @@
+block0: |
+  // Creates a PIDController with gains kP, kI, and kD
+  val pid = PIDController(kP, kI, kD)
+
+block1: |
+  // Calculates the output of the PID algorithm based on the sensor reading
+  // and sends it to a motor
+  motor.set(pid.calculate(encoder.distance, setpoint)
+
+block2: |
+  // Sets the error tolerance to 5, and the error derivative tolerance to 10 per second
+  pid.setTolerance(5, 10)
+
+  // Returns true if the error is less than 5 units, and the
+  // error derivative is less than 10 units
+  pid.atSetpoint()
+
+block3: |
+  // The integral gain term will never add or subtract more than 0.5 from
+  // the total loop output
+  pid.setIntegratorRange(-0.5, 0.5)
+
+block4: |
+  // Disable IZone
+  pid.iZone = Double.POSITIVE_INFINITY
+
+  // Integral gain will not be applied if the absolute value of the error is
+  // more than 2
+  pid.iZone = 2
+
+block5: |
+  // Enables continuous input on a range from -180 to 180
+  pid.enableContinuousInput(-180, 180)
+
+block6: |
+  // Clamps the controller output to between -0.5 and 0.5
+  MathUtil.clamp(pid.calculate(encoder.getDistance(), setpoint), -0.5, 0.5);
