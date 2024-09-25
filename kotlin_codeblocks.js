@@ -1,10 +1,10 @@
-let raw_prefix = "https://raw.githubusercontent.com/Kotlin-for-FRC/frc-kotlin-blocks/refs/heads/main/blocks/";
+const raw_prefix = "https://raw.githubusercontent.com/Kotlin-for-FRC/frc-kotlin-blocks/refs/heads/main/blocks/";
 
-let filename = window.location.href.split("/").pop().split(".")[0] + ".yml";
+const path = window.location.href.split('docs/')[1].replace('.html', '.yml');
 
-let url = raw_prefix + filename;
+const url = raw_prefix + filename;
 
-let codeblocks = document.querySelectorAll(".sd-tab-set.docutils");
+const codeblocks = document.querySelectorAll(".sd-tab-set.docutils");
 
 let items = 0;
 
@@ -15,7 +15,7 @@ if (codeblocks.length > 0) {
             items += blockElement.getElementsByTagName("input").length;
 
             console.log(blocks);
-            let container = createTab(index, items, "kotlin", blocks[index]); 
+            let container = createTab(index, items, "kotlin", highlightKotlinCode(blocks[index])); 
             while (container.firstChild) {
                 blockElement.appendChild(container.firstChild);
             }
@@ -70,7 +70,7 @@ function createTab(setId, itemId, label, code) {
 
     const pre = document.createElement('pre');
     pre.id = "codecell" + itemId;
-    pre.innerText = code;
+    pre.innerHTML = code;
 
     highlightDiv.appendChild(pre);
     hightlightParentDiv.appendChild(highlightDiv);
@@ -92,15 +92,14 @@ function extractBlocks(input) {
     while ((match = regex.exec(input)) !== null) {
         // Split the matched content into lines
         const lines = match[1].split('\n');
-        
-        // Determine the minimum leading whitespace length
-        const minIndentation = lines.reduce((min, line) => {
-            const trimmedLine = line.match(/^(\s*)/)[0]; // Get leading whitespace
-            return Math.min(min, trimmedLine.length || Infinity);
-        }, Infinity);
 
-        // Trim the determined amount of whitespace from each line
-        const trimmedLines = lines.map(line => line.slice(minIndentation));
+        // Remove the first line's indentation, then trim 2 spaces off all following lines
+        const trimmedLines = lines.map((line, index) => {
+            if (index === 0) {
+                return line.trim(); // No leading spaces on the first line
+            }
+            return line.startsWith('  ') ? line.slice(2) : line; // Trim extra 2 spaces
+        });
 
         // Join the lines back together and push to result
         result.push(trimmedLines.join('\n').trim());
@@ -109,16 +108,34 @@ function extractBlocks(input) {
     return result;
 }
 
-// Example input
-const input = `
-block1: |
-  // Calculates the output of the PID algorithm based on the sensor reading
-  // and sends it to a motor
-  motor.set(pid.calculate(encoder.distance, setpoint)
+function highlightKotlinCode(input) {
+    const kotlinKeywords = [
+        "as", "break", "class", "continue", "do", "else", "false", "for", "fun", 
+        "if", "in", "is", "null", "object", "package", "return", "super", 
+        "this", "throw", "true", "try", "typealias", "val", "var", "when", 
+        "while"
+    ];
 
-block2: |
-    // Another block of code
-    console.log("Hello, World!");
-`;
+    // Regex for Kotlin keywords, comments, function calls, and angle brackets
+    const keywordRegex = new RegExp(`\\b(${kotlinKeywords.join("|")})\\b`, 'g');
+    const commentRegex = /\/\/.*/g;
+    const functionCallRegex = /\b\w+(?=\()/g;
+    const angleBracketRegex = /[<>]/g;
 
-console.log(extractBlocks(input));
+    // Replace angle brackets first
+    let highlighted = input.replace(angleBracketRegex, (match) => {
+        return match === '<' ? `<span>&lt;</span>` : `<span>&gt;</span>`;
+    });
+
+    // Replace comments
+    highlighted = highlighted.replace(commentRegex, (match) => `<span class="c1">${match}</span>`);
+
+    // Replace keywords
+    highlighted = highlighted.replace(keywordRegex, (match) => `<span class="kd">${match}</span>`);
+
+    // Replace function calls
+    highlighted = highlighted.replace(functionCallRegex, (match) => `<span class="na">${match}</span>`);
+
+    return highlighted;
+}
+
