@@ -1,6 +1,6 @@
 const raw_prefix = "https://raw.githubusercontent.com/Kotlin-for-FRC/frc-kotlin-blocks/refs/heads/main/blocks/";
 
-const path = window.location.href.split('docs/')[1].replace('.html', '.yml');
+const filename = window.location.href.split('docs/')[1].replace('.html', '.yml');
 
 const url = raw_prefix + filename;
 
@@ -122,13 +122,17 @@ function highlightKotlinCode(input) {
     const functionCallRegex = /\b\w+(?=\()/g;
     const angleBracketRegex = /[<>]/g;
 
-    // Replace angle brackets first
-    let highlighted = input.replace(angleBracketRegex, (match) => {
-        return match === '<' ? `<span>&lt;</span>` : `<span>&gt;</span>`;
+    // Temporarily replace comments with a placeholder
+    let comments = [];
+    let highlighted = input.replace(commentRegex, (match) => {
+        comments.push(match);
+        return `___COMMENT${comments.length - 1}___`;
     });
 
-    // Replace comments
-    highlighted = highlighted.replace(commentRegex, (match) => `<span class="c1">${match}</span>`);
+    // Replace angle brackets
+    highlighted = highlighted.replace(angleBracketRegex, (match) => {
+        return match === '<' ? `<span>&lt;</span>` : `<span>&gt;</span>`;
+    });
 
     // Replace keywords
     highlighted = highlighted.replace(keywordRegex, (match) => `<span class="kd">${match}</span>`);
@@ -136,6 +140,12 @@ function highlightKotlinCode(input) {
     // Replace function calls
     highlighted = highlighted.replace(functionCallRegex, (match) => `<span class="na">${match}</span>`);
 
+    // Restore comments
+    highlighted = highlighted.replace(/___COMMENT(\d+)___/g, (match, index) => {
+        return `<span class="c1">${comments[index]}</span>`;
+    });
+
     return highlighted;
 }
+
 
