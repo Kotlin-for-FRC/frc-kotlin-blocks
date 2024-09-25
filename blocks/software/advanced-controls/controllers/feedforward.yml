@@ -1,0 +1,36 @@
+block0: |
+  // Create a new SimpleMotorFeedforward with gains kS, kV, and kA
+  val feedforward = SimpleMotorFeedforward(kS, kV, kA)
+
+block1: |
+  // Calculates the feedforward for a velocity of 10 units/second and an acceleration of 20 units/second^2
+  // Units are determined by the units of the gains passed in at construction.
+  feedforward.calculate(10.0, 20.0)
+
+block2: |
+  // Create a new ArmFeedforward with gains kS, kG, kV, and kA
+  val feedforward = ArmFeedforward(kS, kG, kV, kA)
+
+block3: |
+  // Calculates the feedforward for a position of 1 units, a velocity of 2 units/second, and
+  // an acceleration of 3 units/second^2
+  // Units are determined by the units of the gains passed in at construction.
+  feedforward.calculate(1.0, 2.0, 3.0)
+
+block4: |
+  // Create a new ElevatorFeedforward with gains kS, kG, kV, and kA
+  val feedforward = ElevatorFeedforward(kS, kG, kV, kA)
+
+block5: |
+  // Calculates the feedforward for a velocity of 20 units/second
+  // and an acceleration of 30 units/second^2
+  // Units are determined by the units of the gains passed in at construction.
+  feedforward.calculate(20.0, 30.0)
+
+block6: |
+  fun tankDriveWithFeedforward(leftVelocity: Double, rightVelocity: Double) {
+      leftMotor.setVoltage(feedforward.calculate(leftVelocity))
+      rightMotor.setVoltage(feedforward.calculate(rightVelocity))
+  }
+
+
