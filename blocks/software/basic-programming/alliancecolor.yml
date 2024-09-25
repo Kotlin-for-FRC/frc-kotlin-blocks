@@ -1,10 +1,7 @@
 block0: |
   val ally: Optional<Alliance> = DriverStation.getAlliance()
-  ally.ifPresentOrElse({ alliance -> 
-      when(ally){
-          Alliance.Red -> <RED ACTION>
-          Alliance.Blue -> <BLUE ACTION
-      }
-  }, {
-      // Code to run if the alliance is not present
-  })
+  when (ally.getOrNull()){
+       null -> <NO COLOR YET ACTION>
+       DriverStation.Alliance.RED -> <RED ACTION>
+       DriverStation.Alliance.Blue -> <BLUE ACTION>
+ }
