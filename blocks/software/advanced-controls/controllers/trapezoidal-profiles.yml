@@ -23,7 +23,8 @@ block3: |
 
 block4: |
   val setpoint = profile.calculate(elapsedTime, initialState, goalState)
-  controller.calculate(encoder.getDistance(), setpoint.position)
+  // encoder.distance replaces getDistance() via property access syntax
+  controller.calculate(encoder.distance, setpoint.position)
 
 block5: |
   private const val DT = 0.02
