@@ -18,3 +18,7 @@ block1: |
   This goes in the second block
   You get the idea
 ```
+
+Once you've created it you can PR, please include a screenshot of the code blocks being rendered. You can use the guides below to load it as a temporary extension for firefox and chrome
+- [Firefox](https://extensionworkshop.com/documentation/develop/temporary-installation-in-firefox/)
+- [Chrome](https://developer.chrome.com/docs/extensions/get-started/tutorial/hello-world#load-unpacked)
