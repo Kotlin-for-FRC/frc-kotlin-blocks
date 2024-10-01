@@ -1,3 +1,4 @@
+# validated: 2024-10-01 TW 7f059b62e8c3 software/advanced-controls/controllers/feedforward.rst
 block0: |
   // Create a new SimpleMotorFeedforward with gains kS, kV, and kA
   val feedforward = SimpleMotorFeedforward(kS, kV, kA)

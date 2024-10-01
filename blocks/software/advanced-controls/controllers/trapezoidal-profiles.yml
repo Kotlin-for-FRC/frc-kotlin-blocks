@@ -1,3 +1,4 @@
+# validated: 2024-10-01 TW e53db15a2003 software/advanced-controls/controllers/trapezoidal-profiles.rst
 block0: |
   // Creates a new set of trapezoidal motion profile constraints
   // Max velocity of 10 meters per second
