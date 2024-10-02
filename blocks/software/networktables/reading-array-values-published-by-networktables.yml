@@ -1,0 +1,16 @@
+"block0": |-
+  DoubleArraySubscriber areasSub;
+     @Override
+     public void robotInit() {
+       NetworkTable table = NetworkTableInstance.getDefault().getTable("GRIP/mycontoursReport");
+       areasSub = table.getDoubleArrayTopic("area").subscribe(new double[] {});
+     }
+     @Override
+     public void teleopPeriodic() {
+       double[] areas = areasSub.get();
+       System.out.print("areas: " );
+       for (double area : areas) {
+         System.out.print(area + " ");
+       }
+       System.out.println();
+     }

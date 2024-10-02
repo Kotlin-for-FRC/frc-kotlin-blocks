@@ -1,0 +1,3 @@
+"block0": |-
+  MyCommand command = new MyCommand(...);
+     SmartDashboard.putData("My Command", command);

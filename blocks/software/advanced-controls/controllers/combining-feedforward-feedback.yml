@@ -1,0 +1,10 @@
+"block0": |-
+  // Adds a feedforward to the loop output before sending it to the motor
+    motor.setVoltage(pid.calculate(encoder.getDistance(), setpoint) + feedforward);
+"block1": |-
+  public void tankDriveWithFeedforwardPID(double leftVelocitySetpoint, double rightVelocitySetpoint) {
+      leftMotor.setVoltage(feedforward.calculate(leftVelocitySetpoint)
+          + leftPID.calculate(leftEncoder.getRate(), leftVelocitySetpoint));
+      rightMotor.setVoltage(feedForward.calculate(rightVelocitySetpoint)
+          + rightPID.calculate(rightEncoder.getRate(), rightVelocitySetpoint));
+    }

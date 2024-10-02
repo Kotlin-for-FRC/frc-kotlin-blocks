@@ -1,0 +1,119 @@
+"block0": |-
+  // Initializes an encoder on DIO pins 0 and 1
+      // Defaults to 4X decoding and non-inverted
+      Encoder encoder = new Encoder(0, 1);
+"block1": |-
+  // Initializes an encoder on DIO pins 0 and 1
+      // 2X encoding and non-inverted
+      Encoder encoder = new Encoder(0, 1, false, Encoder.EncodingType.k2X);
+"block10": |-
+  // Configures the encoder to return a distance of 4 for every rotation
+      encoder.setDistancePerRotation(4.0);
+"block11": |-
+  // Gets the distance traveled
+      encoder.getDistance();
+"block12": |-
+  // Gets if the encoder is connected
+      encoder.isConnected();
+"block13": |-
+  // Resets the encoder to read a distance of zero at the current position
+      encoder.reset();
+      // get the position offset from when the encoder was reset
+      encoder.getPositionOffset();
+      // set the position offset to half a rotation
+      encoder.setPositionOffset(0.5);
+"block14": |-
+  // Initializes a duty cycle encoder on Analog Input pins 0
+      AnalogEncoder encoder = new AnalogEncoder(0);
+"block15": |-
+  // Configures the encoder to return a distance of 4 for every rotation
+      encoder.setDistancePerRotation(4.0);
+"block16": |-
+  // Gets the distance measured
+      encoder.getDistance();
+"block17": |-
+  // Resets the encoder to read a distance of zero at the current position
+      encoder.reset();
+      // get the position offset from when the encoder was reset
+      encoder.getPositionOffset();
+      // set the position offset to half a rotation
+      encoder.setPositionOffset(0.5);
+"block18": |-
+  // Creates an encoder on DIO ports 0 and 1
+      Encoder encoder = new Encoder(0, 1);
+      // Initialize motor controllers and drive
+      Spark leftLeader = new Spark(0);
+      Spark leftFollower = new Spark(1);
+      Spark rightLeader = new Spark(2);
+      Spark rightFollower = new Spark(3);
+      DifferentialDrive drive = new DifferentialDrive(leftLeader::set, rightLeader::set);
+      @Override
+      public void robotInit() {
+          // Configures the encoder's distance-per-pulse
+          // The robot moves forward 1 foot per encoder rotation
+          // There are 256 pulses per encoder rotation
+          encoder.setDistancePerPulse(1./256.);
+          // Invert the right side of the drivetrain. You might have to invert the other side
+          rightLeader.setInverted(true);
+          // Configure the followers to follow the leaders
+          leftLeader.addFollower(leftFollower);
+          rightLeader.addFollower(rightFollower);
+      }
+      @Override
+      public void autonomousPeriodic() {
+          // Drives forward at half speed until the robot has moved 5 feet, then stops:
+          if(encoder.getDistance() < 5) {
+              drive.tankDrive(0.5, 0.5);
+          } else {
+              drive.tankDrive(0, 0);
+          }
+      }
+"block19": |-
+  Encoder encoder = new Encoder(0, 1);
+      Spark spark = new Spark(0);
+      // Limit switch on DIO 2
+      DigitalInput limit = new DigitalInput(2);
+      public void autonomousPeriodic() {
+          // Runs the motor backwards at half speed until the limit switch is pressed
+          // then turn off the motor and reset the encoder
+          if(!limit.get()) {
+              spark.set(-0.5);
+          } else {
+              spark.set(0);
+              encoder.reset();
+          }
+      }
+"block2": |-
+  // Configures the encoder to return a distance of 4 for every 256 pulses
+      // Also changes the units of getRate
+      encoder.setDistancePerPulse(4.0/256.0);
+      // Configures the encoder to consider itself stopped after .1 seconds
+      encoder.setMaxPeriod(0.1);
+      // Configures the encoder to consider itself stopped when its rate is below 10
+      encoder.setMinRate(10);
+      // Reverses the direction of the encoder
+      encoder.setReverseDirection(true);
+      // Configures an encoder to average its period measurement over 5 samples
+      // Can be between 1 and 127 samples
+      encoder.setSamplesToAverage(5);
+"block3": |-
+  // Gets the distance traveled
+      encoder.getDistance();
+"block4": |-
+  // Gets the current rate of the encoder
+      encoder.getRate();
+"block5": |-
+  // Gets whether the encoder is stopped
+      encoder.getStopped();
+"block6": |-
+  // Gets the last direction in which the encoder moved
+      encoder.getDirection();
+"block7": |-
+  // Gets the current period of the encoder
+      encoder.getPeriod();
+"block8": |-
+  // Resets the encoder to read a distance of zero
+      encoder.reset();
+"block9": |-
+  // Initializes a duty cycle encoder on DIO pins 0
+      DutyCycleEncoder encoder = new DutyCycleEncoder(0);

@@ -1,0 +1,14 @@
+"block0": |-
+  Ultrasonic ultrasonic = new Ultrasonic(1, 2);
+      SendableRegistry.setName(ultrasonic, "Arm", "Ultrasonic");
+      Jaguar elbow = new Jaguar(1);
+      SendableRegistry.setName(elbow, "Arm", "Elbow");
+      Victor wrist = new Victor(2);
+      SendableRegistry.setName(wrist, "Arm", "Wrist");
+"block1": |-
+  Ultrasonic ultrasonic = new Ultrasonic(1, 2);
+      addChild("Ultrasonic", ultrasonic);
+      Jaguar elbow = new Jaguar(1);
+      addChild("Elbow", elbow);
+      Victor wrist = new Victor(2);
+      addChild("Wrist", wrist);

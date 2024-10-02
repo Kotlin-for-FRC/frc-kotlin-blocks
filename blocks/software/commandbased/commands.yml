@@ -1,0 +1,41 @@
+"block0": |-
+  Commands.run(intake::activate, intake);
+"block1": |-
+  Command mayRunDuringDisabled = Commands.run(() -> updateTelemetry()).ignoringDisable(true);
+"block2": |-
+  Command noninteruptible = Commands.run(intake::activate, intake).withInterruptBehavior(Command.InterruptBehavior.kCancelIncoming);
+"block3": |-
+  // A split-stick arcade command, with forward/backward controlled by the left
+    // hand, and turning controlled by the right.
+    new RunCommand(() -> m_robotDrive.arcadeDrive(
+        -driverController.getLeftY(),
+        driverController.getRightX()),
+        m_robotDrive)
+"block4": |-
+  Commands.startEnd(
+        // Start a flywheel spinning at 50% power
+        () -> m_shooter.shooterSpeed(0.5),
+        // Stop the flywheel at the end of the command
+        () -> m_shooter.shooterSpeed(0.0),
+        // Requires the shooter subsystem
+        m_shooter
+    )
+"block5": |-
+  new FunctionalCommand(
+        // Reset encoders on command start
+        m_robotDrive::resetEncoders,
+        // Start driving forward at the start of the command
+        () -> m_robotDrive.arcadeDrive(kAutoDriveSpeed, 0),
+        // Stop driving at the end of the command
+        interrupted -> m_robotDrive.arcadeDrive(0, 0),
+        // End the command when the robot's driven distance exceeds the desired value
+        () -> m_robotDrive.getAverageEncoderDistance() >= kAutoDriveDistanceInches,
+        // Require the drive subsystem
+        m_robotDrive
+    )
+"block6": |-
+  // Ends 5 seconds after being scheduled
+    new WaitCommand(5.0)
+"block7": |-
+  // Ends after m_limitSwitch.get() returns true
+    new WaitUntilCommand(m_limitSwitch::get)

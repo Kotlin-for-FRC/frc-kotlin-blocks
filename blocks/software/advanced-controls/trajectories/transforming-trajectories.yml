@@ -1,0 +1,6 @@
+"block0": |-
+  Pose2d bOrigin = new Pose2d(3, 3, Rotation2d.fromDegrees(30));
+     Trajectory bTrajectory = aTrajectory.relativeTo(bOrigin);
+"block1": |-
+  Transform2d transform = new Pose2d(4, 4, Rotation2d.fromDegrees(50)).minus(trajectory.getInitialPose());
+     Trajectory newTrajectory = trajectory.transformBy(transform);

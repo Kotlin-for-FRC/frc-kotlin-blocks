@@ -1,0 +1,11 @@
+"block0": |-
+  ShuffleboardTab tab = Shuffleboard.getTab("Shooter");
+    GenericEntry shooterEnable = tab.add("Shooter Enable", false).getEntry();
+    // Command Example assumed to be in a PIDSubsystem
+    new NetworkButton(shooterEnable).onTrue(new InstantCommand(m_shooter::enable));
+    // Timed Robot Example
+    if (shooterEnable.getBoolean()) {
+      // Calculates the output of the PID algorithm based on the sensor reading
+      // and sends it to a motor
+      motor.set(pid.calculate(encoder.getDistance(), setpoint));
+    }

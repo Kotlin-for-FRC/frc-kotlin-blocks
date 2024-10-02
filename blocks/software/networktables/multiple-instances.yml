@@ -1,0 +1,7 @@
+"block0": |-
+  // get the default NetworkTable instance
+          NetworkTableInstance defaultInst = NetworkTableInstance.getDefault();
+          // create a NetworkTable instance
+          NetworkTableInstance inst = NetworkTableInstance.create();
+          // destroy a NetworkTable instance
+          inst.close();

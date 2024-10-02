@@ -1,0 +1,23 @@
+"block0": |-
+  // create a real encoder object on DIO 2,3
+     Encoder encoder = new Encoder(2, 3);
+     // create a sim controller for the encoder
+     EncoderSim simEncoder = new EncoderSim(encoder);
+"block1": |-
+  simEncoder.setCount(100);
+     encoder.getCount(); // 100
+     simEncoder.getCount(); // 100
+"block2": |-
+  NotifyCallback callback = (String name, HALValue value) -> {
+       if (value.getType() == HALValue.kInt) {
+         System.out.println("Value of " + name + " is " + value.getInt());
+       }
+     }
+     CallbackStore store = simEncoder.registerCountCallback(callback);
+     store.close(); // cancel the callback
+"block3": |-
+  SimDeviceSim device = new SimDeviceSim(deviceKey, index);
+"block4": |-
+  SimDouble field = device.getDouble(fieldKey);
+     field.get();
+     field.set(value);

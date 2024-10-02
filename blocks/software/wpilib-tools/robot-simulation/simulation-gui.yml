@@ -1,0 +1,9 @@
+"block0": |-
+  TalonSRX motorLeft;
+     TalonSRX motorRight;
+     public Robot() {
+      if (RobotBase.isReal()) {
+        motorLeft = new TalonSRX(0);
+        motorRight = new TalonSRX(1);
+      }
+     }

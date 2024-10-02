@@ -1,0 +1,17 @@
+"block0": |-
+  public static Command runOnce(Runnable action, Subsystem... requirements)
+"block1": |-
+  // Create an InstantCommand that runs the `resetEncoders` method of the `drivetrain` object
+  Command disableCommand = runOnce(drivetrain::resetEncoders, drivetrain);
+"block2": |-
+  // void because it returns no parameters, and has an empty parameter list
+  public void resetEncoders()
+"block3": |-
+  // Create an InstantCommand that runs the drive forward at half speed
+  Command driveHalfSpeed = runOnce(() -> { drivetrain.arcadeDrive(0.5, 0.0); }, drivetrain);
+"block4": |-
+  // Create an InstantCommand that runs the drive forward at half speed
+  Command driveHalfSpeed = runOnce(() -> drivetrain.arcadeDrive(0.5, 0.0), drivetrain);
+"block5": |-
+  // We can write this lambda with no parenthesis around its single argument
+  IntConsumer exampleLambda = (a -> System.out.println(a));

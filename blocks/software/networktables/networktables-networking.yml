@@ -1,0 +1,13 @@
+"block0": |-
+  NetworkTableInstance inst = NetworkTableInstance.getDefault();
+          inst.startServer();
+"block1": |-
+  NetworkTableInstance inst = NetworkTableInstance.getDefault();
+          // start a NT4 client
+          inst.startClient4("example client");
+          // connect to a roboRIO with team number TEAM
+          inst.setServerTeam(TEAM);
+          // starting a DS client will try to get the roboRIO address from the DS application
+          inst.startDSClient();
+          // connect to a specific host/port
+          inst.setServer("host", NetworkTableInstance.kDefaultPort4)

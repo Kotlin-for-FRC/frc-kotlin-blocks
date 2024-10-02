@@ -1,0 +1,38 @@
+"block0": |-
+  Joystick exampleJoystick = new Joystick(0); // 0 is the USB Port to be used as indicated on the Driver Station
+"block1": |-
+  XboxController exampleXbox = new XboxController(0); // 0 is the USB Port to be used as indicated on the Driver Station
+"block2": |-
+  PS4Controller examplePS4 = new PS4Controller(0); // 0 is the USB Port to be used as indicated on the Driver Station
+"block3": |-
+  private final PWMSparkMax m_leftMotor = new PWMSparkMax(Constants.kLeftMotorPort);
+     private final PWMSparkMax m_rightMotor = new PWMSparkMax(Constants.kRightMotorPort);
+     private final DifferentialDrive m_robotDrive = new DifferentialDrive(m_leftMotor::set, m_rightMotor::set);
+     private final GenericHID m_stick = new GenericHID(Constants.kJoystickPort);
+     m_robotDrive.arcadeDrive(-m_stick.getRawAxis(0), m_stick.getRawAxis(1));
+"block4": |-
+  if (joystick.getRawButtonPressed(0)) {
+        turnIntakeOn(); // When pressed the intake turns on
+     }
+     if (joystick.getRawButtonReleased(0)) {
+        turnIntakeOff(); // When released the intake turns off
+     }
+     // OR
+     if (joystick.getRawButton(0)) {
+        turnIntakeOn();
+     } else {
+        turnIntakeOff();
+     }
+"block5": |-
+  boolean toggle = false;
+     if (joystick.getRawButtonPressed(0)) {
+        if (toggle) {
+           // Current state is true so turn off
+           retractIntake();
+           toggle = false;
+        } else {
+           // Current state is false so turn on
+           deployIntake();
+           toggle = true;
+        }
+     }

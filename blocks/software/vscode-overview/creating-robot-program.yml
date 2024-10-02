@@ -1,0 +1,4 @@
+"block0": |-
+  public Robot() {
+       super(0.03); // Periodic methods will now be called every 30 ms.
+     }

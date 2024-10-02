@@ -1,0 +1,202 @@
+"block0": |-
+  Distance wheelDiameter = Inches.of(6);
+"block1": |-
+  Mass kArmMass = Kilograms.of(1.423);
+  Distance kArmLength = Inches.of(32.25);
+  Angle kMinArmAngle = Degrees.of(5);
+  Angle kArmMaxTravel = Rotations.of(0.45);
+  LinearVelocity kMaxSpeed = MetersPerSecond.of(2.5);
+"block10": |-
+  MutDistance distance = Inches.mutable(0);
+  distance.mut_plus(10, Inches);
+  calculateDelta(distance); // expect 10 inches and get 10 - good!
+  distance.mut_plus(2, Inches);
+  calculateDelta(distance); // expect 2 inches, but get 0 instead!
+  distance.mut_plus(8, Inches);
+  calculateDelta(distance); // expect 8 inches, but get 0 instead!
+"block11": |-
+  private Distance m_lastDistance;
+        public Distance calculateDelta(Distance currentDistance) {
+          if (m_lastDistance == null) {
+            m_lastDistance = currentDistance.copy();
+            return currentDistance;
+          } else {
+            var delta = currentDistance.minus(m_lastDistance);
+            m_lastDistance = currentDistance.copy();
+            return delta;
+          }
+        }
+"block12": |-
+  private final MutDistance m_lastDistance = Meters.mutable(0);
+        private final MutDistance m_delta = Meters.mutable(0);
+        public Distance calculateDelta(Distance currentDistance) {
+          // m_delta = currentDistance - m_lastDistance
+          m_delta.mut_replace(currentDistance);
+          m_delta.mut_minus(m_lastDistance);
+          m_lastDistance.mut_replace(currentDistance);
+          return m_delta;
+        }
+"block13": |-
+  PerUnit<VoltageUnit, DistanceUnit> VoltsPerInch = Volts.per(Inch);
+  VelocityUnit<MassUnit> KgPerSecond = Kilograms.per(Second); // Could also be declared as PerUnit<MassUnit, TimeUnit>
+  DistanceUnit FootMinutesPerSecond = FeetPerSecond.mult(Minutes);
+"block14": |-
+  @Override
+  public void robotPeriodic() {
+    // Feet.per(Millisecond) creates a new unit on the first loop,
+    // which will be reused on every successive loop
+    SmartDashboard.putNumber("Speed", m_drivebase.getSpeed().in(Feet.per(Millisecond)));
+  }
+"block15": |-
+  public class ElectricChargeUnit extends Unit {
+    public ElectricCharge(double baseUnitEquivalent, String name, String symbol) {
+      super(ElectricCharge.class, baseUnitEquivalent, name, symbol);
+    }
+    // required for derivation with Milli, Kilo, etc.
+    public ElectricCharge(UnaryFunction toBaseConverter, UnaryFunction fromBaseConverter, String name, String symbol) {
+       super(ElectricCharge.class, toBaseConverter, fromBaseConverter, name, symbol);
+    }
+
+    @Override
+    public ElectricChargeUnit getBaseUnit() {
+      // The base method must be overridden in order to return the correct type
+      return (ElectricChargeUnit) super.getBaseUnit();
+    }
+
+    @Override
+    public Measure<ElectricChargeUnit> of(double magnitude) {
+      return ImmutableMeasure.ofRelativeUnits(magnitude, this);
+    }
+
+    @Override
+    public Measure<ElectricChargeUnit> ofBaseUnits(double baseUnitMagnitude) {
+      return ImmutableMeasure.ofBaseUnits(baseUnitMagnitude, this);
+    }
+
+    @Override
+    public Measure<ElectricChargeUnit> zero() {
+      return (Measure<ElectricChargeUnit>) super.zero();
+    }
+
+    @Override
+    public Measure<ElectricChargeUnit> one() {
+      return (Measure<ElectricChargeUnit>) super.one();
+    }
+
+    @Override
+    public MutableMeasure<ElectricChargeUnit> mutable(double magnitude) {
+      return new GenericMutableMeasureImpl(magnitude, toBaseUnits(magnitude), this);
+    }
+
+    @Override
+    public VelocityUnit<ElectricChargeUnit> per(TimeUnit period) {
+      // Note: technically, this would return a CurrentUnit, since electric charge per time is current (measured in Amperes)
+      return VelocityUnit.combine(this, period);
+    }
+
+    public double convertFrom(double magnitude, ElectricChargeUnit otherUnit) {
+      return fromBaseUnits(otherUnit.toBaseUnits(magnitude));
+    }
+  }
+
+  public static final ElectricCharge Coulomb = new ElectricCharge(1, "Coulomb", "C");
+  public static final ElectricCharge ElectronCharge = new ElectricCharge(1.60217646e-19, "Electron Charge", "e");
+  public static final ElectricCharge AmpHour = new ElectricCharge(3600, "Amp Hour", "Ah");
+  public static final ElectricCharge MilliampHour = Milli(AmpHour);
+"block2": |-
+  // Using ofNative:
+  Per<VoltageUnit, DistanceUnit> kP = VoltsPerMeter.ofNative(1);
+  kP.in(VoltsPerMeter); // 1.0
+
+  Measure<VoltageUnit> output = kP.timesDivisor(Meters.of(1));
+  output.in(Volts); // 1.0
+
+  // Without ofNative
+  Measure<? extends PerUnit<VoltageUnit, DistanceUnit>> kP = VoltsPerMeter.of(1);
+  kP.in(VoltsPerMeter); // Compilation error!
+
+  Measure<?> output = kP.times(Meters.of(1)); // The compiler can't know what unit this is
+  output.in(Volts); // Compilation error!
+"block3": |-
+  Distance distance1 = Inches.of(10);
+  Distance distance2 = Meters.of(0.254);
+  Distance totalDistance = distance1.plus(distance2);
+"block4": |-
+  Distance wheelDiameter = Inches.of(3);
+  double gearRatio = 10.48;
+  Distance distancePerRotation = wheelDiameter.times(Math.PI).divide(gearRatio);
+"block5": |-
+  LinearVelocity kMaxVelocity = FeetPerSecond.of(12.5);
+  LinearAcceleration kMaxAcceleration = FeetPerSecond.per(Second).of(22.9);
+  kMaxVelocity.in(MetersPerSecond); // => OK! Returns 3.81
+  kMaxVelocity.in(RadiansPerSecond); // => Compile error! LinearVelocity cannot be converted to AngularVelocity
+
+  // The WPILib math libraries use SI metric units, so we have to convert to meters:
+  TrapezoidProfile.Constraints kDriveConstraints = new TrapezoidProfile.Constraints(
+    maxVelocity.in(MetersPerSecond),
+    maxAcceleration.in(MetersPerSecondPerSecond)
+  );
+"block6": |-
+  Distance armLength = Feet.of(3).plus(Inches.of(4.25));
+  Distance endEffectorX = armLength.times(Math.cos(getArmAngle().in(Radians)));
+  Distance endEffectorY = armLength.times(Math.sin(getArmAngle().in(Radians)));
+"block7": |-
+  MutDistance measure = Feet.mutable(0);
+  measure.mut_plus(10, Inches);    // 0.8333 feet
+  measure.mut_plus(Inches.of(10)); // 1.6667 feet
+  measure.mut_minus(5, Inches);    // 1.25 feet
+  measure.mut_minus(Inches.of(5)); // 0.8333 feet
+  measure.mut_times(6);            // 0.8333 * 6 = 5 feet
+  measure.mut_divide(5);           // 5 / 5 = 1 foot
+  measure.mut_replace(6.2, Meters) // 6.2 meters - note the unit changed!
+  measure.mut_replace(Millimeters.of(14.2)) // 14.2mm - the unit changed again!
+  measure.mut_setMagnitude(72)     // 72mm
+"block8": |-
+  import edu.wpi.first.units.Measure;
+  import edu.wpi.first.units.MutableMeasure;
+  import static edu.wpi.first.units.Units.*;
+  public class Arm {
+    // Note the two ephemeral object allocations for the Feet.of and Inches.of calls.
+    // Because this is a constant value computed just once, they will easily be garbage collected without
+    // any problems with memory use or loop timing jitter.
+    private static final Distance kArmLength = Feet.of(3).plus(Inches.of(4.25));
+
+    // Angle and X/Y locations will likely be called in the main robot loop, let's store them in a MutableMeasure
+    // to avoid allocating lots of short-lived objects
+    private final MutAngle m_angle = Degrees.mutable(0);
+    private final MutDistance m_endEffectorX = Feet.mutable(0);
+    private final MutDistance m_endEffectorY = Feet.mutable(0);
+    private final Encoder m_encoder = new Encoder(...);
+
+    public Distance getEndEffectorX() {
+      return m_endEffectorX.mut_replace(
+        Math.cos(getAngle().in(Radians)) * kArmLength.in(Feet), // the new magnitude to store
+        Feet // the units of the new magnitude
+      );
+    }
+
+    public Distance getEndEffectorY() {
+      // An alternative approach so we don't have to unpack and repack the units
+      m_endEffectorY.mut_replace(kArmLength);
+      m_endEffectorY.mut_times(Math.sin(getAngle().in(Radians)));
+      return m_endEffectorY;
+    }
+
+    public Angle getAngle() {
+      double rawAngle = m_encoder.getPosition();
+      m_angle.mut_replace(rawAngle, Degrees); // NOTE: the encoder must be configured with distancePerPulse in terms of degrees!
+      return m_angle;
+    }
+  }
+"block9": |-
+  private Distance m_lastDistance;
+  public Distance calculateDelta(Distance currentDistance) {
+    if (m_lastDistance == null) {
+      m_lastDistance = currentDistance;
+      return currentDistance;
+    } else {
+      Distance delta = currentDistance.minus(m_lastDistance);
+      m_lastDistance = currentDistance;
+      return delta;
+    }
+  }

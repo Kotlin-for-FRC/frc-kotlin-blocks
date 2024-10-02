@@ -1,0 +1,7 @@
+"block0": |-
+  PowerDistribution examplePD = new PowerDistribution();
+      PowerDistribution examplePD = new PowerDistribution(0, ModuleType.kCTRE);
+      PowerDistribution examplePD = new PowerDistribution(1, ModuleType.kRev);
+"block1": |-
+  examplePD.setSwitchableChannel(true);
+      examplePD.setSwitchableChannel(false);

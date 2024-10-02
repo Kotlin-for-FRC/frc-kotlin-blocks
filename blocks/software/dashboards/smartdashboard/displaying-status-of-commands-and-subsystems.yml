@@ -1,0 +1,6 @@
+"block0": |-
+  SmartDashboard.putData(CommandScheduler.getInstance());
+"block1": |-
+  SmartDashboard.putData(exampleSubsystem);
+"block2": |-
+  SmartDashboard.putData("Autonomous Command", exampleCommand);

@@ -1,0 +1,5 @@
+"block0": |-
+  Servo exampleServo = new Servo(1);
+"block1": |-
+  exampleServo.set(.5);
+      exampleServo.setAngle(75);

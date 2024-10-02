@@ -1,0 +1,19 @@
+"block0": |-
+  @Override
+     public void robotInit() {
+        enableLiveWindowInTest(true);
+     }
+"block1": |-
+  PWMSparkMax leftDrive;
+     PWMSparkMax rightDrive;
+     PWMVictorSPX arm;
+     BuiltInAccelerometer accel;
+     @Override
+     public void robotInit() {
+        leftDrive = new PWMSparkMax(0);
+        rightDrive = new PWMSparkMax(1);
+        arm = new PWMVictorSPX(2);
+        accel = new BuiltInAccelerometer();
+        SendableRegistry.setName(arm, "SomeSubsystem", "Arm");
+        SendableRegistry.setName(accel, "SomeSubsystem", "Accelerometer");
+     }
