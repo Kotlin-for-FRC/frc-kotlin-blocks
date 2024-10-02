@@ -1,8 +1,10 @@
-const raw_prefix = "https://raw.githubusercontent.com/Kotlin-for-FRC/frc-kotlin-blocks/refs/heads/main/blocks/";
+const raw_prefix = "https://raw.githubusercontent.com/Kotlin-for-FRC/frc-kotlin-blocks/refs/heads/main/";
 
 const filename = window.location.href.split('docs/')[1].replace('.html', '.yml');
 
-const url = raw_prefix + filename;
+const url = raw_prefix + "blocks/" + filename;
+
+const completed_pages_url = raw_prefix + "completed_pages.json"
 
 const codeblocks = document.querySelectorAll(".sd-tab-set.docutils");
 
@@ -25,17 +27,20 @@ if (codeblocks.length > 0) {
 
 async function fetchBlocks(url) {
     try {
+        const completed_pages_response = await fetch(completed_pages_url);
         const response = await fetch(url);
 
         // Check if the response is ok (status in the range 200-299)
         if (!response.ok) {
             throw new Error(`HTTP error! Status: ${response.status}`);
+        } else if (!completed_pages_response.ok) {
+            throw new Error(`Error w/ fetching completed pages. Status: ${completed_pages_response.status}`);
         }
 
+        const completed_pages = (await completed_pages_response.json())["completed_pages"];
         const data = await response.text();
-
         // Extract the "block" strings into an array
-        const blocks = extractBlocks(data);
+        const blocks = extractBlocks(data, completed_pages);
 
         return blocks;
     } catch (error) {
@@ -82,7 +87,7 @@ function createTab(setId, itemId, label, code) {
     return container;
 }
 
-function extractBlocks(input) {
+function extractBlocks(input, completed_pages) {
     // Regular expression to match blocks that start with 'blockX: |' and capture the content
     const regex = /block\d+: \|\n((?:[\s\S]*?)(?=\n\n|$))/g;
     const result = [];
@@ -94,12 +99,16 @@ function extractBlocks(input) {
         const lines = match[1].split('\n');
 
         // Remove the first line's indentation, then trim 2 spaces off all following lines
-        const trimmedLines = lines.map((line, index) => {
+        let trimmedLines = lines.map((line, index) => {
             if (index === 0) {
                 return line.trim(); // No leading spaces on the first line
             }
             return line.startsWith('  ') ? line.slice(2) : line; // Trim extra 2 spaces
         });
+
+        if (!(input in completed_pages)){
+            trimmedLines = ["// Notice: the following code is still in java(the kotlin version is yet to be completed)."].concat(trimmedLines);
+        }
 
         // Join the lines back together and push to result
         result.push(trimmedLines.join('\n').trim());
