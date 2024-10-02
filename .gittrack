@@ -1,0 +1,6 @@
+[git-source-track]
+validation_root = blocks
+upstream_root = ../frc-docs/source/docs
+upstream_commit = 460989e67166fbe586f0744bb9e5d34f30aad110
+file_extension = .yml
+

@@ -1,3 +1,4 @@
+# validated: 2024-10-01 TW e53db15a2003 software/basic-programming/alliancecolor.rst
 block0: |
   val ally: Optional<Alliance> = DriverStation.getAlliance()
   when (ally.getOrNull()){

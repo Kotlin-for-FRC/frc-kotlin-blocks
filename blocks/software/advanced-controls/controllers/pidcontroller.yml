@@ -1,3 +1,4 @@
+# validated: 2024-10-01 TW 7f059b62e8c3 software/advanced-controls/controllers/pidcontroller.rst
 block0: |
   // Creates a PIDController with gains kP, kI, and kD
   val pid = PIDController(kP, kI, kD)
