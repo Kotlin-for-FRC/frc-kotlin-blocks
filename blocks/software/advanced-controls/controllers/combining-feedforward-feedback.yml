@@ -1,10 +1,11 @@
-block0: |2-
-    // Adds a feedforward to the loop output before sending it to the motor
-    motor.setVoltage(pid.calculate(encoder.getDistance(), setpoint) + feedforward);
-block1: |2-
-    public void tankDriveWithFeedforwardPID(double leftVelocitySetpoint, double rightVelocitySetpoint) {
-      leftMotor.setVoltage(feedforward.calculate(leftVelocitySetpoint)
-          + leftPID.calculate(leftEncoder.getRate(), leftVelocitySetpoint));
-      rightMotor.setVoltage(feedForward.calculate(rightVelocitySetpoint)
-          + rightPID.calculate(rightEncoder.getRate(), rightVelocitySetpoint));
-    }
+# validated: 2024-10-03 TW 7f059b62e8c3 software/advanced-controls/controllers/combining-feedforward-feedback.rst
+block0: |
+  // Adds a feedforward to the loop output before sending it to the motor
+  motor.setVoltage(pid.calculate(encoder.distance, setpoint) + feedforward)
+block1: |
+  fun tankDriveWithFeedforwardPID(leftVelocitySetpoint: Double, rightVelocitySetpoint: Double) {
+    leftMotor.setVoltage(feedforward.calculate(leftVelocitySetpoint)
+        + leftPID.calculate(leftEncoder.rate, leftVelocitySetpoint))
+    rightMotor.setVoltage(feedForward.calculate(rightVelocitySetpoint)
+        + rightPID.calculate(rightEncoder.rate, rightVelocitySetpoint))
+  } 
