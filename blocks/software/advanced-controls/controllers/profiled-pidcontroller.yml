@@ -1,25 +1,30 @@
-block0: |2-
-    // Creates a ProfiledPIDController
-    // Max velocity is 5 meters per second
-    // Max acceleration is 10 meters per second
-    ProfiledPIDController controller = new ProfiledPIDController(
-      kP, kI, kD,
-      new TrapezoidProfile.Constraints(5, 10));
-block1: |2-
-    // Calculates the output of the PID algorithm based on the sensor reading
-    // and sends it to a motor
-    motor.set(controller.calculate(encoder.getDistance(), goal));
-block2: |2-
-    double lastSpeed = 0;
-    double lastTime = Timer.getFPGATimestamp();
-      // Controls a simple motor's position using a SimpleMotorFeedforward
-    // and a ProfiledPIDController
-    public void goToPosition(double goalPosition) {
-      double pidVal = controller.calculate(encoder.getDistance(), goalPosition);
-      double acceleration = (controller.getSetpoint().velocity - lastSpeed) / (Timer.getFPGATimestamp() - lastTime);
+# validated: 2024-10-03 TW e53db15a2003 software/advanced-controls/controllers/profiled-pidcontroller.rst
+block0: |
+  // Creates a ProfiledPIDController
+  // Max velocity is 5 meters per second
+  // Max acceleration is 10 meters per second
+  val controller = ProfiledPIDController(
+    kP, 
+    kI, 
+    kD,
+    TrapezoidProfile.Constraints(5, 10),
+  )
+block1: |
+  // Calculates the output of the PID algorithm based on the sensor reading
+  // and sends it to a motor
+  motor.set(controller.calculate(encoder.distance, goal))
+block2: |
+  var lastSpeed = 0.0
+  var lastTime = Timer.getFPGATimestamp()
+  // Controls a simple motor's position using a SimpleMotorFeedforward
+  // and a ProfiledPIDController
+  fun goToPosition(goalPosition: Double) {
+      val pidVal = controller.calculate(encoder.distance, goalPosition)
+      val acceleration =
+          (controller.setpoint.velocity - lastSpeed) / (Timer.getFPGATimestamp() - lastTime)
       motor.setVoltage(
-          pidVal
-          + feedforward.calculate(controller.getSetpoint().velocity, acceleration));
-      lastSpeed = controller.getSetpoint().velocity;
-      lastTime = Timer.getFPGATimestamp();
-    }
+          pidVal + feedforward.calculate(controller.setpoint.velocity, acceleration)
+      )
+      lastSpeed = controller.setpoint.velocity
+      lastTime = Timer.getFPGATimestamp()
+  }
