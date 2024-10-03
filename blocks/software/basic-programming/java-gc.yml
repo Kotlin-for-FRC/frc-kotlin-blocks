@@ -1,0 +1,11 @@
+block0: |-
+  Timer m_gcTimer = new Timer();
+  public void robotInit() {
+    m_gcTimer.start();
+  }
+  public void periodic() {
+    // run the garbage collector every 5 seconds
+    if (m_gcTimer.advanceIfElapsed(5)) {
+      System.gc();
+    }
+  }

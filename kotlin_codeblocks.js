@@ -83,9 +83,17 @@ function createTab(setId, itemId, label, code) {
 }
 
 function extractBlocks(input) {
+    // The first line of a validated file will begin with # validated. If this line is not present, the file is not validated.
+    const validationLine = input.split('\n')[0]
+    const valid = validationLine.startsWith('# validated');
+    const result = [];
+    // If the file is not validated, return an empty array
+    if (!valid) {
+        return result
+    }
+
     // Regular expression to match blocks that start with 'blockX: |' and capture the content
     const regex = /block\d+: \|\n((?:[\s\S]*?)(?=\n\n|$))/g;
-    const result = [];
     let match;
 
     // Iterate over all matches

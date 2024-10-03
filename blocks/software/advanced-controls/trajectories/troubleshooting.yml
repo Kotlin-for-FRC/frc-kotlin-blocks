@@ -1,0 +1,49 @@
+block0: |2-
+     NetworkTableEntry m_xEntry = NetworkTableInstance.getDefault().getTable("troubleshooting").getEntry("X");
+     NetworkTableEntry m_yEntry = NetworkTableInstance.getDefault().getTable("troubleshooting").getEntry("Y");
+     @Override
+     public void periodic() {
+         // Update the odometry in the periodic block
+         m_odometry.update(Rotation2d.fromDegrees(getHeading()), m_leftEncoder.getDistance(),
+             m_rightEncoder.getDistance());
+         var translation = m_odometry.getPoseMeters().getTranslation();
+         m_xEntry.setNumber(translation.getX());
+         m_yEntry.setNumber(translation.getY());
+     }
+block1: |2-
+     RamseteController m_disabledRamsete = new RamseteController();
+     m_disabledRamsete.setEnabled(false);
+     // Be sure to pass your new disabledRamsete variable
+     RamseteCommand ramseteCommand = new RamseteCommand(
+         exampleTrajectory,
+         m_robotDrive::getPose,
+         m_disabledRamsete,
+         ...
+     );
+block2: |2-
+     var table = NetworkTableInstance.getDefault().getTable("troubleshooting");
+     var leftReference = table.getEntry("left_reference");
+     var leftMeasurement = table.getEntry("left_measurement");
+     var rightReference = table.getEntry("right_reference");
+     var rightMeasurement = table.getEntry("right_measurement");
+     var leftController = new PIDController(kPDriveVel, 0, 0);
+     var rightController = new PIDController(kPDriveVel, 0, 0);
+     RamseteCommand ramseteCommand = new RamseteCommand(
+         exampleTrajectory,
+         m_robotDrive::getPose,
+         disabledRamsete, // Pass in disabledRamsete here
+         new SimpleMotorFeedforward(ksVolts, kvVoltSecondsPerMeter, kaVoltSecondsSquaredPerMeter),
+         kDriveKinematics,
+         m_robotDrive::getWheelSpeeds,
+         leftController,
+         rightController,
+         // RamseteCommand passes volts to the callback
+         (leftVolts, rightVolts) -> {
+             m_robotDrive.tankDriveVolts(leftVolts, rightVolts);
+             leftMeasurement.setNumber(m_robotDrive.getWheelSpeeds().leftMetersPerSecond);
+             leftReference.setNumber(leftController.getSetpoint());
+             rightMeasurement.setNumber(m_robotDrive.getWheelSpeeds().rightMetersPerSecond);
+             rightReference.setNumber(rightController.getSetpoint());
+         },
+         m_robotDrive
+     );

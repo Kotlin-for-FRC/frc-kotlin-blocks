@@ -1,0 +1,2 @@
+block0: |2-
+    Trigger trigger = booleanEvent.castTo(Trigger::new);

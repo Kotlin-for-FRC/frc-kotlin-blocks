@@ -1,0 +1,39 @@
+block0: |2-
+      import edu.wpi.first.wpilibj.DataLogManager;
+      // Starts recording to data log
+      DataLogManager.start();
+block1: |2-
+      import edu.wpi.first.wpilibj.DataLogManager;
+      import edu.wpi.first.wpilibj.DriverStation;
+      // Starts recording to data log
+      DataLogManager.start();
+      // Record both DS control and joystick data
+      DriverStation.startDataLog(DataLogManager.getLog());
+      // (alternatively) Record only DS control data
+      DriverStation.startDataLog(DataLogManager.getLog(), false);
+block2: |2-
+      import edu.wpi.first.util.datalog.BooleanLogEntry;
+      import edu.wpi.first.util.datalog.DataLog;
+      import edu.wpi.first.util.datalog.DoubleLogEntry;
+      import edu.wpi.first.util.datalog.StringLogEntry;
+      import edu.wpi.first.wpilibj.DataLogManager;
+      BooleanLogEntry myBooleanLog;
+      DoubleLogEntry myDoubleLog;
+      StringLogEntry myStringLog;
+      public void robotInit() {
+        // Starts recording to data log
+        DataLogManager.start();
+        // Set up custom log entries
+        DataLog log = DataLogManager.getLog();
+        myBooleanLog = new BooleanLogEntry(log, "/my/boolean");
+        myDoubleLog = new DoubleLogEntry(log, "/my/double");
+        myStringLog = new StringLogEntry(log, "/my/string");
+      }
+      public void teleopPeriodic() {
+        if (...) {
+          // Only log when necessary
+          myBooleanLog.append(true);
+          myDoubleLog.append(3.5);
+          myStringLog.append("wow!");
+        }
+      }

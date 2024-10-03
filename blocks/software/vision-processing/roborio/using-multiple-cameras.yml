@@ -1,0 +1,65 @@
+block0: |2-
+      UsbCamera camera1;
+      UsbCamera camera2;
+      Joystick joy1 = new Joystick(0);
+      NetworkTableEntry cameraSelection;
+      @Override
+      public void robotInit() {
+          camera1 = CameraServer.startAutomaticCapture(0);
+          camera2 = CameraServer.startAutomaticCapture(1);
+          cameraSelection = NetworkTableInstance.getDefault().getTable("").getEntry("CameraSelection");
+      }
+      @Override
+      public void teleopPeriodic() {
+          if (joy1.getTriggerPressed()) {
+              System.out.println("Setting camera 2");
+              cameraSelection.setString(camera2.getName());
+          } else if (joy1.getTriggerReleased()) {
+              System.out.println("Setting camera 1");
+              cameraSelection.setString(camera1.getName());
+          }
+      }
+block1: |2-
+      UsbCamera camera1;
+      UsbCamera camera2;
+      VideoSink server;
+      Joystick joy1 = new Joystick(0);
+      @Override
+      public void robotInit() {
+          camera1 = CameraServer.startAutomaticCapture(0);
+          camera2 = CameraServer.startAutomaticCapture(1);
+          server = CameraServer.getServer();
+      }
+      @Override
+      public void teleopPeriodic() {
+          if (joy1.getTriggerPressed()) {
+              System.out.println("Setting camera 2");
+              server.setSource(camera2);
+          } else if (joy1.getTriggerReleased()) {
+              System.out.println("Setting camera 1");
+              server.setSource(camera1);
+          }
+      }
+block2: |2-
+      UsbCamera camera1;
+      UsbCamera camera2;
+      VideoSink server;
+      Joystick joy1 = new Joystick(0);
+      @Override
+      public void robotInit() {
+          camera1 = CameraServer.startAutomaticCapture(0);
+          camera2 = CameraServer.startAutomaticCapture(1);
+          server = CameraServer.getServer();
+          camera1.setConnectionStrategy(ConnectionStrategy.kKeepOpen);
+          camera2.setConnectionStrategy(ConnectionStrategy.kKeepOpen);
+      }
+      @Override
+      public void teleopPeriodic() {
+          if (joy1.getTriggerPressed()) {
+              System.out.println("Setting camera 2");
+              server.setSource(camera2);
+          } else if (joy1.getTriggerReleased()) {
+              System.out.println("Setting camera 1");
+              server.setSource(camera1);
+          }
+      }

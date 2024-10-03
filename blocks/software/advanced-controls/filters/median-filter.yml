@@ -1,0 +1,6 @@
+block0: |2-
+    // Creates a MedianFilter with a window size of 5 samples
+    MedianFilter filter = new MedianFilter(5);
+block1: |2-
+    // Calculates the next value of the output
+    filter.calculate(input);

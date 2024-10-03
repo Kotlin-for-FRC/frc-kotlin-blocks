@@ -1,0 +1,12 @@
+block0: |2-
+     import edu.wpi.first.shuffleboard.api.plugin.Description;
+     import edu.wpi.first.shuffleboard.api.plugin.Plugin;
+     @Description(group = "com.example", name = "MyPlugin", version = "1.2.3", summary = "An example plugin")
+     public class MyPlugin extends Plugin {
+     }
+block1: |-
+  @Requires(group = "com.example", name = "Good Plugin", minVersion = "1.2.3")
+  @Requires(group = "edu.wpi.first.shuffleboard", name = "Base", minVersion = "1.0.0")
+  @Description(group = "com.example", name = "MyPlugin", version = "1.2.3", summary = "An example plugin")
+  public class MyPlugin extends Plugin {
+  }

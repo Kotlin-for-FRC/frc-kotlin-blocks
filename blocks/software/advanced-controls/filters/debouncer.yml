@@ -1,0 +1,9 @@
+block0: |2-
+    // Initializes a DigitalInput on DIO 0
+    DigitalInput input = new DigitalInput(0);
+    // Creates a Debouncer in "both" mode.
+    Debouncer m_debouncer = new Debouncer(0.1, Debouncer.DebounceType.kBoth);
+    // So if currently false the signal must go true for at least .1 seconds before being read as a True signal.
+    if (m_debouncer.calculate(input.get())) {
+      // Do something now that the DI is True.
+    }

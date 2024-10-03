@@ -1,0 +1,83 @@
+block0: |-
+  import edu.wpi.first.shuffleboard.api.widget.Description;
+  import edu.wpi.first.shuffleboard.api.widget.ParametrizedController;
+  import edu.wpi.first.shuffleboard.api.widget.SimpleAnnotatedWidget;
+  /*
+   * If the FXML file and Java file are in the same package, that is the Java file is in src/main/java and the
+   * FXML file is under src/main/resources or your code equivalent package, the relative path will work
+   * However, if they are in different packages, an absolute path will be required.
+  */
+  @Description(name = "MyPoint2D", dataTypes = MyPoint2D.class)
+  @ParametrizedController("Point2DWidget.fxml")
+  public final class Point2DWidget extends SimpleAnnotatedWidget<MyPoint2D> {
+  }
+block1: |-
+  import edu.wpi.first.shuffleboard.api.widget.Description;
+  import edu.wpi.first.shuffleboard.api.widget.ParametrizedController;
+  import edu.wpi.first.shuffleboard.api.widget.SimpleAnnotatedWidget;
+  import javafx.fxml.FXML;
+  @Description(name = "MyPoint2D", dataTypes = MyPoint2D.class)
+  @ParametrizedController("Point2DWidget.fxml")
+  public final class Point2DWidget extends SimpleAnnotatedWidget<MyPoint2D> {
+     @FXML
+     private Pane root;
+     @FXML
+     private Slider xSlider;
+     @FXML
+     private Slider ySlider;
+  }
+block2: |-
+  import edu.wpi.first.shuffleboard.api.widget.Description;
+  import edu.wpi.first.shuffleboard.api.widget.ParametrizedController;
+  import edu.wpi.first.shuffleboard.api.widget.SimpleAnnotatedWidget;
+  import javafx.fxml.FXML;
+  @Description(name = "MyPoint2D", dataTypes = MyPoint2D.class)
+  @ParametrizedController("Point2DWidget.fxml")
+  public final class Point2DWidget extends SimpleAnnotatedWidget<MyPoint2D> {
+     @FXML
+     private StackPane root;
+     @FXML
+     private Slider xSlider;
+     @FXML
+     private Slider ySlider;
+     @Override
+     public Pane getView() {
+        return root;
+     }
+  }
+block3: |-
+  import edu.wpi.first.shuffleboard.api.widget.Description;
+  import edu.wpi.first.shuffleboard.api.widget.ParametrizedController;
+  import edu.wpi.first.shuffleboard.api.widget.SimpleAnnotatedWidget;
+  import javafx.fxml.FXML;
+  @Description(name = "MyPoint2D", dataTypes = MyPoint2D.class)
+  @ParametrizedController("Point2DWidget.fxml")
+  public final class Point2DWidget extends SimpleAnnotatedWidget<MyPoint2D> {
+     @FXML
+     private StackPane root;
+     @FXML
+     private Slider xSlider;
+     @FXML
+     private Slider ySlider;
+     @FXML
+     private void initialize() {
+        xSlider.valueProperty().bind(dataOrDefault.map(MyPoint2D::getX));
+        ySlider.valueProperty().bind(dataOrDefault.map(MyPoint2D::getY));
+     }
+     @Override
+     public Pane getView() {
+        return root;
+     }
+   }
+block4: |-
+  xSlider.valueProperty().addListener((observable, oldValue, newValue) -> setData(getData().withX(newValue));
+block5: |-
+  @Override
+  public List<ComponentType> getComponents() {
+    return List.of(WidgetType.forAnnotatedWidget(Point2DWidget.class));
+  }
+block6: |-
+  @Override
+  public Map<DataType, ComponentType> getDefaultComponents() {
+     return Map.of(Point2DType.Instance, WidgetType.forAnnotatedWidget(Point2DWidget.class));
+  }

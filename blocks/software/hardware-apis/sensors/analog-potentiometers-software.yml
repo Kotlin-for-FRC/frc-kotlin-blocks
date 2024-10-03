@@ -1,0 +1,15 @@
+block0: |2-
+      // Initializes an AnalogPotentiometer on analog port 0
+      // The full range of motion (in meaningful external units) is 0-180 (this could be degrees, for instance)
+      // The "starting point" of the motion, i.e. where the mechanism is located when the potentiometer reads 0v, is 30.
+      AnalogPotentiometer pot = new AnalogPotentiometer(0, 180, 30);
+block1: |2-
+      // Initializes an AnalogInput on port 0, and enables 2-bit averaging
+      AnalogInput input = new AnalogInput(0);
+      input.setAverageBits(2);
+      // Initializes an AnalogPotentiometer with the given AnalogInput
+      // The full range of motion (in meaningful external units) is 0-180 (this could be degrees, for instance)
+      // The "starting point" of the motion, i.e. where the mechanism is located when the potentiometer reads 0v, is 30.
+      AnalogPotentiometer pot = new AnalogPotentiometer(input, 180, 30);
+block2: |2-
+      pot.get();

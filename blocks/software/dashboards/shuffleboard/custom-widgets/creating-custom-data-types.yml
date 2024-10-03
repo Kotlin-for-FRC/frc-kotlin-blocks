@@ -1,0 +1,73 @@
+block0: |-
+  import edu.wpi.first.shuffleboard.api.data.ComplexData;
+  import java.util.Map;
+  public class MyPoint2D extends ComplexData<MyPoint2D> {
+     private final double x;
+     private final double y;
+     //Constructor should take all the different fields needed and assign them their corresponding instance variables.
+     public MyPoint2D(double x, double y) {
+        this.x = x;
+        this.y = y;
+     }
+     @Override
+     public Map<String, Object> asMap() {
+        return Map.of("x", x, "y", y);
+     }
+  }
+block1: |-
+  import edu.wpi.first.shuffleboard.api.data.ComplexData;
+  import java.util.Map;
+  public final class MyPoint2D extends ComplexData<MyPoint2D> {
+     private final double x;
+     private final double y;
+     // Constructor should take all the different fields needed and assign them to their corresponding instance variables.
+     public Point(double x, double y) {
+        this.x = x;
+        this.y = y;
+     }
+     @Override
+     public Map<String, Object> asMap() {
+        return Map.of("x", this.x, "y", this.y);
+     }
+   }
+block2: |-
+  public MyPoint2D withY(double newY) {
+     return new MyPoint2D(this.x, newY);
+  }
+block3: |-
+  public final class MyDoubleDataType extends SimpleDataType<Double> {
+     private static final String NAME = "Double";
+     private MyDataType() {
+        super(NAME, Double.class);
+     }
+     @Override
+     public Double getDefaultValue() {
+        return 0.0;
+     }
+  }
+block4: |-
+  public final class PointDataType extends ComplexDataType<MyPoint2D> {
+     private static final String NAME = "MyPoint2D";
+     public static final PointDataType Instance = new PointDataType();
+     private PointDataType() {
+        super(NAME, MyPoint2D.class);
+     }
+     @Override
+     public Function<Map<String, Object>, MyPoint2D> fromMap() {
+        return map -> {
+           return new MyPoint2D((double) map.getOrDefault("x", 0.0), (double) map.getOrDefault("y", 0.0));
+        };
+     }
+     @Override
+     public MyPoint2D getDefaultValue() {
+        // use default values of 0 for X and Y coordinates
+        return new MyPoint2D(0, 0);
+     }
+  }
+block5: |-
+  public class MyPlugin extends Plugin {
+     @Override
+     public List<DataType> getDataTypes() {
+        return List.of(PointDataType.Instance);
+     }
+  }

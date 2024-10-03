@@ -1,0 +1,13 @@
+block0: |2-
+     class DriveBase extends Subsystem {
+        private ShuffleboardTab tab = Shuffleboard.getTab("Drive");
+        private GenericEntry maxSpeed =
+           tab.add("Max Speed", 1)
+              .getEntry();
+        private DifferentialDrive robotDrive = ...;
+        public void drive(double left, double right) {
+           // Retrieve the maximum speed from the dashboard
+           double max = maxSpeed.getDouble(1.0);
+           robotDrive.tankDrive(left * max, right * max);
+        }
+     }

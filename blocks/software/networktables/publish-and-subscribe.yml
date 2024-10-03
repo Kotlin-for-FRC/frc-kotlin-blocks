@@ -1,0 +1,216 @@
+block0: |2-
+          public class Example {
+            // the publisher is an instance variable so its lifetime matches that of the class
+            final DoublePublisher dblPub;
+            public Example(DoubleTopic dblTopic) {
+              // start publishing; the return value must be retained (in this case, via
+              // an instance variable)
+              dblPub = dblTopic.publish();
+              // publish options may be specified using PubSubOption
+              dblPub = dblTopic.publish(PubSubOption.keepDuplicates(true));
+              // publishEx provides additional options such as setting initial
+              // properties and using a custom type string. Using a custom type string for
+              // types other than raw and string is not recommended. The properties string
+              // must be a JSON map.
+              dblPub = dblTopic.publishEx("double", "{\"myprop\": 5}");
+            }
+            public void periodic() {
+              // publish a default value
+              dblPub.setDefault(0.0);
+              // publish a value with current timestamp
+              dblPub.set(1.0);
+              dblPub.set(2.0, 0);  // 0 = use current time
+              // publish a value with a specific timestamp; NetworkTablesJNI.now() can
+              // be used to get the current time. On the roboRIO, this is the same as
+              // the FPGA timestamp (e.g. RobotController.getFPGATime())
+              long time = NetworkTablesJNI.now();
+              dblPub.set(3.0, time);
+              // publishers also implement the appropriate Consumer functional interface;
+              // this example assumes void myFunc(DoubleConsumer func) exists
+              myFunc(dblPub);
+            }
+            // often not required in robot code, unless this class doesn't exist for
+            // the lifetime of the entire robot program, in which case close() needs to be
+            // called to stop publishing
+            public void close() {
+              // stop publishing
+              dblPub.close();
+            }
+          }
+block1: |2-
+          public class Example {
+            // the subscriber is an instance variable so its lifetime matches that of the class
+            final DoubleSubscriber dblSub;
+            public Example(DoubleTopic dblTopic) {
+              // start subscribing; the return value must be retained.
+              // the parameter is the default value if no value is available when get() is called
+              dblSub = dblTopic.subscribe(0.0);
+              // subscribe options may be specified using PubSubOption
+              dblSub =
+                  dblTopic.subscribe(0.0, PubSubOption.keepDuplicates(true), PubSubOption.pollStorage(10));
+              // subscribeEx provides the options of using a custom type string.
+              // Using a custom type string for types other than raw and string is not recommended.
+              dblSub = dblTopic.subscribeEx("double", 0.0);
+            }
+            public void periodic() {
+              // simple get of most recent value; if no value has been published,
+              // returns the default value passed to the subscribe() function
+              double val = dblSub.get();
+              // get the most recent value; if no value has been published, returns
+              // the passed-in default value
+              double val = dblSub.get(-1.0);
+              // subscribers also implement the appropriate Supplier interface, e.g. DoubleSupplier
+              double val = dblSub.getAsDouble();
+              // get the most recent value, along with its timestamp
+              TimestampedDouble tsVal = dblSub.getAtomic();
+              // read all value changes since the last call to readQueue/readQueueValues
+              // readQueue() returns timestamps; readQueueValues() does not.
+              TimestampedDouble[] tsUpdates = dblSub.readQueue();
+              double[] valUpdates = dblSub.readQueueValues();
+            }
+            // often not required in robot code, unless this class doesn't exist for
+            // the lifetime of the entire robot program, in which case close() needs to be
+            // called to stop subscribing
+            public void close() {
+              // stop subscribing
+              dblSub.close();
+            }
+          }
+block2: |2-
+          public class Example {
+            // the entry is an instance variable so its lifetime matches that of the class
+            final DoubleEntry dblEntry;
+            public Example(DoubleTopic dblTopic) {
+              // start subscribing; the return value must be retained.
+              // the parameter is the default value if no value is available when get() is called
+              dblEntry = dblTopic.getEntry(0.0);
+              // publish and subscribe options may be specified using PubSubOption
+              dblEntry =
+                  dblTopic.getEntry(0.0, PubSubOption.keepDuplicates(true), PubSubOption.pollStorage(10));
+              // getEntryEx provides the options of using a custom type string.
+              // Using a custom type string for types other than raw and string is not recommended.
+              dblEntry = dblTopic.getEntryEx("double", 0.0);
+            }
+            public void periodic() {
+              // entries support all the same methods as subscribers:
+              double val = dblEntry.get();
+              double val = dblEntry.get(-1.0);
+              double val = dblEntry.getAsDouble();
+              TimestampedDouble tsVal = dblEntry.getAtomic();
+              TimestampedDouble[] tsUpdates = dblEntry.readQueue();
+              double[] valUpdates = dblEntry.readQueueValues();
+              // entries also support all the same methods as publishers; the first time
+              // one of these is called, an internal publisher is automatically created
+              dblEntry.setDefault(0.0);
+              dblEntry.set(1.0);
+              dblEntry.set(2.0, 0);  // 0 = use current time
+              long time = NetworkTablesJNI.now();
+              dblEntry.set(3.0, time);
+              myFunc(dblEntry);
+            }
+            public void unpublish() {
+              // you can stop publishing while keeping the subscriber alive
+              dblEntry.unpublish();
+            }
+            // often not required in robot code, unless this class doesn't exist for
+            // the lifetime of the entire robot program, in which case close() needs to be
+            // called to stop subscribing
+            public void close() {
+              // stop subscribing/publishing
+              dblEntry.close();
+            }
+          }
+block3: |2-
+          public class Example {
+            // the entry is an instance variable so its lifetime matches that of the class
+            final GenericPublisher pub;
+            final GenericSubscriber sub;
+            final GenericEntry entry;
+            public Example(Topic topic) {
+              // start subscribing; the return value must be retained.
+              // when publishing, a type string must be provided
+              pub = topic.genericPublish("double");
+              // subscribing can optionally include a type string
+              // unlike type-specific subscribers, no default value is provided
+              sub = topic.genericSubscribe();
+              sub = topic.genericSubscribe("double");
+              // when getting an entry, the type string is also optional; if not provided
+              // the publisher data type will be determined by the first publisher-creating call
+              entry = topic.getGenericEntry();
+              entry = topic.getGenericEntry("double");
+              // publish and subscribe options may be specified using PubSubOption
+              pub = topic.genericPublish("double",
+                  PubSubOption.keepDuplicates(true), PubSubOption.pollStorage(10));
+              sub =
+                  topic.genericSubscribe(PubSubOption.keepDuplicates(true), PubSubOption.pollStorage(10));
+              entry =
+                  topic.getGenericEntry(PubSubOption.keepDuplicates(true), PubSubOption.pollStorage(10));
+              // genericPublishEx provides the option of setting initial properties.
+              pub = topic.genericPublishEx("double", "{\"retained\": true}",
+                  PubSubOption.keepDuplicates(true), PubSubOption.pollStorage(10));
+            }
+            public void periodic() {
+              // generic subscribers and entries have typed get operations; a default must be provided
+              double val = sub.getDouble(-1.0);
+              double val = entry.getDouble(-1.0);
+              // they also support an untyped get (also meets Supplier<NetworkTableValue> interface)
+              NetworkTableValue val = sub.get();
+              NetworkTableValue val = entry.get();
+              // they also support readQueue
+              NetworkTableValue[] updates = sub.readQueue();
+              NetworkTableValue[] updates = entry.readQueue();
+              // publishers and entries have typed set operations; these return false if the
+              // topic already exists with a mismatched type
+              boolean success = pub.setDefaultDouble(1.0);
+              boolean success = pub.setBoolean(true);
+              // they also implement a generic set and Consumer<NetworkTableValue> interface
+              boolean success = entry.set(NetworkTableValue.makeDouble(...));
+              boolean success = entry.accept(NetworkTableValue.makeDouble(...));
+            }
+            public void unpublish() {
+              // you can stop publishing an entry while keeping the subscriber alive
+              entry.unpublish();
+            }
+            // often not required in robot code, unless this class doesn't exist for
+            // the lifetime of the entire robot program, in which case close() needs to be
+            // called to stop subscribing/publishing
+            public void close() {
+              pub.close();
+              sub.close();
+              entry.close();
+            }
+          }
+block4: |2-
+          public class Example {
+            // the subscriber is an instance variable so its lifetime matches that of the class
+            final MultiSubscriber multiSub;
+            final NetworkTableListenerPoller poller;
+            public Example(NetworkTableInstance inst) {
+              // start subscribing; the return value must be retained.
+              // provide an array of topic name prefixes
+              multiSub = new MultiSubscriber(inst, new String[] {"/table1/", "/table2/"});
+              // subscribe options may be specified using PubSubOption
+              multiSub = new MultiSubscriber(inst, new String[] {"/table1/", "/table2/"},
+                  PubSubOption.keepDuplicates(true));
+              // to get value updates from a MultiSubscriber, it's necessary to create a listener
+              // (see the listener documentation for more details)
+              poller = new NetworkTableListenerPoller(inst);
+              poller.addListener(multiSub, EnumSet.of(NetworkTableEvent.Kind.kValueAll));
+            }
+            public void periodic() {
+              // read value events
+              NetworkTableEvent[] events = poller.readQueue();
+              for (NetworkTableEvent event : events) {
+                NetworkTableValue value = event.valueData.value;
+              }
+            }
+            // often not required in robot code, unless this class doesn't exist for
+            // the lifetime of the entire robot program, in which case close() needs to be
+            // called to stop subscribing
+            public void close() {
+              // close listener
+              poller.close();
+              // stop subscribing
+              multiSub.close();
+            }
+          }

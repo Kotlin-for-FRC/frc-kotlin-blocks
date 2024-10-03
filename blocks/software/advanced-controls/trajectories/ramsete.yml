@@ -1,0 +1,15 @@
+block0: |2-
+     // Using the default constructor of RamseteController. Here
+     // the gains are initialized to 2.0 and 0.7.
+     RamseteController controller1 = new RamseteController();
+     // Using the secondary constructor of RamseteController where
+     // the user can choose any other gains.
+     RamseteController controller2 = new RamseteController(2.1, 0.8);
+block1: |2-
+     Trajectory.State goal = trajectory.sample(3.4); // sample the trajectory at 3.4 seconds from the beginning
+     ChassisSpeeds adjustedSpeeds = controller.calculate(currentRobotPose, goal);
+block2: |2-
+     ChassisSpeeds adjustedSpeeds = controller.calculate(currentRobotPose, goal);
+     DifferentialDriveWheelSpeeds wheelSpeeds = kinematics.toWheelSpeeds(adjustedSpeeds);
+     double left = wheelSpeeds.leftMetersPerSecond;
+     double right = wheelSpeeds.rightMetersPerSecond;

@@ -1,0 +1,4 @@
+block0: |2-
+     var error = lqr.getR().minus(x);
+     error.set(0, 0, MathUtil.angleModulus(error.get(0, 0)));
+     var u = lqr.getK().times(error);

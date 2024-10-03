@@ -1,0 +1,7 @@
+block0: |2-
+     // Get the total time of the trajectory in seconds
+     double duration = trajectory.getTotalTimeSeconds();
+block1: |2-
+     // Sample the trajectory at 1.2 seconds. This represents where the robot
+     // should be after 1.2 seconds of traversal.
+     Trajectory.Sample point = trajectory.sample(1.2);

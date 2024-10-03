@@ -1,0 +1,107 @@
+block0: |2-
+      // ADIS16448 plugged into the MXP port
+      ADIS16448_IMU gyro = new ADIS16448_IMU();
+block1: |2-
+      // ADIS16470 plugged into the SPI port
+      ADIS16470_IMU gyro = new ADIS16470_IMU();
+block2: |2-
+      // Creates an ADXRS450_Gyro object on the onboard SPI port
+      ADXRS450_Gyro gyro = new ADXRS450_Gyro();
+block3: |2-
+      // Creates an AnalogGyro object on port 0
+      AnalogGyro gyro = new AnalogGyro(0);
+block4: |2-
+      // navX MXP using SPI
+      AHRS gyro = new AHRS(SPI.Port.kMXP);
+block5: |2-
+      WPI_PigeonIMU gyro = new WPI_PigeonIMU(0); // Pigeon is on CAN Bus with device ID 0
+      // OR (choose one or the other based on your connection)
+      TalonSRX talon = new TalonSRX(0); // TalonSRX is on CAN Bus with device ID 0
+      WPI_PigeonIMU gyro = new WPI_PigeonIMU(talon); // Pigeon uses the talon created above
+block6: |2-
+      // Use gyro declaration from above here
+      public void robotInit() {
+          // Places a compass indicator for the gyro heading on the dashboard
+          Shuffleboard.getTab("Example tab").add(gyro);
+      }
+block7: |2-
+      // Use gyro declaration from above here
+      // The gain for a simple P loop
+      double kP = 1;
+      // Initialize motor controllers and drive
+      Spark leftLeader = new Spark(0);
+      Spark leftFollower = new Spark(1);
+      Spark rightLeader = new Spark(2);
+      Spark rightFollower = new Spark(3);
+      DifferentialDrive drive = new DifferentialDrive(leftLeader::set, rightLeader::set);
+      @Override
+      public void robotInit() {
+          // Configures the encoder's distance-per-pulse
+          // The robot moves forward 1 foot per encoder rotation
+          // There are 256 pulses per encoder rotation
+          encoder.setDistancePerPulse(1./256.);
+          // Invert the right side of the drivetrain. You might have to invert the other side
+          rightLeader.setInverted(true);
+          // Configure the followers to follow the leaders
+          leftLeader.addFollower(leftFollower);
+          rightLeader.addFollower(rightFollower);
+      }
+      @Override
+      public void autonomousPeriodic() {
+          // Setpoint is implicitly 0, since we don't want the heading to change
+          double error = -gyro.getRate();
+          // Drives forward continuously at half speed, using the gyro to stabilize the heading
+          drive.tankDrive(.5 + kP * error, .5 - kP * error);
+      }
+block8: |2-
+      // Use gyro declaration from above here
+      // The gain for a simple P loop
+      double kP = 1;
+      // The heading of the robot when starting the motion
+      double heading;
+      // Initialize motor controllers and drive
+      Spark left1 = new Spark(0);
+      Spark left2 = new Spark(1);
+      Spark right1 = new Spark(2);
+      Spark right2 = new Spark(3);
+      MotorControllerGroup leftMotors = new MotorControllerGroup(left1, left2);
+      MotorControllerGroup rightMotors = new MotorControllerGroup(right1, right2);
+      DifferentialDrive drive = new DifferentialDrive(leftMotors, rightMotors);
+      @Override
+      public void robotInit() {
+          rightMotors.setInverted(true);
+      }
+      @Override
+      public void autonomousInit() {
+          // Set setpoint to current heading at start of auto
+          heading = gyro.getAngle();
+      }
+      @Override
+      public void autonomousPeriodic() {
+          double error = heading - gyro.getAngle();
+          // Drives forward continuously at half speed, using the gyro to stabilize the heading
+          drive.tankDrive(.5 + kP * error, .5 - kP * error);
+      }
+block9: |2-
+      // Use gyro declaration from above here
+      // The gain for a simple P loop
+      double kP = 0.05;
+      // Initialize motor controllers and drive
+      Spark left1 = new Spark(0);
+      Spark left2 = new Spark(1);
+      Spark right1 = new Spark(2);
+      Spark right2 = new Spark(3);
+      MotorControllerGroup leftMotors = new MotorControllerGroup(left1, left2);
+      MotorControllerGroup rightMotors = new MotorControllerGroup(right1, right2);
+      DifferentialDrive drive = new DifferentialDrive(leftMotors, rightMotors);
+      @Override
+      public void robotInit() {
+          rightMotors.setInverted(true);
+      }
+      @Override
+      public void autonomousPeriodic() {
+          // Find the heading error; setpoint is 90
+          double error = 90 - gyro.getAngle();
+          // Turns the robot to face the desired direction
+          drive.tankDrive(kP * error, -kP * error);
+      }
