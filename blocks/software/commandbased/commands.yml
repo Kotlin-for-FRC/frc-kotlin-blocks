@@ -12,7 +12,7 @@ block3: |
     // A split-stick arcade command, with forward/backward controlled by the left
     // hand, and turning controlled by the right.
     RunCommand({
-        m_robotDrive.arcadeDrive(
+        robotDrive.arcadeDrive(
             -driverController.getLeftY(),
             driverController.getRightX()
         )
@@ -20,24 +20,24 @@ block3: |
 block4: |
     Commands.startEnd(
         // Start a flywheel spinning at 50% power
-        { m_shooter.shooterSpeed(0.5) },
+        { shooter.shooterSpeed(0.5) },
         // Stop the flywheel at the end of the command
-        { m_shooter.shooterSpeed(0.0) },
+        { shooter.shooterSpeed(0.0) },
         // Requires the shooter subsystem
         shooter
     )
 block5: |
     FunctionalCommand(
         // Reset encoders on command start
-        m_robotDrive::resetEncoders,
+        robotDrive::resetEncoders,
         // Start driving forward at the start of the command
-        { m_robotDrive.arcadeDrive(kAutoDriveSpeed, 0) },
+        { robotDrive.arcadeDrive(kAutoDriveSpeed, 0) },
         // Stop driving at the end of the command
-        { interrupted -> m_robotDrive.arcadeDrive(0, 0) },
+        { interrupted -> robotDrive.arcadeDrive(0, 0) },
         // End the command when the robot's driven distance exceeds the desired value
-        { m_robotDrive.getAverageEncoderDistance() >= kAutoDriveDistanceInches },
+        { robotDrive.getAverageEncoderDistance() >= kAutoDriveDistanceInches },
         // Require the drive subsystem
-        m_robotDrive
+        robotDrive
     )
 block6: |
     // Ends 5 seconds after being scheduled

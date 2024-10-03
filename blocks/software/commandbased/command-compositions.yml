@@ -14,8 +14,8 @@ block3: |
      // Will be a parallel deadline composition that ends after two seconds (the deadline) with the three second command getting interrupted (one second command already finished).
      button.onTrue(Commands.deadline(twoSecCommand, oneSecCommand, threeSecCommand))
 block4: |
-     // Will be interrupted if m_limitSwitch.get() returns true
-     button.onTrue(command.until(m_limitSwitch::get))
+     // Will be interrupted if limitSwitch.get() returns true
+     button.onTrue(command.until(limitSwitch::get))
 block5: |
      // Will time out 5 seconds after being scheduled, and be interrupted
      button.onTrue(command.withTimeout(5))
