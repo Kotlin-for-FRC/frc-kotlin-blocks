@@ -1,11 +1,11 @@
 # validated: 2024-10-03 TW 7f059b62e8c3 software/advanced-controls/controllers/bang-bang.rst
 block0: |
   // Creates a BangBangController
-  val controller = BangBangController();
+  val controller = BangBangController()
 block1: |
   // Controls a motor with the output of the BangBang controller
-  motor.set(controller.calculate(encoder.rate, setpoint));
+  motor.set(controller.calculate(encoder.rate, setpoint))
 block2: |
   // Controls a motor with the output of the BangBang controller and a feedforward
   // Shrinks the feedforward slightly to avoid overspeeding the shooter
-  motor.setVoltage(controller.calculate(encoder.rate, setpoint) * 12.0 + 0.9 * feedforward.calculate(setpoint));
+  motor.setVoltage(controller.calculate(encoder.rate, setpoint) * 12.0 + 0.9 * feedforward.calculate(setpoint))
