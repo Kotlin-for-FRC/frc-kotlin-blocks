@@ -1,6 +1,6 @@
-block0: |2-
+block0: |
     val runIntake = Commands.startEnd({ intake.set(1) }, { intake.set(0.0) }, intake)
-block1: |2-
+block1: |
     // RobotContainer.kt
     intakeButton.whileTrue(Commands.startEnd({ intake.set(1.0) }, { intake.set(0.0) }, intake))
     val intakeAndShoot = Commands.startEnd({ intake.set(1.0) }, { intake.set(0.0) }, intake)
@@ -10,7 +10,7 @@ block1: |2-
         Commands.waitSeconds(3.0),
         Commands.startEnd({ intake.set(1.0) }, { intake.set(0.0) }, intake).withTimeout(5.0)
     )
-block10: |2-
+block10: |
     class RunIntakeCommand(private val intake: Intake): Command() {
         init { addRequirements(intake) }
         override initialize() {
@@ -22,21 +22,21 @@ block10: |2-
         // execute() defaults to do nothing
         // isFinished() defaults to return false
     }
-block11: |2-
+block11: |
     class IntakeThenOuttake(intake: Intake): 
         SequentialCommandGroup(
             intake.runIntakeCommand(1.0).withTimeout(2.0),
             WaitCommand(2.0),
             intake.runIntakeCommand(-1).withTimeout(5.0)
         )
-block2: |2-
+block2: |
     class Intake: SubsystemBase() {
       // [code for motor controllers, configuration, etc.]
       // ...
       fun runIntakeCommand() =
         this.startEnd({ this.set(1.0) }, { this.set(0.0) }) // implicitly requires `this`
     }
-block3: |2-
+block3: |
     intakeButton.whileTrue(intake.runIntakeCommand())
     val intakeAndShoot = intake.runIntakeCommand().alongWith(RunShooter(shooter))
     val autonomousCommand = Commands.sequence(

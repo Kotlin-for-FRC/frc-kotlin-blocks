@@ -1,4 +1,4 @@
-block0: |2-
+block0: |
      CommandScheduler.getInstance().setDefaultCommand(exampleSubsystem, exampleCommand)
-block1: |2-
+block1: |
      exampleSubsystem.defaultCommand = exampleCommand
