@@ -1,5 +1,5 @@
-"block0": |-
-  // Create a new Counter object in two-pulse mode
+block0: |2-
+      // Create a new Counter object in two-pulse mode
       Counter counter = new Counter(Counter.Mode.k2Pulse);
       @Override
       public void robotInit() {
@@ -10,8 +10,8 @@
           counter.setUpSourceEdge(true, true);
           counter.setDownSourceEdge(true, true);
       }
-"block1": |-
-  // Create a new Counter object in two-pulse mode
+block1: |2-
+      // Create a new Counter object in two-pulse mode
       Counter counter = new Counter(Counter.Mode.kSemiperiod);
       @Override
       public void robotInit() {
@@ -20,20 +20,20 @@
           // Set the encoder to count pulse duration from rising edge to falling edge
           counter.setSemiPeriodMode(true);
       }
-"block10": |-
-  // Gets the last direction in which the counter moved
+block10: |2-
+      // Gets the last direction in which the counter moved
       counter.getDirection();
-"block11": |-
-  // returns the current period in seconds
+block11: |2-
+      // returns the current period in seconds
       counter.getPeriod();
-"block12": |-
-  // Resets the encoder to read a distance of zero
+block12: |2-
+      // Resets the encoder to read a distance of zero
       counter.reset();
-"block2": |-
-  // Return the measured pulse width in seconds
+block2: |2-
+      // Return the measured pulse width in seconds
       counter.getPeriod();
-"block3": |-
-  // Create a new Counter object in two-pulse mode
+block3: |2-
+      // Create a new Counter object in two-pulse mode
       Counter counter = new Counter(Counter.Mode.kPulseLength);
       @Override
       public void robotInit() {
@@ -44,8 +44,8 @@
           // Set the counter to count down if the pulses are longer than .05 seconds
           counter.setPulseLengthMode(.05)
       }
-"block4": |-
-  // Create a new Counter object in two-pulse mode
+block4: |2-
+      // Create a new Counter object in two-pulse mode
       Counter counter = new Counter(Counter.Mode.kExternalDirection);
       @Override
       public void robotInit() {
@@ -55,8 +55,8 @@
           // Set the decoding type to 2X
           counter.setUpSourceEdge(true, true);
       }
-"block5": |-
-  // Configures the counter to return a distance of 4 for every 256 pulses
+block5: |2-
+      // Configures the counter to return a distance of 4 for every 256 pulses
       // Also changes the units of getRate
       counter.setDistancePerPulse(4./256.);
       // Configures the counter to consider itself stopped after .1 seconds
@@ -68,15 +68,15 @@
       // Configures an counter to average its period measurement over 5 samples
       // Can be between 1 and 127 samples
       counter.setSamplesToAverage(5);
-"block6": |-
-  // returns the current count
+block6: |2-
+      // returns the current count
       counter.get();
-"block7": |-
-  // returns the current distance
+block7: |2-
+      // returns the current distance
       counter.getDistance();
-"block8": |-
-  // Gets the current rate of the counter
+block8: |2-
+      // Gets the current rate of the counter
       counter.getRate();
-"block9": |-
-  // Gets whether the counter is stopped
+block9: |2-
+      // Gets whether the counter is stopped
       counter.getStopped();

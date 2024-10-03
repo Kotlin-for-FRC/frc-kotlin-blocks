@@ -1,5 +1,5 @@
-"block0": |-
-  var trajectoryOne =
+block0: |2-
+     var trajectoryOne =
      TrajectoryGenerator.generateTrajectory(
         new Pose2d(0, 0, Rotation2d.fromDegrees(0)),
         List.of(new Translation2d(1, 1), new Translation2d(2, -1)),

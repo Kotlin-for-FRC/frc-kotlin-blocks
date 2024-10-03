@@ -1,20 +1,20 @@
-"block0": |-
-  var controller = new HolonomicDriveController(
+block0: |2-
+     var controller = new HolonomicDriveController(
        new PIDController(1, 0, 0), new PIDController(1, 0, 0),
        new ProfiledPIDController(1, 0, 0,
          new TrapezoidProfile.Constraints(6.28, 3.14)));
      // Here, our rotation profile constraints were a max velocity
      // of 1 rotation per second and a max acceleration of 180 degrees
      // per second squared.
-"block1": |-
-  // Sample the trajectory at 3.4 seconds from the beginning.
+block1: |2-
+     // Sample the trajectory at 3.4 seconds from the beginning.
      Trajectory.State goal = trajectory.sample(3.4);
      // Get the adjusted speeds. Here, we want the robot to be facing
      // 70 degrees (in the field-relative coordinate system).
      ChassisSpeeds adjustedSpeeds = controller.calculate(
        currentRobotPose, goal, Rotation2d.fromDegrees(70.0));
-"block2": |-
-  SwerveModuleState[] moduleStates = kinematics.toSwerveModuleStates(adjustedSpeeds);
+block2: |2-
+     SwerveModuleState[] moduleStates = kinematics.toSwerveModuleStates(adjustedSpeeds);
      SwerveModuleState frontLeft = moduleStates[0];
      SwerveModuleState frontRight = moduleStates[1];
      SwerveModuleState backLeft = moduleStates[2];

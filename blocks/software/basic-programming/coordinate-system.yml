@@ -1,18 +1,18 @@
-"block0": |-
-  public void teleopPeriodic() {
+block0: |2-
+      public void teleopPeriodic() {
           // Arcade drive with a given forward and turn rate
           myDrive.arcadeDrive(-driveStick.getY(), -driveStick.getX());
       }
-"block1": |-
-  public void teleopPeriodic() {
+block1: |2-
+      public void teleopPeriodic() {
           // Drive using the X, Y, and Z axes of the joystick.
           m_robotDrive.driveCartesian(-m_stick.getY(), -m_stick.getX(), -m_stick.getZ());
       }
-"block2": |-
-  // Drive using the X, Y, and Z axes of the joystick.
+block2: |2-
+     // Drive using the X, Y, and Z axes of the joystick.
      var speeds = new ChassisSpeeds(-m_stick.getY(), -m_stick.getX(), -m_stick.getZ());
-"block3": |-
-  // The origin is always blue. When our alliance is red, X and Y need to be inverted
+block3: |2-
+     // The origin is always blue. When our alliance is red, X and Y need to be inverted
      var alliance = DriverStation.getAlliance();
      var invert = 1;
      if (alliance.isPresent() && alliance.get() == Alliance.Red) {

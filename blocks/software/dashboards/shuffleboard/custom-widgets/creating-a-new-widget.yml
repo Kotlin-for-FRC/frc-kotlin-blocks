@@ -1,4 +1,4 @@
-"block0": |-
+block0: |-
   import edu.wpi.first.shuffleboard.api.widget.Description;
   import edu.wpi.first.shuffleboard.api.widget.ParametrizedController;
   import edu.wpi.first.shuffleboard.api.widget.SimpleAnnotatedWidget;
@@ -11,7 +11,7 @@
   @ParametrizedController("Point2DWidget.fxml")
   public final class Point2DWidget extends SimpleAnnotatedWidget<MyPoint2D> {
   }
-"block1": |-
+block1: |-
   import edu.wpi.first.shuffleboard.api.widget.Description;
   import edu.wpi.first.shuffleboard.api.widget.ParametrizedController;
   import edu.wpi.first.shuffleboard.api.widget.SimpleAnnotatedWidget;
@@ -26,7 +26,7 @@
      @FXML
      private Slider ySlider;
   }
-"block2": |-
+block2: |-
   import edu.wpi.first.shuffleboard.api.widget.Description;
   import edu.wpi.first.shuffleboard.api.widget.ParametrizedController;
   import edu.wpi.first.shuffleboard.api.widget.SimpleAnnotatedWidget;
@@ -45,7 +45,7 @@
         return root;
      }
   }
-"block3": |-
+block3: |-
   import edu.wpi.first.shuffleboard.api.widget.Description;
   import edu.wpi.first.shuffleboard.api.widget.ParametrizedController;
   import edu.wpi.first.shuffleboard.api.widget.SimpleAnnotatedWidget;
@@ -69,14 +69,14 @@
         return root;
      }
    }
-"block4": |-
+block4: |-
   xSlider.valueProperty().addListener((observable, oldValue, newValue) -> setData(getData().withX(newValue));
-"block5": |-
+block5: |-
   @Override
   public List<ComponentType> getComponents() {
     return List.of(WidgetType.forAnnotatedWidget(Point2DWidget.class));
   }
-"block6": |-
+block6: |-
   @Override
   public Map<DataType, ComponentType> getDefaultComponents() {
      return Map.of(Point2DType.Instance, WidgetType.forAnnotatedWidget(Point2DWidget.class));

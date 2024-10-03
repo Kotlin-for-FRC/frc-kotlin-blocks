@@ -1,4 +1,4 @@
-"block0": |-
-  CommandScheduler.getInstance().setDefaultCommand(exampleSubsystem, exampleCommand);
-"block1": |-
-  exampleSubsystem.setDefaultCommand(exampleCommand);
+block0: |2-
+     CommandScheduler.getInstance().setDefaultCommand(exampleSubsystem, exampleCommand);
+block1: |2-
+     exampleSubsystem.setDefaultCommand(exampleCommand);

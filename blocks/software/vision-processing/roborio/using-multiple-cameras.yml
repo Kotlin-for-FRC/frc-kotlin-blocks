@@ -1,5 +1,5 @@
-"block0": |-
-  UsbCamera camera1;
+block0: |2-
+      UsbCamera camera1;
       UsbCamera camera2;
       Joystick joy1 = new Joystick(0);
       NetworkTableEntry cameraSelection;
@@ -19,8 +19,8 @@
               cameraSelection.setString(camera1.getName());
           }
       }
-"block1": |-
-  UsbCamera camera1;
+block1: |2-
+      UsbCamera camera1;
       UsbCamera camera2;
       VideoSink server;
       Joystick joy1 = new Joystick(0);
@@ -40,8 +40,8 @@
               server.setSource(camera1);
           }
       }
-"block2": |-
-  UsbCamera camera1;
+block2: |2-
+      UsbCamera camera1;
       UsbCamera camera2;
       VideoSink server;
       Joystick joy1 = new Joystick(0);

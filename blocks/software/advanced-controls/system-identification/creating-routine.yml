@@ -1,11 +1,11 @@
-"block0": |-
-  // Creates a SysIdRoutine
+block0: |2-
+    // Creates a SysIdRoutine
     SysIdRoutine routine = new SysIdRoutine(
         new SysIdRoutine.Config(),
         new SysIdRoutine.Mechanism(this::voltageDrive, this::logMotors, this)
     );
-"block1": |-
-  public Command sysIdQuasistatic(SysIdRoutine.Direction direction) {
+block1: |2-
+    public Command sysIdQuasistatic(SysIdRoutine.Direction direction) {
       return routine.quasistatic(direction);
     }
 

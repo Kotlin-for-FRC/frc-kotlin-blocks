@@ -1,10 +1,10 @@
-"block0": |-
-  @Override
+block0: |2-
+     @Override
      public void robotInit() {
         PortForwarder.add(8888, "wpilibpi.local", 80);
      }
-"block1": |-
-  @Override
+block1: |2-
+     @Override
      public void robotInit() {
         PortForwarder.remove(8888);
      }

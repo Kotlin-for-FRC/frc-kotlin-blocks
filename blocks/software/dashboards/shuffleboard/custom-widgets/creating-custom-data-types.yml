@@ -1,4 +1,4 @@
-"block0": |-
+block0: |-
   import edu.wpi.first.shuffleboard.api.data.ComplexData;
   import java.util.Map;
   public class MyPoint2D extends ComplexData<MyPoint2D> {
@@ -14,7 +14,7 @@
         return Map.of("x", x, "y", y);
      }
   }
-"block1": |-
+block1: |-
   import edu.wpi.first.shuffleboard.api.data.ComplexData;
   import java.util.Map;
   public final class MyPoint2D extends ComplexData<MyPoint2D> {
@@ -30,11 +30,11 @@
         return Map.of("x", this.x, "y", this.y);
      }
    }
-"block2": |-
+block2: |-
   public MyPoint2D withY(double newY) {
      return new MyPoint2D(this.x, newY);
   }
-"block3": |-
+block3: |-
   public final class MyDoubleDataType extends SimpleDataType<Double> {
      private static final String NAME = "Double";
      private MyDataType() {
@@ -45,7 +45,7 @@
         return 0.0;
      }
   }
-"block4": |-
+block4: |-
   public final class PointDataType extends ComplexDataType<MyPoint2D> {
      private static final String NAME = "MyPoint2D";
      public static final PointDataType Instance = new PointDataType();
@@ -64,7 +64,7 @@
         return new MyPoint2D(0, 0);
      }
   }
-"block5": |-
+block5: |-
   public class MyPlugin extends Plugin {
      @Override
      public List<DataType> getDataTypes() {

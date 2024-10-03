@@ -1,5 +1,5 @@
-"block0": |-
-  import edu.wpi.first.networktables.DoubleSubscriber;
+block0: |2-
+          import edu.wpi.first.networktables.DoubleSubscriber;
           import edu.wpi.first.networktables.NetworkTable;
           import edu.wpi.first.networktables.NetworkTableInstance;
           import edu.wpi.first.networktables.NetworkTablesJNI;

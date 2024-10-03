@@ -1,4 +1,4 @@
-"block0": |-
-  ShuffleboardTab tab = Shuffleboard.getTab("Tab Title");
-"block1": |-
-  Shuffleboard.selectTab("Tab Title");
+block0: |2-
+     ShuffleboardTab tab = Shuffleboard.getTab("Tab Title");
+block1: |2-
+     Shuffleboard.selectTab("Tab Title");

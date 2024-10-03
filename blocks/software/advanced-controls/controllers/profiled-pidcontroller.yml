@@ -1,16 +1,16 @@
-"block0": |-
-  // Creates a ProfiledPIDController
+block0: |2-
+    // Creates a ProfiledPIDController
     // Max velocity is 5 meters per second
     // Max acceleration is 10 meters per second
     ProfiledPIDController controller = new ProfiledPIDController(
       kP, kI, kD,
       new TrapezoidProfile.Constraints(5, 10));
-"block1": |-
-  // Calculates the output of the PID algorithm based on the sensor reading
+block1: |2-
+    // Calculates the output of the PID algorithm based on the sensor reading
     // and sends it to a motor
     motor.set(controller.calculate(encoder.getDistance(), goal));
-"block2": |-
-  double lastSpeed = 0;
+block2: |2-
+    double lastSpeed = 0;
     double lastTime = Timer.getFPGATimestamp();
       // Controls a simple motor's position using a SimpleMotorFeedforward
     // and a ProfiledPIDController

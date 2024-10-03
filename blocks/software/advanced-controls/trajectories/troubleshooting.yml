@@ -1,5 +1,5 @@
-"block0": |-
-  NetworkTableEntry m_xEntry = NetworkTableInstance.getDefault().getTable("troubleshooting").getEntry("X");
+block0: |2-
+     NetworkTableEntry m_xEntry = NetworkTableInstance.getDefault().getTable("troubleshooting").getEntry("X");
      NetworkTableEntry m_yEntry = NetworkTableInstance.getDefault().getTable("troubleshooting").getEntry("Y");
      @Override
      public void periodic() {
@@ -10,8 +10,8 @@
          m_xEntry.setNumber(translation.getX());
          m_yEntry.setNumber(translation.getY());
      }
-"block1": |-
-  RamseteController m_disabledRamsete = new RamseteController();
+block1: |2-
+     RamseteController m_disabledRamsete = new RamseteController();
      m_disabledRamsete.setEnabled(false);
      // Be sure to pass your new disabledRamsete variable
      RamseteCommand ramseteCommand = new RamseteCommand(
@@ -20,8 +20,8 @@
          m_disabledRamsete,
          ...
      );
-"block2": |-
-  var table = NetworkTableInstance.getDefault().getTable("troubleshooting");
+block2: |2-
+     var table = NetworkTableInstance.getDefault().getTable("troubleshooting");
      var leftReference = table.getEntry("left_reference");
      var leftMeasurement = table.getEntry("left_measurement");
      var rightReference = table.getEntry("right_reference");

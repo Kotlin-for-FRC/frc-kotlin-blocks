@@ -1,9 +1,9 @@
-"block0": |-
-  import edu.wpi.first.wpilibj.DataLogManager;
+block0: |2-
+      import edu.wpi.first.wpilibj.DataLogManager;
       // Starts recording to data log
       DataLogManager.start();
-"block1": |-
-  import edu.wpi.first.wpilibj.DataLogManager;
+block1: |2-
+      import edu.wpi.first.wpilibj.DataLogManager;
       import edu.wpi.first.wpilibj.DriverStation;
       // Starts recording to data log
       DataLogManager.start();
@@ -11,8 +11,8 @@
       DriverStation.startDataLog(DataLogManager.getLog());
       // (alternatively) Record only DS control data
       DriverStation.startDataLog(DataLogManager.getLog(), false);
-"block2": |-
-  import edu.wpi.first.util.datalog.BooleanLogEntry;
+block2: |2-
+      import edu.wpi.first.util.datalog.BooleanLogEntry;
       import edu.wpi.first.util.datalog.DataLog;
       import edu.wpi.first.util.datalog.DoubleLogEntry;
       import edu.wpi.first.util.datalog.StringLogEntry;

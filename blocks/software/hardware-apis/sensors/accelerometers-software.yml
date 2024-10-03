@@ -1,5 +1,5 @@
-"block0": |-
-  // Creates an analog accelerometer on analog input 0
+block0: |2-
+      // Creates an analog accelerometer on analog input 0
       AnalogAccelerometer accelerometer = new AnalogAccelerometer(0);
       // Sets the sensitivity of the accelerometer to 1 volt per G
       accelerometer.setSensitivity(1);
@@ -7,27 +7,27 @@
       accelerometer.setZero(3);
       // Gets the current acceleration
       double accel = accelerometer.getAcceleration();
-"block1": |-
-  // Sets the accelerometer to measure between -8 and 8 G's
+block1: |2-
+      // Sets the accelerometer to measure between -8 and 8 G's
       accelerometer.setRange(BuiltInAccelerometer.Range.k8G);
-"block2": |-
-  // Creates an ADXL345 accelerometer object on the MXP I2C port
+block2: |2-
+      // Creates an ADXL345 accelerometer object on the MXP I2C port
       // with a measurement range from -8 to 8 G's
       ADXL345_I2C accelerometer = new ADXL345_I2C(I2C.Port.kMXP, ADXL345_I2C.Range.k8G);
-"block3": |-
-  // Creates an ADXL345 accelerometer object on the MXP SPI port
+block3: |2-
+      // Creates an ADXL345 accelerometer object on the MXP SPI port
       // with a measurement range from -8 to 8 G's
       ADXL345_SPI accelerometer = new ADXL345_SPI(SPI.Port.kMXP, ADXL345_SPI.Range.k8G);
-"block4": |-
-  // Creates an ADXL362 accelerometer object on the MXP SPI port
+block4: |2-
+      // Creates an ADXL362 accelerometer object on the MXP SPI port
       // with a measurement range from -8 to 8 G's
       ADXL362 accelerometer = new ADXL362(SPI.Port.kMXP, ADXL362.Range.k8G);
-"block5": |-
-  // Creates an object for the built-in accelerometer
+block5: |2-
+      // Creates an object for the built-in accelerometer
       // Range defaults to +- 8 G's
       BuiltInAccelerometer accelerometer = new BuiltInAccelerometer();
-"block6": |-
-  double prevXAccel = 0.0;
+block6: |2-
+      double prevXAccel = 0.0;
       double prevYAccel = 0.0;
       BuiltInAccelerometer accelerometer = new BuiltInAccelerometer();
       @Override
@@ -42,8 +42,8 @@
           prevXAccel = xAccel;
           prevYAccel = yAccel;
       }
-"block7": |-
-  BuiltInAccelerometer accelerometer = new BuiltInAccelerometer();
+block7: |2-
+      BuiltInAccelerometer accelerometer = new BuiltInAccelerometer();
       // Create a LinearFilter that will calculate a moving average of the measured X acceleration over the past 10 iterations of the main loop
       LinearFilter xAccelFilter = LinearFilter.movingAverage(10);
       @Override

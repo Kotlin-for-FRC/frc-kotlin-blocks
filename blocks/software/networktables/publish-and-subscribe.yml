@@ -1,5 +1,5 @@
-"block0": |-
-  public class Example {
+block0: |2-
+          public class Example {
             // the publisher is an instance variable so its lifetime matches that of the class
             final DoublePublisher dblPub;
             public Example(DoubleTopic dblTopic) {
@@ -37,8 +37,8 @@
               dblPub.close();
             }
           }
-"block1": |-
-  public class Example {
+block1: |2-
+          public class Example {
             // the subscriber is an instance variable so its lifetime matches that of the class
             final DoubleSubscriber dblSub;
             public Example(DoubleTopic dblTopic) {
@@ -76,8 +76,8 @@
               dblSub.close();
             }
           }
-"block2": |-
-  public class Example {
+block2: |2-
+          public class Example {
             // the entry is an instance variable so its lifetime matches that of the class
             final DoubleEntry dblEntry;
             public Example(DoubleTopic dblTopic) {
@@ -120,8 +120,8 @@
               dblEntry.close();
             }
           }
-"block3": |-
-  public class Example {
+block3: |2-
+          public class Example {
             // the entry is an instance variable so its lifetime matches that of the class
             final GenericPublisher pub;
             final GenericSubscriber sub;
@@ -180,8 +180,8 @@
               entry.close();
             }
           }
-"block4": |-
-  public class Example {
+block4: |2-
+          public class Example {
             // the subscriber is an instance variable so its lifetime matches that of the class
             final MultiSubscriber multiSub;
             final NetworkTableListenerPoller poller;

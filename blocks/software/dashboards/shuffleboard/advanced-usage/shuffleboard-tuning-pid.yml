@@ -1,5 +1,5 @@
-"block0": |-
-  ShuffleboardTab tab = Shuffleboard.getTab("Shooter");
+block0: |2-
+    ShuffleboardTab tab = Shuffleboard.getTab("Shooter");
     GenericEntry shooterEnable = tab.add("Shooter Enable", false).getEntry();
     // Command Example assumed to be in a PIDSubsystem
     new NetworkButton(shooterEnable).onTrue(new InstantCommand(m_shooter::enable));

@@ -1,5 +1,5 @@
-"block0": |-
-  DigitalInput toplimitSwitch = new DigitalInput(0);
+block0: |2-
+     DigitalInput toplimitSwitch = new DigitalInput(0);
      DigitalInput bottomlimitSwitch = new DigitalInput(1);
      PWMVictorSPX motor = new PWMVictorSPX(0);
      Joystick joystick = new Joystick(0);

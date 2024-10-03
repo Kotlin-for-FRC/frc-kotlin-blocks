@@ -1,4 +1,4 @@
-"block0": |-
+block0: |-
   Timer m_gcTimer = new Timer();
   public void robotInit() {
     m_gcTimer.start();

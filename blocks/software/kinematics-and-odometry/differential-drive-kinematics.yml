@@ -1,5 +1,5 @@
-"block0": |-
-  // Creating my kinematics object: track width of 27 inches
+block0: |2-
+     // Creating my kinematics object: track width of 27 inches
      DifferentialDriveKinematics kinematics =
        new DifferentialDriveKinematics(Units.inchesToMeters(27.0));
      // Example chassis speeds: 2 meters per second linear velocity,
@@ -11,8 +11,8 @@
      double leftVelocity = wheelSpeeds.leftMetersPerSecond;
      // Right velocity
      double rightVelocity = wheelSpeeds.rightMetersPerSecond;
-"block1": |-
-  // Creating my kinematics object: track width of 27 inches
+block1: |2-
+     // Creating my kinematics object: track width of 27 inches
      DifferentialDriveKinematics kinematics =
        new DifferentialDriveKinematics(Units.inchesToMeters(27.0));
      // Example differential drive wheel speeds: 2 meters per second

@@ -1,10 +1,10 @@
-"block0": |-
-  @Override
+block0: |2-
+     @Override
      public void robotInit() {
         enableLiveWindowInTest(true);
      }
-"block1": |-
-  PWMSparkMax leftDrive;
+block1: |2-
+     PWMSparkMax leftDrive;
      PWMSparkMax rightDrive;
      PWMVictorSPX arm;
      BuiltInAccelerometer accel;

@@ -1,5 +1,5 @@
-"block0": |-
-  Solenoid exampleSingle = new Solenoid(PneumaticsModuleType.CTREPCM, 0);
+block0: |2-
+     Solenoid exampleSingle = new Solenoid(PneumaticsModuleType.CTREPCM, 0);
      DoubleSolenoid exampleDouble = new DoubleSolenoid(PneumaticsModuleType.CTREPCM, 1, 2);
      // Initialize the DoubleSolenoid so it knows where to start.  Not required for single solenoids.
      exampleDouble.set(kReverse);

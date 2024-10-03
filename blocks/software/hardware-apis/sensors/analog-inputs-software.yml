@@ -1,25 +1,25 @@
-"block0": |-
-  // Initializes an AnalogInput on port 0
+block0: |2-
+      // Initializes an AnalogInput on port 0
       AnalogInput analog = new AnalogInput(0);
-"block1": |-
-  // Sets the AnalogInput to 4-bit oversampling.  16 samples will be added together.
+block1: |2-
+      // Sets the AnalogInput to 4-bit oversampling.  16 samples will be added together.
       // Thus, the reported values will increase by about a factor of 16, and the update
       // rate will decrease by a similar amount.
       analog.setOversampleBits(4);
-"block2": |-
-  // Sets the AnalogInput to 4-bit averaging.  16 samples will be averaged together.
+block2: |2-
+      // Sets the AnalogInput to 4-bit averaging.  16 samples will be averaged together.
       // The update rate will decrease by a factor of 16.
       analog.setAverageBits(4);
-"block3": |-
-  analog.getValue();
-"block4": |-
-  analog.getVoltage();
-"block5": |-
-  analog.getAverageValue();
-"block6": |-
-  analog.getAverageVoltage();
-"block7": |-
-  // Sets the initial value of the accumulator to 0
+block3: |2-
+      analog.getValue();
+block4: |2-
+      analog.getVoltage();
+block5: |2-
+      analog.getAverageValue();
+block6: |2-
+      analog.getAverageVoltage();
+block7: |2-
+      // Sets the initial value of the accumulator to 0
       // This is the "starting point" from which the value will change over time
       analog.setAccumulatorInitialValue(0);
       // Sets the "center" of the accumulator to 0.  This value is subtracted from
@@ -31,8 +31,8 @@
       analog.getAccumulatorValue();
       // Resets the accumulator to the initial value
       analog.resetAccumulator();
-"block8": |-
-  // Instantiate an AccumulatorResult object to hold the matched measurements
+block8: |2-
+      // Instantiate an AccumulatorResult object to hold the matched measurements
       AccumulatorResult result = new AccumulatorResult();
       // Fill the AccumulatorResult with the matched measurements
       analog.getAccumulatorOutput(result);

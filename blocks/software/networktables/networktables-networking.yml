@@ -1,8 +1,8 @@
-"block0": |-
-  NetworkTableInstance inst = NetworkTableInstance.getDefault();
+block0: |2-
+          NetworkTableInstance inst = NetworkTableInstance.getDefault();
           inst.startServer();
-"block1": |-
-  NetworkTableInstance inst = NetworkTableInstance.getDefault();
+block1: |2-
+          NetworkTableInstance inst = NetworkTableInstance.getDefault();
           // start a NT4 client
           inst.startClient4("example client");
           // connect to a roboRIO with team number TEAM

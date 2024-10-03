@@ -1,5 +1,5 @@
-"block0": |-
-  // Initializes a DigitalInput on DIO 0
+block0: |2-
+    // Initializes a DigitalInput on DIO 0
     DigitalInput input = new DigitalInput(0);
     // Creates a Debouncer in "both" mode.
     Debouncer m_debouncer = new Debouncer(0.1, Debouncer.DebounceType.kBoth);

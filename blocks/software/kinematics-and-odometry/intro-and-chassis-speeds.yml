@@ -1,10 +1,10 @@
-"block0": |-
-  // The robot is moving at 3 meters per second forward, 2 meters
+block0: |2-
+     // The robot is moving at 3 meters per second forward, 2 meters
      // per second to the right, and rotating at half a rotation per
      // second counterclockwise.
      var speeds = new ChassisSpeeds(3.0, -2.0, Math.PI);
-"block1": |-
-  // The desired field relative speed here is 2 meters per second
+block1: |2-
+     // The desired field relative speed here is 2 meters per second
      // toward the opponent's alliance station wall, and 2 meters per
      // second toward the left field boundary. The desired rotation
      // is a quarter of a rotation per second counterclockwise. The current

@@ -1,5 +1,5 @@
-"block0": |-
-  :linenos:
+block0: |2-
+        :linenos:
         :lineno-start: 11
         :emphasize-lines: 119-121
 
@@ -125,8 +125,8 @@
                 drive.tankDrive(left, right);
             }
         }
-"block1": |-
-  :linenos:
+block1: |2-
+        :linenos:
         :lineno-start: 11
         :emphasize-lines: 48, 54
 

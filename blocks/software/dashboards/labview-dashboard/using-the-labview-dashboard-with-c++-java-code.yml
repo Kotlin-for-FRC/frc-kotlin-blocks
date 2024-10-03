@@ -1,5 +1,5 @@
-"block0": |-
-  SmartDashboard.putStringArray("Auto List", {"Drive Forwards", "Drive Backwards", "Shoot"});
+block0: |2-
+     SmartDashboard.putStringArray("Auto List", {"Drive Forwards", "Drive Backwards", "Shoot"});
         // At the beginning of auto
      String autoName = SmartDashboard.getString("Auto Selector", "Drive Forwards") // This would make "Drive Forwards the default auto
      switch(autoName) {
@@ -10,19 +10,19 @@
         case "Shoot":
         // auto here
      }
-"block1": |-
-  SmartDashboard.putNumber("Gyro", drivetrain.getHeading());
-"block2": |-
-  SmartDashboard.putNumberArray("RobotDrive Motors", {drivetrain.getLeftFront(), drivetrain.getRightFront(), drivetrain.getLeftBack(), drivetrain.getRightBack()});
-"block3": |-
-  SmartDashboard.putString("DB/String 0", "My 21 Char TestString");
-"block4": |-
-  String dashData = SmartDashboard.getString("DB/String 0", "myDefaultData");
-"block5": |-
-  SmartDashboard.putBoolean("DB/Button 0", true);
-"block6": |-
-  boolean buttonValue = SmartDashboard.getBoolean("DB/Button 0", false);
-"block7": |-
-  SmartDashboard.putNumber("DB/Slider 0", 2.58);
-"block8": |-
-  double dashData = SmartDashboard.getNumber("DB/Slider 0", 0.0);
+block1: |2-
+     SmartDashboard.putNumber("Gyro", drivetrain.getHeading());
+block2: |2-
+     SmartDashboard.putNumberArray("RobotDrive Motors", {drivetrain.getLeftFront(), drivetrain.getRightFront(), drivetrain.getLeftBack(), drivetrain.getRightBack()});
+block3: |2-
+     SmartDashboard.putString("DB/String 0", "My 21 Char TestString");
+block4: |2-
+     String dashData = SmartDashboard.getString("DB/String 0", "myDefaultData");
+block5: |2-
+     SmartDashboard.putBoolean("DB/Button 0", true);
+block6: |2-
+     boolean buttonValue = SmartDashboard.getBoolean("DB/Button 0", false);
+block7: |2-
+     SmartDashboard.putNumber("DB/Slider 0", 2.58);
+block8: |2-
+     double dashData = SmartDashboard.getNumber("DB/Slider 0", 0.0);

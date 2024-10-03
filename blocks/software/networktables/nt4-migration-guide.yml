@@ -1,5 +1,5 @@
-"block0": |-
-  public class Example {
+block0: |2-
+        public class Example {
           final NetworkTableEntry yEntry;
           final NetworkTableEntry outEntry;
           public Example() {
@@ -17,8 +17,8 @@
             outEntry.setDouble(value * 2);
           }
         }
-"block1": |-
-  public class Example {
+block1: |2-
+        public class Example {
           final DoubleSubscriber ySub;
           final DoublePublisher outPub;
           public Example() {

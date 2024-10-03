@@ -1,4 +1,4 @@
-"block0": |-
-  SmartDashboard.putData("Auto Selector", m_selector);
-"block1": |-
-  SmartDashboard.putData("Elevator PID Controller", m_elevatorPIDController);
+block0: |2-
+     SmartDashboard.putData("Auto Selector", m_selector);
+block1: |2-
+     SmartDashboard.putData("Elevator PID Controller", m_elevatorPIDController);

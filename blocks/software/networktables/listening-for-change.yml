@@ -1,5 +1,5 @@
-"block0": |-
-  public class Example {
+block0: |2-
+          public class Example {
             final DoubleSubscriber ySub;
             double prev;
             public Example() {
@@ -34,8 +34,8 @@
               ySub.close();
             }
           }
-"block1": |-
-  public class Example {
+block1: |2-
+          public class Example {
             final DoubleSubscriber ySub;
             // use an AtomicReference to make updating the value thread-safe
             final AtomicReference<Double> yValue = new AtomicReference<Double>();

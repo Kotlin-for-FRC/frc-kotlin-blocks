@@ -1,5 +1,5 @@
-"block0": |-
-  // Create the simulation model of our drivetrain.
+block0: |2-
+     // Create the simulation model of our drivetrain.
      DifferentialDrivetrainSim m_driveSim = new DifferentialDrivetrainSim(
        DCMotor.getNEO(2),       // 2 NEO motors on each side of the drivetrain.
        7.29,                    // 7.29:1 gearing reduction.
@@ -13,8 +13,8 @@
        // l and r velocity: 0.1   m/s
        // l and r position: 0.005 m
        VecBuilder.fill(0.001, 0.001, 0.001, 0.1, 0.1, 0.005, 0.005));
-"block1": |-
-  // Create our feedforward gain constants (from the identification
+block1: |2-
+     // Create our feedforward gain constants (from the identification
      // tool)
      static final double KvLinear = 1.98;
      static final double KaLinear = 0.2;
@@ -34,8 +34,8 @@
        // l and r velocity: 0.1   m/s
        // l and r position: 0.005 m
        VecBuilder.fill(0.001, 0.001, 0.001, 0.1, 0.1, 0.005, 0.005));
-"block2": |-
-  private DifferentialDrivetrainSim m_driveSim = DifferentialDrivetrainSim.createKitbotSim(
+block2: |2-
+     private DifferentialDrivetrainSim m_driveSim = DifferentialDrivetrainSim.createKitbotSim(
        KitbotMotor.kDualCIMPerSide, // 2 CIMs per side.
        KitbotGearing.k10p71,        // 10.71:1
        KitbotWheelSize.kSixInch,    // 6" diameter wheels.

@@ -1,5 +1,5 @@
-"block0": |-
-  TalonSRX motorLeft;
+block0: |2-
+     TalonSRX motorLeft;
      TalonSRX motorRight;
      public Robot() {
       if (RobotBase.isReal()) {

@@ -1,5 +1,5 @@
-"block0": |-
-  import edu.wpi.first.cameraserver.CameraServer;
+block0: |2-
+      import edu.wpi.first.cameraserver.CameraServer;
       import edu.wpi.cscore.CvSink;
       import edu.wpi.cscore.CvSource;
       // Creates UsbCamera and MjpegServer [1] and connects them
@@ -8,8 +8,8 @@
       CvSink cvSink = CameraServer.getVideo();
       // Creates the CvSource and MjpegServer [2] and connects them
       CvSource outputStream = CameraServer.putVideo("Blur", 640, 480);
-"block1": |-
-  import edu.wpi.cscore.CvSink;
+block1: |2-
+      import edu.wpi.cscore.CvSink;
       import edu.wpi.cscore.CvSource;
       import edu.wpi.cscore.MjpegServer;
       import edu.wpi.cscore.UsbCamera;

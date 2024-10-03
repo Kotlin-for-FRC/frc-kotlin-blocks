@@ -1,4 +1,4 @@
-"block0": |-
+block0: |-
   chooser = new SendableChooser();
   chooser.setDefaultOption("defaultAuto", new AutonomousCommand());
   chooser.addOption("secondAuto", new AutonomousCommand());
@@ -6,7 +6,7 @@
   SmartDashboard.putData("Chooser", chooser);
   SmartDashboard.putNumber("Arm position in degrees", 52.0);
   SmartDashboard.putString("Program Version", "V1.2");
-"block1": |-
+block1: |-
   drivetrainLeft = new PWMVictorSPX(1);
   drivetrainLeft.setName("Drive train", "Left");
   drivetrainRight = new PWMVictorSPX(1);

@@ -1,5 +1,5 @@
-"block0": |-
-  NetworkTableInstance inst = NetworkTableInstance.getDefault();
+block0: |2-
+          NetworkTableInstance inst = NetworkTableInstance.getDefault();
           NetworkTable table = inst.getTable("datatable");
           // get a topic from a NetworkTableInstance
           // the topic name in this case is the full name

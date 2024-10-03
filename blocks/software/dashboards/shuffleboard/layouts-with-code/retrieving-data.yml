@@ -1,5 +1,5 @@
-"block0": |-
-  class DriveBase extends Subsystem {
+block0: |2-
+     class DriveBase extends Subsystem {
         private ShuffleboardTab tab = Shuffleboard.getTab("Drive");
         private GenericEntry maxSpeed =
            tab.add("Max Speed", 1)
