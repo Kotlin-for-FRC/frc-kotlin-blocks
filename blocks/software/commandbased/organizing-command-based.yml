@@ -1,128 +1,110 @@
 block0: |2-
-    Command runIntake = Commands.startEnd(() -> intake.set(1), () -> intake.set(0), intake);
+    val runIntake = Commands.startEnd({ intake.set(1) }, { intake.set(0.0) }, intake)
 block1: |2-
-    // RobotContainer.java
-    intakeButton.whileTrue(Commands.startEnd(() -> intake.set(1.0), () -> intake.set(0), intake));
-    Command intakeAndShoot = Commands.startEnd(() -> intake.set(1.0), () -> intake.set(0), intake)
-        .alongWith(new RunShooter(shooter));
-    Command autonomousCommand = Commands.sequence(
-        Commands.startEnd(() -> intake.set(1.0), () -> intake.set(0.0), intake).withTimeout(5.0),
+    // RobotContainer.kt
+    intakeButton.whileTrue(Commands.startEnd({ intake.set(1.0) }, { intake.set(0.0) }, intake))
+    val intakeAndShoot = Commands.startEnd({ intake.set(1.0) }, { intake.set(0.0) }, intake)
+        .alongWith(RunShooter(shooter))
+    val autonomousCommand = Commands.sequence(
+        Commands.startEnd({ intake.set(1.0) }, { intake.set(0.0) }, intake).withTimeout(5.0),
         Commands.waitSeconds(3.0),
-        Commands.startEnd(() -> intake.set(1.0), () -> intake.set(0.0), intake).withTimeout(5.0)
-    );
+        Commands.startEnd({ intake.set(1.0) }, { intake.set(0.0) }, intake).withTimeout(5.0)
+    )
 block10: |2-
-    public class RunIntakeCommand extends Command {
-        private Intake m_intake;
-        public RunIntakeCommand(Intake intake) {
-            this.m_intake = intake;
-            addRequirements(intake);
+    class RunIntakeCommand(private val intake: Intake): Command() {
+        init { addRequirements(intake) }
+        override initialize() {
+            intake.set(1.0)
         }
-        @Override
-        public void initialize() {
-            m_intake.set(1.0);
-        }
-        @Override
-        public void end(boolean interrupted) {
-            m_intake.set(0.0);
+        override fun end(interrupted: Boolean) {
+            intake.set(0.0)
         }
         // execute() defaults to do nothing
         // isFinished() defaults to return false
     }
 block11: |2-
-    public class IntakeThenOuttake extends SequentialCommandGroup {
-        public IntakeThenOuttake(Intake intake) {
-            super(
-                intake.runIntakeCommand(1.0).withTimeout(2.0),
-                new WaitCommand(2.0),
-                intake.runIntakeCommand(-1).withTimeout(5.0)
-            );
-        }
-    }
+    class IntakeThenOuttake(intake: Intake): 
+        SequentialCommandGroup(
+            intake.runIntakeCommand(1.0).withTimeout(2.0),
+            WaitCommand(2.0),
+            intake.runIntakeCommand(-1).withTimeout(5.0)
+        )
 block2: |2-
-    public class Intake extends SubsystemBase {
+    class Intake: SubsystemBase() {
       // [code for motor controllers, configuration, etc.]
       // ...
-      public Command runIntakeCommand() {
-        // implicitly requires `this`
-        return this.startEnd(() -> this.set(1.0), () -> this.set(0.0));
-      }
+      fun runIntakeCommand() =
+        this.startEnd({ this.set(1.0) }, { this.set(0.0) }) // implicitly requires `this`
     }
 block3: |2-
-    intakeButton.whileTrue(intake.runIntakeCommand());
-    Command intakeAndShoot = intake.runIntakeCommand().alongWith(new RunShooter(shooter));
-    Command autonomousCommand = Commands.sequence(
+    intakeButton.whileTrue(intake.runIntakeCommand())
+    val intakeAndShoot = intake.runIntakeCommand().alongWith(RunShooter(shooter))
+    val autonomousCommand = Commands.sequence(
         intake.runIntakeCommand().withTimeout(5.0),
         Commands.waitSeconds(3.0),
         intake.runIntakeCommand().withTimeout(5.0)
-    );
-block4: |2-
-    public Command runIntakeCommand(double percent) {
-        return new StartEndCommand(() -> this.set(percent), () -> this.set(0.0), this);
-    }
-block5: |2-
-    Command intakeRunSequence = intake.runIntakeCommand(1.0).withTimeout(2.0)
+    )
+block4: |
+    public fun runIntakeCommand(percent: Double) =
+        StartEndCommand({ this.set(percent) }, { this.set(0.0) }, this)
+block5: |
+    val intakeRunSequence = intake.runIntakeCommand(1.0).withTimeout(2.0)
         .andThen(Commands.waitSeconds(2.0))
-        .andThen(intake.runIntakeCommand(-1.0).withTimeout(5.0));
-block6: |2-
-    public class AutoRoutines {
-        public static Command driveAndIntake(Drivetrain drivetrain, Intake intake) {
-            return Commands.sequence(
+        .andThen(intake.runIntakeCommand(-1.0).withTimeout(5.0))
+block6: |
+    fun driveAndIntakeRoutine(drivetrain: Drivetrain, intake: Intake) =
+        Commands.sequence(
+            Commands.parallel(
+                drivetrain.driveCommand(0.5, 0.5),
+                intake.runIntakeCommand(1.0)
+            ).withTimeout(5.0),
+            Commands.parallel(
+                drivetrain.stopCommand(),
+                intake.stopCommand()
+            )
+        )
+block7: |
+    class AutoRoutines(
+        private val drivetrain: Drivetrain,
+        private val intake: Intake
+    ) { 
+        fun driveAndIntake() = 
+            Commands.sequence(
                 Commands.parallel(
                     drivetrain.driveCommand(0.5, 0.5),
                     intake.runIntakeCommand(1.0)
                 ).withTimeout(5.0),
                 Commands.parallel(
-                  drivetrain.stopCommand();
-                  intake.stopCommand();
+                    drivetrain.stopCommand()
+                    intake.stopCommand()
                 )
-            );
-        }
-    }
-block7: |2-
-    public class AutoRoutines {
-        private Drivetrain drivetrain;
-        private Intake intake;
-        public AutoRoutines(Drivetrain drivetrain, Intake intake) {
-            this.drivetrain = drivetrain;
-            this.intake = intake;
-        }
-        public Command driveAndIntake() {
-            return Commands.sequence(
-                Commands.parallel(
-                    drivetrain.driveCommand(0.5, 0.5),
-                    intake.runIntakeCommand(1.0)
-                ).withTimeout(5.0),
-                Commands.parallel(
-                    drivetrain.stopCommand();
-                    intake.stopCommand();
-                )
-            );
-        }
-        public Command driveThenIntake() {
-            return Commands.sequence(
+            )
+        fun driveThenIntake() = 
+            Commands.sequence(
                 drivetrain.driveCommand(0.5, 0.5).withTimeout(5.0),
                 drivetrain.stopCommand(),
                 intake.runIntakeCommand(1.0).withTimeout(5.0),
                 intake.stopCommand()
-            );
-        }
+            )
     }
-block8: |2-
-    AutoRoutines autoRoutines = new AutoRoutines(this.drivetrain, this.intake);
-    Command driveAndIntake = autoRoutines.driveAndIntake();
-    Command driveThenIntake = autoRoutines.driveThenIntake();
-    Command drivingAndIntakingSequence = Commands.sequence(
-      autoRoutines.driveAndIntake(),
-      autoRoutines.driveThenIntake()
-    );
-block9: |2-
-    public Command turnToAngle(double targetDegrees) {
+block8: |
+    val autoRoutines = AutoRoutines(this.drivetrain, this.intake)
+    val driveAndIntake = autoRoutines.driveAndIntake()
+    val driveThenIntake = autoRoutines.driveThenIntake()
+    val drivingAndIntakingSequence = Commands.sequence(
+        autoRoutines.driveAndIntake(),
+        autoRoutines.driveThenIntake()
+    )
+block9: |
+    const val TURN_TO_ANGLE_P = 0.5
+    const val TURN_TO_ANGLE_TOLERANCE = 0.06
+    fun turnToAngle(targetDegrees: Double) {
         // Create a controller for the inline command to capture
-        PIDController controller = new PIDController(Constants.kTurnToAngleP, 0, 0);
+        val controller = PIDController(TURN_TO_ANGLE_P, 0.0, 0.0)
         // We can do whatever configuration we want on the created state before returning from the factory
-        controller.setPositionTolerance(Constants.kTurnToAngleTolerance);
+        controller.setPositionTolerance(TURN_TO_ANGLE_TOLERANCE)
         // Try to turn at a rate proportional to the heading error until we're at the setpoint, then stop
-        return run(() -> arcadeDrive(0,-controller.calculate(gyro.getHeading(), targetDegrees)))
+        return run { arcadeDrive(0.0, -controller.calculate(gyro.heading, targetDegrees)) }
             .until(controller::atSetpoint)
-            .andThen(runOnce(() -> arcadeDrive(0, 0)));
+            .andThen(runOnce{ arcadeDrive(0.0, 0.0) })
     }
