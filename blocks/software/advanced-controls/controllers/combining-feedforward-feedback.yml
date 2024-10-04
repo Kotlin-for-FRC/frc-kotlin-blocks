@@ -2,6 +2,7 @@
 block0: |
   // Adds a feedforward to the loop output before sending it to the motor
   motor.setVoltage(pid.calculate(encoder.distance, setpoint) + feedforward)
+
 block1: |
   fun tankDriveWithFeedforwardPID(leftVelocitySetpoint: Double, rightVelocitySetpoint: Double) {
     leftMotor.setVoltage(feedforward.calculate(leftVelocitySetpoint)
