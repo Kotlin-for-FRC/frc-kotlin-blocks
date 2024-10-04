@@ -1,3 +1,4 @@
+# validated: 2024-10-03 TW e53db15a2003 software/kinematics-and-odometry/intro-and-chassis-speeds.rst
 block0: |
   // The robot is moving at 3 meters per second forward, 2 meters
   // per second to the right, and rotating at half a rotation per

@@ -1,3 +1,4 @@
+# validated: 2024-10-03 TW e53db15a2003 software/kinematics-and-odometry/swerve-drive-odometry.rst
 block0: |
   // Locations for the swerve drive modules relative to the robot center.
   val m_frontLeftLocation = Translation2d(0.381, 0.381)

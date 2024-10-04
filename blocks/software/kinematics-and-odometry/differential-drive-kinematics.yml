@@ -1,3 +1,4 @@
+# validated: 2024-10-03 TW e53db15a2003 software/kinematics-and-odometry/differential-drive-kinematics.rst
 block0: |
   // Creating my kinematics object: track width of 27 inches
   val kinematics =

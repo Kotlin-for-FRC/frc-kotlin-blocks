@@ -1,3 +1,4 @@
+# validated: 2024-10-03 TW e53db15a2003 software/kinematics-and-odometry/differential-drive-odometry.rst
 block0: |
   // Creating my odometry object. Here,
   // our starting pose is 5 meters along the long end of the field and in the
