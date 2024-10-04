@@ -1,10 +1,10 @@
-block0: |2-
-     @Override
-     public void robotInit() {
-        PortForwarder.add(8888, "wpilibpi.local", 80);
-     }
-block1: |2-
-     @Override
-     public void robotInit() {
-        PortForwarder.remove(8888);
-     }
+# validated: 2024-10-03 TW 7f059b62e8c3 networking/networking-utilities/portforwarding.rst
+block0: |
+  override fun robotInit() {
+      PortForwarder.add(8888, "wpilibpi.local", 80)
+  }
+
+block1: |
+  override fun robotInit() {
+      PortForwarder.remove(8888)
+  }
