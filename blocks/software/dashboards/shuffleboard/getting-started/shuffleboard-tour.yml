@@ -1,2 +1,2 @@
-block0: |2-
+block0: |
      SmartDashboard.putNumber("Joystick X value", joystick1.getX());

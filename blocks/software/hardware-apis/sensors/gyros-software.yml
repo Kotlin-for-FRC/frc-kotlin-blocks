@@ -1,30 +1,37 @@
-block0: |2-
+block0: |
       // ADIS16448 plugged into the MXP port
       ADIS16448_IMU gyro = new ADIS16448_IMU();
-block1: |2-
+
+block1: |
       // ADIS16470 plugged into the SPI port
       ADIS16470_IMU gyro = new ADIS16470_IMU();
-block2: |2-
+
+block2: |
       // Creates an ADXRS450_Gyro object on the onboard SPI port
       ADXRS450_Gyro gyro = new ADXRS450_Gyro();
-block3: |2-
+
+block3: |
       // Creates an AnalogGyro object on port 0
       AnalogGyro gyro = new AnalogGyro(0);
-block4: |2-
+
+block4: |
       // navX MXP using SPI
       AHRS gyro = new AHRS(SPI.Port.kMXP);
-block5: |2-
+
+block5: |
       WPI_PigeonIMU gyro = new WPI_PigeonIMU(0); // Pigeon is on CAN Bus with device ID 0
       // OR (choose one or the other based on your connection)
       TalonSRX talon = new TalonSRX(0); // TalonSRX is on CAN Bus with device ID 0
       WPI_PigeonIMU gyro = new WPI_PigeonIMU(talon); // Pigeon uses the talon created above
-block6: |2-
+
+block6: |
       // Use gyro declaration from above here
       public void robotInit() {
           // Places a compass indicator for the gyro heading on the dashboard
           Shuffleboard.getTab("Example tab").add(gyro);
       }
-block7: |2-
+
+block7: |
       // Use gyro declaration from above here
       // The gain for a simple P loop
       double kP = 1;
@@ -53,7 +60,8 @@ block7: |2-
           // Drives forward continuously at half speed, using the gyro to stabilize the heading
           drive.tankDrive(.5 + kP * error, .5 - kP * error);
       }
-block8: |2-
+
+block8: |
       // Use gyro declaration from above here
       // The gain for a simple P loop
       double kP = 1;
@@ -82,7 +90,8 @@ block8: |2-
           // Drives forward continuously at half speed, using the gyro to stabilize the heading
           drive.tankDrive(.5 + kP * error, .5 - kP * error);
       }
-block9: |2-
+
+block9: |
       // Use gyro declaration from above here
       // The gain for a simple P loop
       double kP = 0.05;

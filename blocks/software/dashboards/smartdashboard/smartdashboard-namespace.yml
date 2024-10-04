@@ -6,6 +6,7 @@ block0: |-
   SmartDashboard.putData("Chooser", chooser);
   SmartDashboard.putNumber("Arm position in degrees", 52.0);
   SmartDashboard.putString("Program Version", "V1.2");
+
 block1: |-
   drivetrainLeft = new PWMVictorSPX(1);
   drivetrainLeft.setName("Drive train", "Left");

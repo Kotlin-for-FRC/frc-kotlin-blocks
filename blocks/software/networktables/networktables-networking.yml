@@ -1,7 +1,8 @@
-block0: |2-
+block0: |
           NetworkTableInstance inst = NetworkTableInstance.getDefault();
           inst.startServer();
-block1: |2-
+
+block1: |
           NetworkTableInstance inst = NetworkTableInstance.getDefault();
           // start a NT4 client
           inst.startClient4("example client");

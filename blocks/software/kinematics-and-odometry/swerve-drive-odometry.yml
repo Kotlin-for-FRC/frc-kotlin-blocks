@@ -1,4 +1,4 @@
-block0: |2-
+block0: |
      // Locations for the swerve drive modules relative to the robot center.
      Translation2d m_frontLeftLocation = new Translation2d(0.381, 0.381);
      Translation2d m_frontRightLocation = new Translation2d(0.381, -0.381);
@@ -19,7 +19,8 @@ block0: |2-
          m_backLeftModule.getPosition(),
          m_backRightModule.getPosition()
        }, new Pose2d(5.0, 13.5, new Rotation2d()));
-block1: |2-
+
+block1: |
      @Override
      public void periodic() {
        // Get the rotation of the robot from the gyro.

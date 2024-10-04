@@ -1,4 +1,4 @@
-block0: |2-
+block0: |
           public class Example {
             // the publisher is an instance variable so its lifetime matches that of the class
             final DoublePublisher dblPub;
@@ -37,7 +37,8 @@ block0: |2-
               dblPub.close();
             }
           }
-block1: |2-
+
+block1: |
           public class Example {
             // the subscriber is an instance variable so its lifetime matches that of the class
             final DoubleSubscriber dblSub;
@@ -76,7 +77,8 @@ block1: |2-
               dblSub.close();
             }
           }
-block2: |2-
+
+block2: |
           public class Example {
             // the entry is an instance variable so its lifetime matches that of the class
             final DoubleEntry dblEntry;
@@ -120,7 +122,8 @@ block2: |2-
               dblEntry.close();
             }
           }
-block3: |2-
+
+block3: |
           public class Example {
             // the entry is an instance variable so its lifetime matches that of the class
             final GenericPublisher pub;
@@ -180,7 +183,8 @@ block3: |2-
               entry.close();
             }
           }
-block4: |2-
+
+block4: |
           public class Example {
             // the subscriber is an instance variable so its lifetime matches that of the class
             final MultiSubscriber multiSub;

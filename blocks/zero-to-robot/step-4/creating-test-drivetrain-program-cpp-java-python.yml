@@ -1,23 +1,26 @@
-block0: |2-
+block0: |
            import edu.wpi.first.wpilibj.TimedRobot;
            import edu.wpi.first.wpilibj.Timer;
            import edu.wpi.first.wpilibj.XboxController;
            import edu.wpi.first.wpilibj.drive.DifferentialDrive;
            import com.ctre.phoenix6.hardware.TalonFX;
-block1: |2-
+
+block1: |
               import com.revrobotics.CANSparkMax;
               import com.revrobotics.CANSparkLowLevel.MotorType;
               import edu.wpi.first.wpilibj.TimedRobot;
               import edu.wpi.first.wpilibj.Timer;
               import edu.wpi.first.wpilibj.XboxController;
               import edu.wpi.first.wpilibj.drive.DifferentialDrive;
-block2: |2-
+
+block2: |
            import edu.wpi.first.wpilibj.TimedRobot;
            import edu.wpi.first.wpilibj.Timer;
            import edu.wpi.first.wpilibj.XboxController;
            import edu.wpi.first.wpilibj.drive.DifferentialDrive;
            import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
-block3: |2-
+
+block3: |
               public class Robot extends TimedRobot {
                  private final TalonFX m_leftDrive = new TalonFX(1);
                  private final TalonFX m_rightDrive = new TalonFX(2);
@@ -25,7 +28,8 @@ block3: |2-
                    new DifferentialDrive(m_leftDrive::set, m_rightDrive::set);
                  private final XboxController m_controller = new XboxController(0);
                  private final Timer m_timer = new Timer();
-block4: |2-
+
+block4: |
               public class Robot extends TimedRobot {
                 private final CANSparkMax m_leftDrive = new CANSparkMax(1, MotorType.kBrushless);
                 private final CANSparkMax m_rightDrive = new CANSparkMax(2, MotorType.kBrushless);
@@ -33,7 +37,8 @@ block4: |2-
                   new DifferentialDrive(m_leftDrive::set, m_rightDrive::set);
                 private final XboxController m_controller = new XboxController(0);
                 private final Timer m_timer = new Timer();
-block5: |2-
+
+block5: |
               public class Robot extends TimedRobot {
                  private final WPI_TalonSRX m_leftDrive = new WPI_TalonSRX(1);
                  private final WPI_TalonSRX m_rightDrive = new WPI_TalonSRX(2);

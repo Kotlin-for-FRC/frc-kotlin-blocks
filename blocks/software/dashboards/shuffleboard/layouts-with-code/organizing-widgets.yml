@@ -1,9 +1,10 @@
-block0: |2-
+block0: |
      Shuffleboard.getTab("Pre-round")
        .add("Auto Mode", autoModeChooser)
        .withSize(2, 1) // make the widget 2x1
        .withPosition(0, 0); // place it in the top-left corner
-block1: |2-
+
+block1: |
      ShuffleboardLayout elevatorCommands = Shuffleboard.getTab("Commands")
        .getLayout("Elevator", BuiltInLayouts.kList)
        .withSize(2, 2)

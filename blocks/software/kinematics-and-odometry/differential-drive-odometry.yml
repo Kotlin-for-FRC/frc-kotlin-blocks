@@ -1,4 +1,4 @@
-block0: |2-
+block0: |
      // Creating my odometry object. Here,
      // our starting pose is 5 meters along the long end of the field and in the
      // center of the field along the short end, facing forward.
@@ -6,7 +6,8 @@ block0: |2-
        m_gyro.getRotation2d(),
        m_leftEncoder.getDistance(), m_rightEncoder.getDistance(),
        new Pose2d(5.0, 13.5, new Rotation2d()));
-block1: |2-
+
+block1: |
      @Override
      public void periodic() {
        // Get the rotation of the robot from the gyro.

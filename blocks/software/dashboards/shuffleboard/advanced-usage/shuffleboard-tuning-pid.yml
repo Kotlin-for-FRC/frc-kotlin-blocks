@@ -1,4 +1,4 @@
-block0: |2-
+block0: |
     ShuffleboardTab tab = Shuffleboard.getTab("Shooter");
     GenericEntry shooterEnable = tab.add("Shooter Enable", false).getEntry();
     // Command Example assumed to be in a PIDSubsystem

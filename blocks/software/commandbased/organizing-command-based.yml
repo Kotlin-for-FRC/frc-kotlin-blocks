@@ -1,6 +1,7 @@
-block0: |2-
+block0: |
     Command runIntake = Commands.startEnd(() -> intake.set(1), () -> intake.set(0), intake);
-block1: |2-
+
+block1: |
     // RobotContainer.java
     intakeButton.whileTrue(Commands.startEnd(() -> intake.set(1.0), () -> intake.set(0), intake));
     Command intakeAndShoot = Commands.startEnd(() -> intake.set(1.0), () -> intake.set(0), intake)
@@ -10,7 +11,8 @@ block1: |2-
         Commands.waitSeconds(3.0),
         Commands.startEnd(() -> intake.set(1.0), () -> intake.set(0.0), intake).withTimeout(5.0)
     );
-block10: |2-
+
+block10: |
     public class RunIntakeCommand extends Command {
         private Intake m_intake;
         public RunIntakeCommand(Intake intake) {
@@ -28,7 +30,8 @@ block10: |2-
         // execute() defaults to do nothing
         // isFinished() defaults to return false
     }
-block11: |2-
+
+block11: |
     public class IntakeThenOuttake extends SequentialCommandGroup {
         public IntakeThenOuttake(Intake intake) {
             super(
@@ -38,7 +41,8 @@ block11: |2-
             );
         }
     }
-block2: |2-
+
+block2: |
     public class Intake extends SubsystemBase {
       // [code for motor controllers, configuration, etc.]
       // ...
@@ -47,7 +51,8 @@ block2: |2-
         return this.startEnd(() -> this.set(1.0), () -> this.set(0.0));
       }
     }
-block3: |2-
+
+block3: |
     intakeButton.whileTrue(intake.runIntakeCommand());
     Command intakeAndShoot = intake.runIntakeCommand().alongWith(new RunShooter(shooter));
     Command autonomousCommand = Commands.sequence(
@@ -55,15 +60,18 @@ block3: |2-
         Commands.waitSeconds(3.0),
         intake.runIntakeCommand().withTimeout(5.0)
     );
-block4: |2-
+
+block4: |
     public Command runIntakeCommand(double percent) {
         return new StartEndCommand(() -> this.set(percent), () -> this.set(0.0), this);
     }
-block5: |2-
+
+block5: |
     Command intakeRunSequence = intake.runIntakeCommand(1.0).withTimeout(2.0)
         .andThen(Commands.waitSeconds(2.0))
         .andThen(intake.runIntakeCommand(-1.0).withTimeout(5.0));
-block6: |2-
+
+block6: |
     public class AutoRoutines {
         public static Command driveAndIntake(Drivetrain drivetrain, Intake intake) {
             return Commands.sequence(
@@ -78,7 +86,8 @@ block6: |2-
             );
         }
     }
-block7: |2-
+
+block7: |
     public class AutoRoutines {
         private Drivetrain drivetrain;
         private Intake intake;
@@ -107,7 +116,8 @@ block7: |2-
             );
         }
     }
-block8: |2-
+
+block8: |
     AutoRoutines autoRoutines = new AutoRoutines(this.drivetrain, this.intake);
     Command driveAndIntake = autoRoutines.driveAndIntake();
     Command driveThenIntake = autoRoutines.driveThenIntake();
@@ -115,7 +125,8 @@ block8: |2-
       autoRoutines.driveAndIntake(),
       autoRoutines.driveThenIntake()
     );
-block9: |2-
+
+block9: |
     public Command turnToAngle(double targetDegrees) {
         // Create a controller for the inline command to capture
         PIDController controller = new PIDController(Constants.kTurnToAngleP, 0, 0);

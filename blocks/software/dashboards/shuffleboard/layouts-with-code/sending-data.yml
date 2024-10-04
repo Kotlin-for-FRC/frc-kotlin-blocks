@@ -1,7 +1,8 @@
-block0: |2-
+block0: |
      Shuffleboard.getTab("Numbers")
           .add("Pi", 3.14);
-block1: |2-
+
+block1: |
      class VisionCalculator {
         private ShuffleboardTab tab = Shuffleboard.getTab("Vision");
         private GenericEntry distanceEntry =
@@ -12,9 +13,11 @@ block1: |2-
            distanceEntry.setDouble(distance);
         }
      }
-block2: |2-
+
+block2: |
      Shuffleboard.getTab("Drive")
           .addPersistent("Max Speed", 1.0);
-block3: |2-
+
+block3: |
      Shuffleboard.getTab("Tab Title")
           .add("Sendable Title", mySendable);

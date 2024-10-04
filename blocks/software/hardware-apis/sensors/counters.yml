@@ -1,4 +1,4 @@
-block0: |2-
+block0: |
       // Create a new Counter object in two-pulse mode
       Counter counter = new Counter(Counter.Mode.k2Pulse);
       @Override
@@ -10,7 +10,8 @@ block0: |2-
           counter.setUpSourceEdge(true, true);
           counter.setDownSourceEdge(true, true);
       }
-block1: |2-
+
+block1: |
       // Create a new Counter object in two-pulse mode
       Counter counter = new Counter(Counter.Mode.kSemiperiod);
       @Override
@@ -20,19 +21,24 @@ block1: |2-
           // Set the encoder to count pulse duration from rising edge to falling edge
           counter.setSemiPeriodMode(true);
       }
-block10: |2-
+
+block10: |
       // Gets the last direction in which the counter moved
       counter.getDirection();
-block11: |2-
+
+block11: |
       // returns the current period in seconds
       counter.getPeriod();
-block12: |2-
+
+block12: |
       // Resets the encoder to read a distance of zero
       counter.reset();
-block2: |2-
+
+block2: |
       // Return the measured pulse width in seconds
       counter.getPeriod();
-block3: |2-
+
+block3: |
       // Create a new Counter object in two-pulse mode
       Counter counter = new Counter(Counter.Mode.kPulseLength);
       @Override
@@ -44,7 +50,8 @@ block3: |2-
           // Set the counter to count down if the pulses are longer than .05 seconds
           counter.setPulseLengthMode(.05)
       }
-block4: |2-
+
+block4: |
       // Create a new Counter object in two-pulse mode
       Counter counter = new Counter(Counter.Mode.kExternalDirection);
       @Override
@@ -55,7 +62,8 @@ block4: |2-
           // Set the decoding type to 2X
           counter.setUpSourceEdge(true, true);
       }
-block5: |2-
+
+block5: |
       // Configures the counter to return a distance of 4 for every 256 pulses
       // Also changes the units of getRate
       counter.setDistancePerPulse(4./256.);
@@ -68,15 +76,19 @@ block5: |2-
       // Configures an counter to average its period measurement over 5 samples
       // Can be between 1 and 127 samples
       counter.setSamplesToAverage(5);
-block6: |2-
+
+block6: |
       // returns the current count
       counter.get();
-block7: |2-
+
+block7: |
       // returns the current distance
       counter.getDistance();
-block8: |2-
+
+block8: |
       // Gets the current rate of the counter
       counter.getRate();
-block9: |2-
+
+block9: |
       // Gets whether the counter is stopped
       counter.getStopped();

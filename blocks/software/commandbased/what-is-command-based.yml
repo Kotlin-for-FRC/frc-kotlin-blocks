@@ -1,6 +1,7 @@
-block0: |2-
+block0: |
     new Trigger(condition::get).onTrue(Commands.runOnce(() -> piston.set(DoubleSolenoid.Value.kForward)));
-block1: |2-
+
+block1: |
     if(condition.get()) {
       if(!pressed) {
         piston.set(DoubleSolenoid.Value.kForward);

@@ -1,38 +1,47 @@
-block0: |2-
+block0: |
      // Will run fooCommand, and then a race between barCommand and bazCommand
      button.onTrue(fooCommand.andThen(barCommand.raceWith(bazCommand)));
-block1: |2-
+
+block1: |
      // Will run forever unless externally interrupted, restarting every time command.isFinished() returns true
      Command repeats = command.repeatedly();
-block2: |2-
+
+block2: |
      fooCommand.andThen(barCommand)
-block3: |2-
+
+block3: |
      // Will be a parallel command composition that ends after three seconds with all three commands running their full duration.
      button.onTrue(Commands.parallel(twoSecCommand, oneSecCommand, threeSecCommand));
      // Will be a parallel race composition that ends after one second with the two and three second commands getting interrupted.
      button.onTrue(Commands.race(twoSecCommand, oneSecCommand, threeSecCommand));
      // Will be a parallel deadline composition that ends after two seconds (the deadline) with the three second command getting interrupted (one second command already finished).
      button.onTrue(Commands.deadline(twoSecCommand, oneSecCommand, threeSecCommand));
-block4: |2-
+
+block4: |
      // Will be interrupted if m_limitSwitch.get() returns true
      button.onTrue(command.until(m_limitSwitch::get));
-block5: |2-
+
+block5: |
      // Will time out 5 seconds after being scheduled, and be interrupted
      button.onTrue(command.withTimeout(5));
-block6: |2-
+
+block6: |
      // Runs either commandOnTrue or commandOnFalse depending on the value of m_limitSwitch.get()
      new ConditionalCommand(commandOnTrue, commandOnFalse, m_limitSwitch::get)
-block7: |2-
+
+block7: |
      // Command will only run if the intake is deployed. If the intake gets deployed while the command is running, the command will not stop running
      button.onTrue(command.unless(() -> !intake.isDeployed()));
-block8: |2-
+
+block8: |
      // composition requirements are indexer and shooter, intake still reserved during its command but not afterwards
      Commands.sequence(
         intake.intakeGamePiece().asProxy(), // we want to let the intake intake another game piece while we are processing this one
         indexer.processGamePiece(),
         shooter.aimAndShoot()
      );
-block9: |2-
+
+block9: |
      // ScheduleCommand ends immediately, so the sequence continues
      new ScheduleCommand(Commands.waitSeconds(5.0))
         .andThen(Commands.print("This will be printed immediately!"))

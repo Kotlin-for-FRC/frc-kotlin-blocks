@@ -1,4 +1,4 @@
-block0: |2-
+block0: |
         public class Example {
           final NetworkTableEntry yEntry;
           final NetworkTableEntry outEntry;
@@ -17,7 +17,8 @@ block0: |2-
             outEntry.setDouble(value * 2);
           }
         }
-block1: |2-
+
+block1: |
         public class Example {
           final DoubleSubscriber ySub;
           final DoublePublisher outPub;

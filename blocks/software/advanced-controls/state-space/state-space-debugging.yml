@@ -1,4 +1,4 @@
-block0: |2-
+block0: |
      @Override
      public void robotPeriodic() {
         NetworkTableInstance.getDefault().flush();

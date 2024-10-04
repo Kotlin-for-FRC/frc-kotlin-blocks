@@ -1,4 +1,4 @@
-block0: |2-
+block0: |
     import edu.wpi.first.wpilibj.DriverStation;
     String gameData;
     gameData = DriverStation.getInstance().getGameSpecificMessage();
