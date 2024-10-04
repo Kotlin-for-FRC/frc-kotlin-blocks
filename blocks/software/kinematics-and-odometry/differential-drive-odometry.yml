@@ -1,19 +1,23 @@
+# validated: 2024-10-03 TW e53db15a2003 software/kinematics-and-odometry/differential-drive-odometry.rst
 block0: |
-     // Creating my odometry object. Here,
-     // our starting pose is 5 meters along the long end of the field and in the
-     // center of the field along the short end, facing forward.
-     DifferentialDriveOdometry m_odometry = new DifferentialDriveOdometry(
-       m_gyro.getRotation2d(),
-       m_leftEncoder.getDistance(), m_rightEncoder.getDistance(),
-       new Pose2d(5.0, 13.5, new Rotation2d()));
+  // Creating my odometry object. Here,
+  // our starting pose is 5 meters along the long end of the field and in the
+  // center of the field along the short end, facing forward.
+  val odometry =
+      DifferentialDriveOdometry(
+          gyro.rotation2d,
+         leftEncoder.distance,
+          rightEncoder.distance,
+          Pose2d(5.0, 13.5, Rotation2d()),
+      )
 
 block1: |
-     @Override
-     public void periodic() {
-       // Get the rotation of the robot from the gyro.
-       var gyroAngle = m_gyro.getRotation2d();
-       // Update the pose
-       m_pose = m_odometry.update(gyroAngle,
-         m_leftEncoder.getDistance(),
-         m_rightEncoder.getDistance());
-     }
+  override fun periodic() {
+      // Get the rotation of the robot from the gyro.
+      val gyroAngle = gyro.rotation2d
+      // Update the pose
+      pose = odometry.update(gyroAngle,
+          leftEncoder.distance,
+          rightEncoder.distance,
+      )
+  }
