@@ -3,21 +3,21 @@ block0: |
   // Creating my odometry object. Here,
   // our starting pose is 5 meters along the long end of the field and in the
   // center of the field along the short end, facing forward.
-  val m_odometry = 
+  val odometry =
       DifferentialDriveOdometry(
-          m_gyro.rotation2d,
-          m_leftEncoder.distance, 
-          m_rightEncoder.distance,
+          gyro.rotation2d,
+         leftEncoder.distance,
+          rightEncoder.distance,
           Pose2d(5.0, 13.5, Rotation2d()),
       )
 
 block1: |
   override fun periodic() {
       // Get the rotation of the robot from the gyro.
-      val gyroAngle = m_gyro.rotation2d
+      val gyroAngle = gyro.rotation2d
       // Update the pose
-      m_pose = m_odometry.update(gyroAngle,
-          m_leftEncoder.distance,
-          m_rightEncoder.distance,
+      pose = odometry.update(gyroAngle,
+          leftEncoder.distance,
+          rightEncoder.distance,
       )
   }

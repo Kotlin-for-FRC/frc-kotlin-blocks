@@ -1,16 +1,16 @@
 # validated: 2024-10-03 TW 52cda447a46a software/kinematics-and-odometry/swerve-drive-kinematics.rst
 block0: |
   // Locations for the swerve drive modules relative to the robot center.
-  val m_frontLeftLocation = Translation2d(0.381, 0.381)
-  val m_frontRightLocation = Translation2d(0.381, -0.381)
-  val m_backLeftLocation = Translation2d(-0.381, 0.381)
-  val m_backRightLocation = Translation2d(-0.381, -0.381)
+  val frontLeftLocation = Translation2d(0.381, 0.381)
+  val frontRightLocation = Translation2d(0.381, -0.381)
+  val backLeftLocation = Translation2d(-0.381, 0.381)
+  val backRightLocation = Translation2d(-0.381, -0.381)
   // Creating my kinematics object using the module locations
-  val m_kinematics = SwerveDriveKinematics(
-    m_frontLeftLocation,
-    m_frontRightLocation,
-    m_backLeftLocation,
-    m_backRightLocation,
+  val kinematics = SwerveDriveKinematics(
+    frontLeftLocation,
+    frontRightLocation,
+    backLeftLocation,
+    backRightLocation,
   )
 
 block1: |
@@ -30,10 +30,10 @@ block1: |
   val backRight = moduleStates[3]
 
 block2: |
-  var frontLeftOptimized = SwerveModuleState.optimize(frontLeft, Rotation2d(m_turningEncoder.getDistance()))
+  var frontLeftOptimized = SwerveModuleState.optimize(frontLeft, Rotation2d(turningEncoder.getDistance()))
 
 block3: |
-  var currentAngle = Rotation2d.fromRadians(m_turningEncoder.distance)
+  var currentAngle = Rotation2d.fromRadians(turningEncoder.distance)
   var frontLeftOptimized = SwerveModuleState.optimize(frontLeft, currentAngle)
   frontLeftOptimized.speedMetersPerSecond *= frontLeftOptimized.angle.minus(currentAngle).cos
 

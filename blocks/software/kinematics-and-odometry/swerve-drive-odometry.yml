@@ -1,32 +1,32 @@
 # validated: 2024-10-03 TW e53db15a2003 software/kinematics-and-odometry/swerve-drive-odometry.rst
 block0: |
   // Locations for the swerve drive modules relative to the robot center.
-  val m_frontLeftLocation = Translation2d(0.381, 0.381)
-  val m_frontRightLocation = Translation2d(0.381, -0.381)
-  val m_backLeftLocation = Translation2d(-0.381, 0.381)
-  val m_backRightLocation = Translation2d(-0.381, -0.381)
+  val frontLeftLocation = Translation2d(0.381, 0.381)
+  val frontRightLocation = Translation2d(0.381, -0.381)
+  val backLeftLocation = Translation2d(-0.381, 0.381)
+  val backRightLocation = Translation2d(-0.381, -0.381)
   
   // Creating my kinematics object using the module locations
-  val m_kinematics =
+  val kinematics =
       SwerveDriveKinematics(
-          m_frontLeftLocation,
-          m_frontRightLocation,
-          m_backLeftLocation,
-          m_backRightLocation,
+          frontLeftLocation,
+          frontRightLocation,
+          backLeftLocation,
+          backRightLocation,
       )
   
   // Creating my odometry object from the kinematics object and the initial wheel positions.
   // Here, our starting pose is 5 meters along the long end of the field and in the
   // center of the field along the short end, facing the opposing alliance wall.
-  val m_odometry =
+  val odometry =
       SwerveDriveOdometry(
-          m_kinematics,
-          m_gyro.rotation2d,
+          kinematics,
+          gyro.rotation2d,
           arrayOf(
-              m_frontLeftModule.position,
-              m_frontRightModule.position,
-              m_backLeftModule.position,
-              m_backRightModule.position,
+              frontLeftModule.position,
+              frontRightModule.position,
+              backLeftModule.position,
+              backRightModule.position,
           ),
           Pose2d(5.0, 13.5, Rotation2d()),
       )
@@ -34,16 +34,16 @@ block0: |
 block1: |
   override fun periodic() {
     // Get the rotation of the robot from the gyro.
-    val gyroAngle = m_gyro.rotation2d;
+    val gyroAngle = gyro.rotation2d
     // Update the pose
-    m_pose = 
-      m_odometry.update(
-          gyroAngle, 
+    pose =
+      odometry.update(
+          gyroAngle,
           arrayOf(
-              m_frontLeftModule.getPosition(), 
-              m_frontRightModule.getPosition(),
-              m_backLeftModule.getPosition(), 
-              m_backRightModule.getPosition(),
+              frontLeftModule.getPosition(),
+              frontRightModule.getPosition(),
+              backLeftModule.getPosition(),
+              backRightModule.getPosition(),
           )
       )
   }

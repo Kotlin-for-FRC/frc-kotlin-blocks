@@ -1,17 +1,17 @@
 # validated: 2024-10-03 TW e53db15a2003 software/kinematics-and-odometry/mecanum-drive-kinematics.rst
 block0: |
   // Locations of the wheels relative to the robot center.
-  val m_frontLeftLocation = Translation2d(0.381, 0.381)
-  val m_frontRightLocation = Translation2d(0.381, -0.381)
-  val m_backLeftLocation = Translation2d(-0.381, 0.381)
-  val m_backRightLocation = Translation2d(-0.381, -0.381)
+  val frontLeftLocation = Translation2d(0.381, 0.381)
+  val frontRightLocation = Translation2d(0.381, -0.381)
+  val backLeftLocation = Translation2d(-0.381, 0.381)
+  val backRightLocation = Translation2d(-0.381, -0.381)
   // Creating my kinematics object using the wheel locations
-  val m_kinematics =
+  val kinematics =
       MecanumDriveKinematics(
-          m_frontLeftLocation,
-          m_frontRightLocation,
-          m_backLeftLocation,
-          m_backRightLocation,
+          frontLeftLocation,
+          frontRightLocation,
+          backLeftLocation,
+          backRightLocation,
       )
 
 block1: |
