@@ -1,10 +1,10 @@
-block0: |2-
+block0: |
     // Creates a SysIdRoutine
-    routine: SysIdRoutine = SysIdRoutine(
+    val routine = SysIdRoutine(
         SysIdRoutine.Config(),
         SysIdRoutine.Mechanism(this::voltageDrive, this::logMotors, this)
     );
-block1: |2-
-    fun sysIdQuasistatic(direction: SysIdRoutine.Direction) = routine.quasistatic(direction);
+block1: |
+    fun sysIdQuasistatic(direction: SysIdRoutine.Direction) = routine.quasistatic(direction)
     
-    fun sysIdDynamic(direction: SysIdRoutine.Direction) = routine.dynamic(direction);
+    fun sysIdDynamic(direction: SysIdRoutine.Direction) = routine.dynamic(direction)
