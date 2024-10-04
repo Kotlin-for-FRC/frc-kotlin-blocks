@@ -4,10 +4,15 @@ block0: |
         shooter.shoot()
         intake.stop()
     }, shooter, intake)
+
 block1: |
     val mayRunDuringDisabled = Commands.run(::updateTelemetry).ignoringDisable(true)
+
 block2: |
-    val nonInterruptible = Commands.run(intake::activate, intake).withInterruptBehavior(Command.InterruptBehavior.kCancelIncoming)
+    val nonInterruptible = 
+        Commands.run(intake::activate, intake)
+            .withInterruptBehavior(Command.InterruptBehavior.kCancelIncoming)
+
 block3: |
     // A split-stick arcade command, with forward/backward controlled by the left
     // hand, and turning controlled by the right.
@@ -17,6 +22,7 @@ block3: |
             driverController.getRightX()
         )
     }, robotDrive)
+
 block4: |
     Commands.startEnd(
         // Start a flywheel spinning at 50% power
@@ -26,6 +32,7 @@ block4: |
         // Requires the shooter subsystem
         shooter
     )
+
 block5: |
     FunctionalCommand(
         // Reset encoders on command start
@@ -39,9 +46,11 @@ block5: |
         // Require the drive subsystem
         robotDrive
     )
+
 block6: |
     // Ends 5 seconds after being scheduled
     WaitCommand(5.0)
+
 block7: |
     // Ends after both limitSwitch.get() and shooter.isReady() return true
     WaitUntilCommand{ limitSwitch.get() && shooter.isReady() }

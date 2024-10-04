@@ -1,11 +1,14 @@
 block0: |
      // Will run fooCommand, and then a race between barCommand and bazCommand
      button.onTrue(fooCommand.andThen(barCommand.raceWith(bazCommand)))
+
 block1: |
      // Will run forever unless externally interrupted, restarting every time command.isFinished() returns true
      val repeats: Command = command.repeatedly()
+
 block2: |
      fooCommand.andThen(barCommand)
+
 block3: |
      // Will be a parallel command composition that ends after three seconds with all three commands running their full duration.
      button.onTrue(Commands.parallel(twoSecCommand, oneSecCommand, threeSecCommand))
@@ -13,18 +16,23 @@ block3: |
      button.onTrue(Commands.race(twoSecCommand, oneSecCommand, threeSecCommand))
      // Will be a parallel deadline composition that ends after two seconds (the deadline) with the three second command getting interrupted (one second command already finished).
      button.onTrue(Commands.deadline(twoSecCommand, oneSecCommand, threeSecCommand))
+
 block4: |
      // Will be interrupted if limitSwitch.get() returns true
      button.onTrue(command.until(limitSwitch::get))
+
 block5: |
      // Will time out 5 seconds after being scheduled, and be interrupted
      button.onTrue(command.withTimeout(5))
+
 block6: |
      // Runs either commandOnTrue or commandOnFalse depending on the value of limitSwitch.get()
     ConditionalCommand(commandOnTrue, commandOnFalse){ limitSwitch.get() }
+
 block7: |
      // Command will only run if the intake is deployed. If the intake gets deployed while the command is running, the command will not stop running
      button.onTrue(command.unless{ !intake.isDeployed() })
+
 block8: |
      // composition requirements are indexer and shooter, intake still reserved during its command but not afterwards
      Commands.sequence(
@@ -32,6 +40,7 @@ block8: |
         indexer.processGamePiece(),
         shooter.aimAndShoot()
      )
+
 block9: |
      // ScheduleCommand ends immediately, so the sequence continues
      ScheduleCommand(Commands.waitSeconds(5.0))
