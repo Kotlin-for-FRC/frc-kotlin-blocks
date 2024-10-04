@@ -1,14 +1,10 @@
 block0: |2-
     // Creates a SysIdRoutine
-    SysIdRoutine routine = new SysIdRoutine(
-        new SysIdRoutine.Config(),
-        new SysIdRoutine.Mechanism(this::voltageDrive, this::logMotors, this)
+    routine: SysIdRoutine = SysIdRoutine(
+        SysIdRoutine.Config(),
+        SysIdRoutine.Mechanism(this::voltageDrive, this::logMotors, this)
     );
 block1: |2-
-    public Command sysIdQuasistatic(SysIdRoutine.Direction direction) {
-      return routine.quasistatic(direction);
-    }
-
-    public Command sysIdDynamic(SysIdRoutine.Direction direction) {
-      return routine.dynamic(direction);
-    }
+    fun sysIdQuasistatic(direction: SysIdRoutine.Direction) = routine.quasistatic(direction);
+    
+    fun sysIdDynamic(direction: SysIdRoutine.Direction) = routine.dynamic(direction);
