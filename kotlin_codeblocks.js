@@ -6,6 +6,8 @@ const url = raw_prefix + filename;
 
 const codeblocks = document.querySelectorAll(".sd-tab-set.docutils");
 
+var sd_labels_by_text = {};
+
 let items = 0;
 
 if (codeblocks.length > 0) {
@@ -14,8 +16,7 @@ if (codeblocks.length > 0) {
         codeblocks.forEach((blockElement, index) => {
             items += blockElement.getElementsByTagName("input").length;
 
-            console.log(blocks);
-            let container = createTab(index, items, "kotlin", highlightKotlinCode(blocks[index])); 
+            let container = createTab(index, items, "kotlin", highlightKotlinCode(blocks[index]));
             while (container.firstChild) {
                 blockElement.appendChild(container.firstChild);
             }
@@ -44,6 +45,16 @@ async function fetchBlocks(url) {
     }
 }
 
+function onLabelClick() {
+  // Activate other inputs with the same sync id.
+  console.log("kotlin clicked")
+  syncId = this.getAttribute('data-sync-id');
+  for (label of sd_labels_by_text[syncId]) {
+    if (label === this) continue;
+    label.previousElementSibling.checked = true;
+  }
+}
+
 function createTab(setId, itemId, label, code) {
     const container = document.createElement('div');
 
@@ -55,9 +66,15 @@ function createTab(setId, itemId, label, code) {
 
     const labelElement = document.createElement('label');
     labelElement.className = 'sd-tab-label';
-    labelElement.setAttribute('data-sync-id', `tabcode-${label.toLowerCase()}`);
+    const syncId = `tabcode-${label.toLowerCase()}`;
+    labelElement.setAttribute('data-sync-id', syncId);
     labelElement.setAttribute('for', "sd-tab-item-" + itemId);
     labelElement.textContent = label.toUpperCase();
+    if (!sd_labels_by_text[syncId]) {
+        sd_labels_by_text[syncId] = [];
+    }
+    sd_labels_by_text[syncId].push(labelElement);
+    labelElement.onclick = onLabelClick;
 
     const contentDiv = document.createElement('div');
     contentDiv.className = 'sd-tab-content docutils';
