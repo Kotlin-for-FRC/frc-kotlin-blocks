@@ -1,4 +1,4 @@
-block0: |2-
+block0: |
      DigitalInput toplimitSwitch = new DigitalInput(0);
      DigitalInput bottomlimitSwitch = new DigitalInput(1);
      PWMVictorSPX motor = new PWMVictorSPX(0);

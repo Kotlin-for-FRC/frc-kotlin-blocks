@@ -1,11 +1,13 @@
-block0: |2-
+block0: |
      private Field2d m_field = new Field2d();
-block1: |2-
+
+block1: |
      public Drivetrain() {
        ...
        SmartDashboard.putData("Field", m_field);
      }
-block2: |2-
+
+block2: |
      public void periodic() {
        ...
        // This will get the simulated sensor readings that we set

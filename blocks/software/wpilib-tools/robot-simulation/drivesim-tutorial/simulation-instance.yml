@@ -1,4 +1,4 @@
-block0: |2-
+block0: |
      // These represent our regular encoder objects, which we would
      // create to use on a real robot.
      private Encoder m_leftEncoder = new Encoder(0, 1);
@@ -8,7 +8,8 @@ block0: |2-
      // declarations when you are deploying code to the roboRIO.
      private EncoderSim m_leftEncoderSim = new EncoderSim(m_leftEncoder);
      private EncoderSim m_rightEncoderSim = new EncoderSim(m_rightEncoder);
-block1: |2-
+
+block1: |
      // Create our gyro object like we would on a real robot.
      private AnalogGyro m_gyro = new AnalogGyro(1);
      // Create the simulated gyro object, used for setting the gyro

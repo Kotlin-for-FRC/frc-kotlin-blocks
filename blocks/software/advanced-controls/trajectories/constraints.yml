@@ -1,4 +1,4 @@
-block0: |2-
+block0: |
      @Override
      public double getMaxVelocityMetersPerSecond(Pose2d poseMeters, double curvatureRadPerMeter,
                                                  double velocityMetersPerSecond) {

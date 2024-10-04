@@ -1,4 +1,4 @@
-block0: |2-
+block0: |
           NetworkTableInstance inst = NetworkTableInstance.getDefault();
           NetworkTable table = inst.getTable("datatable");
           // get a topic from a NetworkTableInstance

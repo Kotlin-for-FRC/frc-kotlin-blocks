@@ -1,6 +1,8 @@
-block0: |2-
+block0: |
      SmartDashboard.putData(subsystem-reference);
+
 block1: |-
   setName(subsystem-name);
-block2: |2-
+
+block2: |
      SmartDashboard.putData("ElevatorMove: up", new ElevatorMove(2.7));

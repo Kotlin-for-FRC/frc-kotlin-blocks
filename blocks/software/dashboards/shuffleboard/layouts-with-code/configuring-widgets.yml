@@ -1,9 +1,10 @@
-block0: |2-
+block0: |
      Shuffleboard.getTab("Drive")
         .add("Max Speed", 1)
         .withWidget(BuiltInWidgets.kNumberSlider) // specify the widget here
         .getEntry();
-block1: |2-
+
+block1: |
      Shuffleboard.getTab("Drive")
         .add("Max Speed", 1)
         .withWidget(BuiltInWidgets.kNumberSlider)

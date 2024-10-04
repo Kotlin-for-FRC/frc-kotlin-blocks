@@ -1,4 +1,4 @@
-block0: |2-
+block0: |
           // get the default NetworkTable instance
           NetworkTableInstance defaultInst = NetworkTableInstance.getDefault();
           // create a NetworkTable instance

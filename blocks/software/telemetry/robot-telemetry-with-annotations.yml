@@ -1,4 +1,4 @@
-block0: |2-
+block0: |
       @Logged
       public class Robot extends TimedRobot {
         private final Arm arm;
@@ -18,7 +18,8 @@ block0: |2-
       public class Drivetrain {
         // ...
       }
-block1: |2-
+
+block1: |
           public class Robot extends RobotBase {
             private final Arm arm;
             public Robot() {
@@ -36,7 +37,8 @@ block1: |2-
               // ...
             }
           }
-block2: |2-
+
+block2: |
           @Logged
           public class Robot extends RobotBase {
             private final Arm arm; // Anything loggable within the arm object will be logged under an "arm" entry
@@ -59,7 +61,8 @@ block2: |2-
               // ...
             }
           }
-block3: |2-
+
+block3: |
           @Logged
           public class Robot extends RobotBase {
             @Logged(name = "Arm")
@@ -87,7 +90,8 @@ block3: |2-
                 // ...
             }
           }
-block4: |2-
+
+block4: |
       @Logged
       public class Robot extends TimedRobot {
         public Robot() {
@@ -110,7 +114,8 @@ block4: |2-
           Epilogue.bind(this);
         }
       }
-block5: |2-
+
+block5: |
       class VendorMotor {
         public int getFaults();
         public void set(double speed);

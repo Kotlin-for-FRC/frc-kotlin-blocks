@@ -1,4 +1,4 @@
-block0: |2-
+block0: |
      public class Robot extends TimedRobot {
         double counter = 0.0;
         public void teleopPeriodic() {

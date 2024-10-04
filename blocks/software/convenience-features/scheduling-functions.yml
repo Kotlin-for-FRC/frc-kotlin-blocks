@@ -1,4 +1,4 @@
-block0: |2-
+block0: |
           public class Robot extends TimedRobot {
               private Joystick m_joystick = new Joystick(0);
               private Encoder m_encoder = new Encoder(1, 2);

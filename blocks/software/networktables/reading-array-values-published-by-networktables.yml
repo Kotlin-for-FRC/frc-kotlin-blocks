@@ -1,4 +1,4 @@
-block0: |2-
+block0: |
      DoubleArraySubscriber areasSub;
      @Override
      public void robotInit() {

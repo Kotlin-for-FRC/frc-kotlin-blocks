@@ -1,4 +1,4 @@
-block0: |2-
+block0: |
      var trajectoryOne =
      TrajectoryGenerator.generateTrajectory(
         new Pose2d(0, 0, Rotation2d.fromDegrees(0)),

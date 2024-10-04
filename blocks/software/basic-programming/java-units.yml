@@ -1,11 +1,13 @@
 block0: |-
   Distance wheelDiameter = Inches.of(6);
+
 block1: |-
   Mass kArmMass = Kilograms.of(1.423);
   Distance kArmLength = Inches.of(32.25);
   Angle kMinArmAngle = Degrees.of(5);
   Angle kArmMaxTravel = Rotations.of(0.45);
   LinearVelocity kMaxSpeed = MetersPerSecond.of(2.5);
+
 block10: |-
   MutDistance distance = Inches.mutable(0);
   distance.mut_plus(10, Inches);
@@ -14,7 +16,8 @@ block10: |-
   calculateDelta(distance); // expect 2 inches, but get 0 instead!
   distance.mut_plus(8, Inches);
   calculateDelta(distance); // expect 8 inches, but get 0 instead!
-block11: |2-
+
+block11: |
         private Distance m_lastDistance;
         public Distance calculateDelta(Distance currentDistance) {
           if (m_lastDistance == null) {
@@ -26,7 +29,8 @@ block11: |2-
             return delta;
           }
         }
-block12: |2-
+
+block12: |
         private final MutDistance m_lastDistance = Meters.mutable(0);
         private final MutDistance m_delta = Meters.mutable(0);
         public Distance calculateDelta(Distance currentDistance) {
@@ -36,10 +40,12 @@ block12: |2-
           m_lastDistance.mut_replace(currentDistance);
           return m_delta;
         }
+
 block13: |-
   PerUnit<VoltageUnit, DistanceUnit> VoltsPerInch = Volts.per(Inch);
   VelocityUnit<MassUnit> KgPerSecond = Kilograms.per(Second); // Could also be declared as PerUnit<MassUnit, TimeUnit>
   DistanceUnit FootMinutesPerSecond = FeetPerSecond.mult(Minutes);
+
 block14: |-
   @Override
   public void robotPeriodic() {
@@ -47,6 +53,7 @@ block14: |-
     // which will be reused on every successive loop
     SmartDashboard.putNumber("Speed", m_drivebase.getSpeed().in(Feet.per(Millisecond)));
   }
+
 block15: |-
   public class ElectricChargeUnit extends Unit {
     public ElectricCharge(double baseUnitEquivalent, String name, String symbol) {
@@ -103,6 +110,7 @@ block15: |-
   public static final ElectricCharge ElectronCharge = new ElectricCharge(1.60217646e-19, "Electron Charge", "e");
   public static final ElectricCharge AmpHour = new ElectricCharge(3600, "Amp Hour", "Ah");
   public static final ElectricCharge MilliampHour = Milli(AmpHour);
+
 block2: |-
   // Using ofNative:
   Per<VoltageUnit, DistanceUnit> kP = VoltsPerMeter.ofNative(1);
@@ -117,14 +125,17 @@ block2: |-
 
   Measure<?> output = kP.times(Meters.of(1)); // The compiler can't know what unit this is
   output.in(Volts); // Compilation error!
+
 block3: |-
   Distance distance1 = Inches.of(10);
   Distance distance2 = Meters.of(0.254);
   Distance totalDistance = distance1.plus(distance2);
+
 block4: |-
   Distance wheelDiameter = Inches.of(3);
   double gearRatio = 10.48;
   Distance distancePerRotation = wheelDiameter.times(Math.PI).divide(gearRatio);
+
 block5: |-
   LinearVelocity kMaxVelocity = FeetPerSecond.of(12.5);
   LinearAcceleration kMaxAcceleration = FeetPerSecond.per(Second).of(22.9);
@@ -136,10 +147,12 @@ block5: |-
     maxVelocity.in(MetersPerSecond),
     maxAcceleration.in(MetersPerSecondPerSecond)
   );
+
 block6: |-
   Distance armLength = Feet.of(3).plus(Inches.of(4.25));
   Distance endEffectorX = armLength.times(Math.cos(getArmAngle().in(Radians)));
   Distance endEffectorY = armLength.times(Math.sin(getArmAngle().in(Radians)));
+
 block7: |-
   MutDistance measure = Feet.mutable(0);
   measure.mut_plus(10, Inches);    // 0.8333 feet
@@ -151,6 +164,7 @@ block7: |-
   measure.mut_replace(6.2, Meters) // 6.2 meters - note the unit changed!
   measure.mut_replace(Millimeters.of(14.2)) // 14.2mm - the unit changed again!
   measure.mut_setMagnitude(72)     // 72mm
+
 block8: |-
   import edu.wpi.first.units.Measure;
   import edu.wpi.first.units.MutableMeasure;
@@ -188,6 +202,7 @@ block8: |-
       return m_angle;
     }
   }
+
 block9: |-
   private Distance m_lastDistance;
   public Distance calculateDelta(Distance currentDistance) {

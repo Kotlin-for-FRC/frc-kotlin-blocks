@@ -1,10 +1,12 @@
-block0: |2-
+block0: |
       // Initializes a DigitalInput on DIO 0
       DigitalInput input = new DigitalInput(0);
-block1: |2-
+
+block1: |
       // Gets the value of the digital input.  Returns true if the circuit is open.
       input.get();
-block2: |2-
+
+block2: |
       // Initializes an AnalogTrigger on port 0
       AnalogTrigger trigger0 = new AnalogTrigger(0);
       // Initializes an AnalogInput on port 1 and enables 2-bit oversampling
@@ -12,12 +14,14 @@ block2: |2-
       input.setAverageBits(2);
       // Initializes an AnalogTrigger using the above input
       AnalogTrigger trigger1 = new AnalogTrigger(input);
-block3: |2-
+
+block3: |
       // Sets the trigger to enable at a raw value of 3500, and disable at a value of 1000
       trigger.setLimitsRaw(1000, 3500);
       // Sets the trigger to enable at a voltage of 4 volts, and disable at a value of 1.5 volts
       trigger.setLimitsVoltage(1.5, 4);
-block4: |2-
+
+block4: |
       Spark spark = new Spark(0);
       // Limit switch on DIO 2
       DigitalInput limit = new DigitalInput(2);

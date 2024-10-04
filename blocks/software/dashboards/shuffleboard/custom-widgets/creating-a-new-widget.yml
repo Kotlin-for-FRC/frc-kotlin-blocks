@@ -11,6 +11,7 @@ block0: |-
   @ParametrizedController("Point2DWidget.fxml")
   public final class Point2DWidget extends SimpleAnnotatedWidget<MyPoint2D> {
   }
+
 block1: |-
   import edu.wpi.first.shuffleboard.api.widget.Description;
   import edu.wpi.first.shuffleboard.api.widget.ParametrizedController;
@@ -26,6 +27,7 @@ block1: |-
      @FXML
      private Slider ySlider;
   }
+
 block2: |-
   import edu.wpi.first.shuffleboard.api.widget.Description;
   import edu.wpi.first.shuffleboard.api.widget.ParametrizedController;
@@ -45,6 +47,7 @@ block2: |-
         return root;
      }
   }
+
 block3: |-
   import edu.wpi.first.shuffleboard.api.widget.Description;
   import edu.wpi.first.shuffleboard.api.widget.ParametrizedController;
@@ -69,13 +72,16 @@ block3: |-
         return root;
      }
    }
+
 block4: |-
   xSlider.valueProperty().addListener((observable, oldValue, newValue) -> setData(getData().withX(newValue));
+
 block5: |-
   @Override
   public List<ComponentType> getComponents() {
     return List.of(WidgetType.forAnnotatedWidget(Point2DWidget.class));
   }
+
 block6: |-
   @Override
   public Map<DataType, ComponentType> getDefaultComponents() {
