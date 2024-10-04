@@ -1,27 +1,27 @@
 block0: |
-     // Creating my kinematics object: track width of 27 inches
-     DifferentialDriveKinematics kinematics =
-       new DifferentialDriveKinematics(Units.inchesToMeters(27.0));
-     // Example chassis speeds: 2 meters per second linear velocity,
-     // 1 radian per second angular velocity.
-     var chassisSpeeds = new ChassisSpeeds(2.0, 0, 1.0);
-     // Convert to wheel speeds
-     DifferentialDriveWheelSpeeds wheelSpeeds = kinematics.toWheelSpeeds(chassisSpeeds);
-     // Left velocity
-     double leftVelocity = wheelSpeeds.leftMetersPerSecond;
-     // Right velocity
-     double rightVelocity = wheelSpeeds.rightMetersPerSecond;
+  // Creating my kinematics object: track width of 27 inches
+  val kinematics =
+    DifferentialDriveKinematics(Units.inchesToMeters(27.0))
+  // Example chassis speeds: 2 meters per second linear velocity,
+  // 1 radian per second angular velocity.
+  val chassisSpeeds = ChassisSpeeds(2.0, 0, 1.0)
+  // Convert to wheel speeds
+  val wheelSpeeds = kinematics.toWheelSpeeds(chassisSpeeds)
+  // Left velocity
+  leftVelocity = wheelSpeeds.leftMetersPerSecond
+  // Right velocity
+  rightVelocity = wheelSpeeds.rightMetersPerSecond
 
 block1: |
-     // Creating my kinematics object: track width of 27 inches
-     DifferentialDriveKinematics kinematics =
-       new DifferentialDriveKinematics(Units.inchesToMeters(27.0));
-     // Example differential drive wheel speeds: 2 meters per second
-     // for the left side, 3 meters per second for the right side.
-     var wheelSpeeds = new DifferentialDriveWheelSpeeds(2.0, 3.0);
-     // Convert to chassis speeds.
-     ChassisSpeeds chassisSpeeds = kinematics.toChassisSpeeds(wheelSpeeds);
-     // Linear velocity
-     double linearVelocity = chassisSpeeds.vxMetersPerSecond;
-     // Angular velocity
-     double angularVelocity = chassisSpeeds.omegaRadiansPerSecond;
+  // Creating my kinematics object: track width of 27 inches
+  val kinematics =
+    DifferentialDriveKinematics(Units.inchesToMeters(27.0))
+  // Example differential drive wheel speeds: 2 meters per second
+  // for the left side, 3 meters per second for the right side.
+  val wheelSpeeds = DifferentialDriveWheelSpeeds(2.0, 3.0)
+  // Convert to chassis speeds.
+  val chassisSpeeds = kinematics.toChassisSpeeds(wheelSpeeds)
+  // Linear velocity
+  val linearVelocity = chassisSpeeds.vxMetersPerSecond
+  // Angular velocity
+  val angularVelocity = chassisSpeeds.omegaRadiansPerSecond
