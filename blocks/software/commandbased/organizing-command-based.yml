@@ -12,27 +12,6 @@ block1: |
         Commands.startEnd({ intake.set(1.0) }, { intake.set(0.0) }, intake).withTimeout(5.0)
     )
 
-block10: |
-    class RunIntakeCommand(private val intake: Intake): Command() {
-        init { addRequirements(intake) }
-        override initialize() {
-            intake.set(1.0)
-        }
-        override fun end(interrupted: Boolean) {
-            intake.set(0.0)
-        }
-        // execute() defaults to do nothing
-        // isFinished() defaults to return false
-    }
-
-block11: |
-    class IntakeThenOuttake(intake: Intake): 
-        SequentialCommandGroup(
-            intake.runIntakeCommand(1.0).withTimeout(2.0),
-            WaitCommand(2.0),
-            intake.runIntakeCommand(-1).withTimeout(5.0)
-        )
-
 block2: |
     class Intake: SubsystemBase() {
       // [code for motor controllers, configuration, etc.]
@@ -119,3 +98,24 @@ block9: |
             .until(controller::atSetpoint)
             .andThen(runOnce{ arcadeDrive(0.0, 0.0) })
     }
+
+block10: |
+    class RunIntakeCommand(private val intake: Intake): Command() {
+        init { addRequirements(intake) }
+        override initialize() {
+            intake.set(1.0)
+        }
+        override fun end(interrupted: Boolean) {
+            intake.set(0.0)
+        }
+        // execute() defaults to do nothing
+        // isFinished() defaults to return false
+    }
+
+block11: |
+    class IntakeThenOuttake(intake: Intake): 
+        SequentialCommandGroup(
+            intake.runIntakeCommand(1.0).withTimeout(2.0),
+            WaitCommand(2.0),
+            intake.runIntakeCommand(-1).withTimeout(5.0)
+        )

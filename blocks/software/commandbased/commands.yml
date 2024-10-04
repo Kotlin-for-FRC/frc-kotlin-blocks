@@ -36,15 +36,15 @@ block4: |
 block5: |
     FunctionalCommand(
         // Reset encoders on command start
-        robotDrive::resetEncoders,
+        /* onInit */ robotDrive::resetEncoders,
         // Start driving forward at the start of the command
-        { robotDrive.arcadeDrive(kAutoDriveSpeed, 0) },
+        /* onExecute */ { robotDrive.arcadeDrive(kAutoDriveSpeed, 0) },
         // Stop driving at the end of the command
-        { interrupted -> robotDrive.arcadeDrive(0, 0) },
+        /* onEnd */ { interrupted -> robotDrive.arcadeDrive(0, 0) },
         // End the command when the robot's driven distance exceeds the desired value
-        { robotDrive.getAverageEncoderDistance() >= kAutoDriveDistanceInches },
+        /* isFinished */ { robotDrive.averageEncoderDistance >= kAutoDriveDistanceInches },
         // Require the drive subsystem
-        robotDrive
+        /* subsystems */ robotDrive
     )
 
 block6: |
