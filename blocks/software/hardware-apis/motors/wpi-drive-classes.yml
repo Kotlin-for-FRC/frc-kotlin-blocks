@@ -1,30 +1,33 @@
+# validated: 2024-10-06 TW e53db15a2003 software/hardware-apis/motors/wpi-drive-classes.rst
 block0: |
-     PWMSparkMax m_motorRight = new PWMSparkMax(0);
-     @Override
-     public void robotInit() {
-        m_motorRight.setInverted(true);
-     }
+  val motorRight = PWMSparkMax(0)
+
+  override fun robotInit() {
+     motorRight.inverted = true
+  }
 
 block1: |
-      m_motorRight.setSafetyEnabled(true);
-      m_motorRight.setSafetyEnabled(false);
-      m_motorRight.setExpiration(.1);
-      m_motorRight.feed()
+  motorRight.isSafetyEnabled = true
+  motorRight.isSafetyEnabled = false
+  motorRight.expiration = .1
+  motorRight.feed()
 
 block2: |
-      public void teleopPeriodic() {
-          // Tank drive with a given left and right rates
-          myDrive.tankDrive(-leftStick.getY(), -rightStick.getY());
-          // Arcade drive with a given forward and turn rate
-          myDrive.arcadeDrive(-driveStick.getY(), -driveStick.getX());
-          // Curvature drive with a given forward and turn rate, as well as a button for turning in-place.
-          myDrive.curvatureDrive(-driveStick.getY(), -driveStick.getX(), driveStick.getButton(1));
-      }
+  override fun teleopPeriodic() {
+      // Tank drive with a given left and right rates
+      myDrive.tankDrive(-leftStick.y, -rightStick.y)
+      // Arcade drive with a given forward and turn rate
+      myDrive.arcadeDrive(-driveStick.y, -driveStick.x)
+      // Curvature drive with a given forward and turn rate, as well as a button for turning
+      // in-place.
+      myDrive.curvatureDrive(-driveStick.y, -driveStick.x, driveStick.getRawButton(1))
+  }
 
 block3: |
-      public void teleopPeriodic() {
-          // Drive using the X, Y, and Z axes of the joystick.
-          m_robotDrive.driveCartesian(-m_stick.getY(), -m_stick.getX(), -m_stick.getZ());
-          // Drive at 45 degrees relative to the robot, at the speed given by the Y axis of the joystick, with no rotation.
-          m_robotDrive.drivePolar(-m_stick.getY(), Rotation2d.fromDegrees(45), 0);
-      }
+  override fun teleopPeriodic() {
+      // Drive using the X, Y, and Z axes of the joystick.
+      myDrive.driveCartesian(-driveStick.y, -driveStick.x, -driveStick.z)
+      // Drive at 45 degrees relative to the robot, at the speed given by the Y axis of the
+      // joystick, with no rotation.
+      myDrive.drivePolar(-driveStick.y, Rotation2d.fromDegrees(45.0), 0.0)
+  }

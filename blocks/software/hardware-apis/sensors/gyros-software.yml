@@ -1,116 +1,116 @@
+# validated: 2024-10-07 TW e53db15a2003 software/hardware-apis/sensors/gyros-software.rst
 block0: |
-      // ADIS16448 plugged into the MXP port
-      ADIS16448_IMU gyro = new ADIS16448_IMU();
+  // ADIS16448 plugged into the MXP port
+  val gyro = ADIS16448_IMU()
 
 block1: |
-      // ADIS16470 plugged into the SPI port
-      ADIS16470_IMU gyro = new ADIS16470_IMU();
+  // ADIS16470 plugged into the SPI port
+  val gyro = ADIS16470_IMU()
 
 block2: |
-      // Creates an ADXRS450_Gyro object on the onboard SPI port
-      ADXRS450_Gyro gyro = new ADXRS450_Gyro();
+  // Creates an ADXRS450_Gyro object on the onboard SPI port
+  val gyro = ADXRS450_Gyro()
 
 block3: |
-      // Creates an AnalogGyro object on port 0
-      AnalogGyro gyro = new AnalogGyro(0);
+  // Creates an AnalogGyro object on port 0
+  val gyro = AnalogGyro(0)
 
 block4: |
-      // navX MXP using SPI
-      AHRS gyro = new AHRS(SPI.Port.kMXP);
+  // navX MXP using SPI
+  val gyro = AHRS(SPI.Port.kMXP)
 
 block5: |
-      WPI_PigeonIMU gyro = new WPI_PigeonIMU(0); // Pigeon is on CAN Bus with device ID 0
-      // OR (choose one or the other based on your connection)
-      TalonSRX talon = new TalonSRX(0); // TalonSRX is on CAN Bus with device ID 0
-      WPI_PigeonIMU gyro = new WPI_PigeonIMU(talon); // Pigeon uses the talon created above
+  // Pigeon is on CAN Bus with device ID 0
+  val gyro = WPI_PigeonIMU(0)
+
+  // OR (choose one or the other based on your connection)
+
+  // TalonSRX is on CAN Bus with device ID 0
+  val talon = TalonSRX(0)
+  // Pigeon uses the talon created above
+  val gyro = WPI_PigeonIMU(talon)
 
 block6: |
-      // Use gyro declaration from above here
-      public void robotInit() {
-          // Places a compass indicator for the gyro heading on the dashboard
-          Shuffleboard.getTab("Example tab").add(gyro);
-      }
+
+  // Use gyro declaration from above
+  override fun robotInit() {
+    // Places a compass indicator for the gyro heading on the dashboard
+    Shuffleboard.getTab("Example tab").add(gyro)
+  }
 
 block7: |
-      // Use gyro declaration from above here
-      // The gain for a simple P loop
-      double kP = 1;
-      // Initialize motor controllers and drive
-      Spark leftLeader = new Spark(0);
-      Spark leftFollower = new Spark(1);
-      Spark rightLeader = new Spark(2);
-      Spark rightFollower = new Spark(3);
-      DifferentialDrive drive = new DifferentialDrive(leftLeader::set, rightLeader::set);
-      @Override
-      public void robotInit() {
-          // Configures the encoder's distance-per-pulse
-          // The robot moves forward 1 foot per encoder rotation
-          // There are 256 pulses per encoder rotation
-          encoder.setDistancePerPulse(1./256.);
-          // Invert the right side of the drivetrain. You might have to invert the other side
-          rightLeader.setInverted(true);
-          // Configure the followers to follow the leaders
-          leftLeader.addFollower(leftFollower);
-          rightLeader.addFollower(rightFollower);
+  // Use gyro declaration from above
+  companion object {
+    // The gain for a simple P loop
+    const val P = 1
+  }
+
+  // Initialize motor controllers and drive
+  val leftLeader = Spark(0)
+  val leftFollower = Spark(1).also { leftLeader.addFollower(it) }
+  val rightLeader =
+      Spark(2).apply {
+        // Invert the right side of the drivetrain. You might have to invert the other side
+        inverted = true
       }
-      @Override
-      public void autonomousPeriodic() {
-          // Setpoint is implicitly 0, since we don't want the heading to change
-          double error = -gyro.getRate();
-          // Drives forward continuously at half speed, using the gyro to stabilize the heading
-          drive.tankDrive(.5 + kP * error, .5 - kP * error);
-      }
+  val rightFollower = Spark(3).also { rightLeader.addFollower(it) }
+  val drive = DifferentialDrive(leftLeader::set, rightLeader::set)
+
+  override fun autonomousPeriodic() {
+    // Setpoint is implicitly 0, since we don't want the heading to change
+    val error = -gyro.getRate()
+    // Drives forward continuously at half speed, using the gyro to stabilize the heading
+    drive.tankDrive(.5 + P * error, .5 - P * error)
+  }
 
 block8: |
-      // Use gyro declaration from above here
-      // The gain for a simple P loop
-      double kP = 1;
-      // The heading of the robot when starting the motion
-      double heading;
-      // Initialize motor controllers and drive
-      Spark left1 = new Spark(0);
-      Spark left2 = new Spark(1);
-      Spark right1 = new Spark(2);
-      Spark right2 = new Spark(3);
-      MotorControllerGroup leftMotors = new MotorControllerGroup(left1, left2);
-      MotorControllerGroup rightMotors = new MotorControllerGroup(right1, right2);
-      DifferentialDrive drive = new DifferentialDrive(leftMotors, rightMotors);
-      @Override
-      public void robotInit() {
-          rightMotors.setInverted(true);
-      }
-      @Override
-      public void autonomousInit() {
-          // Set setpoint to current heading at start of auto
-          heading = gyro.getAngle();
-      }
-      @Override
-      public void autonomousPeriodic() {
-          double error = heading - gyro.getAngle();
-          // Drives forward continuously at half speed, using the gyro to stabilize the heading
-          drive.tankDrive(.5 + kP * error, .5 - kP * error);
-      }
+  companion object {
+    // The gain for a simple P loop
+    const val P = 1
+  }
+
+  // Use gyro declaration from above here
+  // The heading of the robot when starting the motion
+  var heading = gyro.angle
+  // Initialize motor controllers and drive
+  val left1 = Spark(0)
+  val left2 = Spark(1)
+  val right1 = Spark(2)
+  val right2 = Spark(3)
+  val leftMotors = MotorControllerGroup(left1, left2)
+  val rightMotors = MotorControllerGroup(right1, right2).apply { inverted = true }
+  val drive = DifferentialDrive(leftMotors, rightMotors)
+
+  override fun autonomousInit() {
+    // Set setpoint to current heading at start of auto
+    heading = gyro.getAngle()
+  }
+
+  override fun autonomousPeriodic() {
+    val error = heading - gyro.angle
+    // Drives forward continuously at half speed, using the gyro to stabilize the heading
+    drive.tankDrive(.5 + P * error, .5 - P * error)
+  }
 
 block9: |
-      // Use gyro declaration from above here
-      // The gain for a simple P loop
-      double kP = 0.05;
-      // Initialize motor controllers and drive
-      Spark left1 = new Spark(0);
-      Spark left2 = new Spark(1);
-      Spark right1 = new Spark(2);
-      Spark right2 = new Spark(3);
-      MotorControllerGroup leftMotors = new MotorControllerGroup(left1, left2);
-      MotorControllerGroup rightMotors = new MotorControllerGroup(right1, right2);
-      DifferentialDrive drive = new DifferentialDrive(leftMotors, rightMotors);
-      @Override
-      public void robotInit() {
-          rightMotors.setInverted(true);
-      }
-      @Override
-      public void autonomousPeriodic() {
-          // Find the heading error; setpoint is 90
-          double error = 90 - gyro.getAngle();
-          // Turns the robot to face the desired direction
-          drive.tankDrive(kP * error, -kP * error);
-      }
+  companion object {
+    // The gain for a simple P loop
+    const val P = 0.05
+  }
+
+  // Use gyro declaration from above here
+  // Initialize motor controllers and drive
+  val left1 = Spark(0)
+  val left2 = Spark(1)
+  val right1 = Spark(2)
+  val right2 = Spark(3)
+  val leftMotors = MotorControllerGroup(left1, left2)
+  val rightMotors = MotorControllerGroup(right1, right2).apply { inverted = true }
+  val drive = DifferentialDrive(leftMotors, rightMotors)
+
+  override fun autonomousPeriodic() {
+    // Find the heading error setpoint is 90
+    val error = 90 - gyro.angle
+    // Turns the robot to face the desired direction
+    drive.tankDrive(P * error, -P * error)
+  }

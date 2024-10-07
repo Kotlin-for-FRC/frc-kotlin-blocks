@@ -1,9 +1,12 @@
+# validated: 2024-10-06 TW e53db15a2003 software/hardware-apis/pneumatics/solenoids.rst
 block0: |
-     Solenoid exampleSingle = new Solenoid(PneumaticsModuleType.CTREPCM, 0);
-     DoubleSolenoid exampleDouble = new DoubleSolenoid(PneumaticsModuleType.CTREPCM, 1, 2);
-     // Initialize the DoubleSolenoid so it knows where to start.  Not required for single solenoids.
-     exampleDouble.set(kReverse);
-     if (m_controller.getYButtonPressed()) {
-        exampleSingle.toggle();
-        exampleDouble.toggle();
-     }
+  val exampleSingle = Solenoid(PneumaticsModuleType.CTREPCM, 0)
+  val exampleDouble = DoubleSolenoid(PneumaticsModuleType.CTREPCM, 1, 2)
+  
+   // Initialize the DoubleSolenoid so it knows where to start.  Not required for single
+   // solenoids.
+   exampleDouble.set(kReverse)
+   if (controller.yButtonPressed) {
+       exampleSingle.toggle()
+       exampleDouble.toggle()
+   }
