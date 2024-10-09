@@ -83,7 +83,7 @@ block8: |
 
   override fun autonomousInit() {
     // Set setpoint to current heading at start of auto
-    heading = gyro.getAngle()
+    heading = gyro.angle
   }
 
   override fun autonomousPeriodic() {
