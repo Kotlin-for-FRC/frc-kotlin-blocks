@@ -1,17 +1,23 @@
+# validated: 2024-10-07 TW e53db15a2003 software/hardware-apis/sensors/analog-potentiometers-software.rst
 block0: |
-      // Initializes an AnalogPotentiometer on analog port 0
-      // The full range of motion (in meaningful external units) is 0-180 (this could be degrees, for instance)
-      // The "starting point" of the motion, i.e. where the mechanism is located when the potentiometer reads 0v, is 30.
-      AnalogPotentiometer pot = new AnalogPotentiometer(0, 180, 30);
+  // Initializes an AnalogPotentiometer on analog port 0
+  // The full range of motion (in meaningful external units) is 0-180 (this could be degrees,
+  // for instance)
+  // The "starting point" of the motion, i.e. where the mechanism is located when the
+  // potentiometer reads 0v, is 30.
+  val pot = AnalogPotentiometer(0, 180.0, 30.0)
 
 block1: |
-      // Initializes an AnalogInput on port 0, and enables 2-bit averaging
-      AnalogInput input = new AnalogInput(0);
-      input.setAverageBits(2);
-      // Initializes an AnalogPotentiometer with the given AnalogInput
-      // The full range of motion (in meaningful external units) is 0-180 (this could be degrees, for instance)
-      // The "starting point" of the motion, i.e. where the mechanism is located when the potentiometer reads 0v, is 30.
-      AnalogPotentiometer pot = new AnalogPotentiometer(input, 180, 30);
+  // Initializes an AnalogInput on port 0, and enables 2-bit averaging
+  val input = AnalogInput(0).apply {
+    averageBits = 2
+  }
+  // Initializes an AnalogPotentiometer with the given AnalogInput
+  // The full range of motion (in meaningful external units) is 0-180 (this could be degrees,
+  // for instance)
+  // The "starting point" of the motion, i.e. where the mechanism is located when the
+  // potentiometer reads 0v, is 30.
+  val pot = AnalogPotentiometer(input, 180.0, 30.0)
 
 block2: |
-      pot.get();
+  pot.get()
